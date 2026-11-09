@@ -92,6 +92,36 @@ class Api {
     await _send('POST', '/v1/checkins', body: {'mode': mode, 'self': self}),
   );
 
+  /// Whether the server can score face/voice right now.
+  Future<bool> moodScoringAvailable() async {
+    final j = await _send('GET', '/v1/config');
+    return j['mood_scoring'] as bool? ?? false;
+  }
+
+  /// Check-in with a recording: key frames (video mode) and the voice. The
+  /// server keeps scores only; media is discarded after scoring.
+  Future<({CheckinResult result, bool signal})> checkinMedia({
+    required String mode,
+    required double self,
+    required List<Uint8List> frames,
+    Uint8List? audio,
+    String lang = '',
+  }) async {
+    final req = http.MultipartRequest('POST', _u('/v1/checkins/media'))
+      ..headers.addAll(imageHeaders)
+      ..fields['mode'] = mode
+      ..fields['self'] = self.toStringAsFixed(3)
+      ..fields['lang'] = lang;
+    for (final f in frames) {
+      req.files.add(http.MultipartFile.fromBytes('frame', f, filename: 'frame.jpg'));
+    }
+    if (audio != null) req.files.add(http.MultipartFile.fromBytes('audio', audio, filename: 'voice.m4a'));
+    final res = await http.Response.fromStream(await _http.send(req));
+    if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
+    final j = jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>;
+    return (result: CheckinResult.fromJson(j), signal: j['signal'] as bool? ?? false);
+  }
+
   Future<Radar> radar() async =>
       Radar.fromJson(await _send('GET', '/v1/radar'));
 

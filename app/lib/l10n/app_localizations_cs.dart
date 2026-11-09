@@ -352,4 +352,32 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Průlety';
+
+  @override
+  String get checkinVideo => 'Video + hlas';
+
+  @override
+  String get checkinVoice => 'Jen hlas';
+
+  @override
+  String get checkinNoRecording => 'Jen moje hodnocení';
+
+  @override
+  String get checkinPrompt1 => 'Řekni, jak ti dnes je.';
+
+  @override
+  String get checkinPrompt2 => 'Co tě dnes čeká?';
+
+  @override
+  String get checkinRateNow => 'A teď to ohodnoť sám/sama:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Signál z tváře a hlasu započítán. Tvoje hodnocení má pořád větší váhu.';
+
+  @override
+  String get checkinMediaNote => 'Nahrávka se hned po vyhodnocení smaže.';
+
+  @override
+  String get checkinNoPermission => 'Chybí povolení ke kameře nebo mikrofonu.';
 }

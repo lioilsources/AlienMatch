@@ -355,4 +355,33 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Vorbeiflüge';
+
+  @override
+  String get checkinVideo => 'Video + Stimme';
+
+  @override
+  String get checkinVoice => 'Nur Stimme';
+
+  @override
+  String get checkinNoRecording => 'Nur meine Bewertung';
+
+  @override
+  String get checkinPrompt1 => 'Sag, wie es dir heute geht.';
+
+  @override
+  String get checkinPrompt2 => 'Was steht dir heute bevor?';
+
+  @override
+  String get checkinRateNow => 'Jetzt bewerte es selbst:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Signal aus Gesicht und Stimme gezählt. Deine Bewertung wiegt weiter mehr.';
+
+  @override
+  String get checkinMediaNote =>
+      'Die Aufnahme wird direkt nach der Auswertung gelöscht.';
+
+  @override
+  String get checkinNoPermission => 'Kamera- oder Mikrofonberechtigung fehlt.';
 }

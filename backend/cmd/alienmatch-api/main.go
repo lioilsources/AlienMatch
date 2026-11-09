@@ -16,6 +16,7 @@ import (
 	"github.com/lioilsources/AlienMatch/backend/internal/api"
 	"github.com/lioilsources/AlienMatch/backend/internal/db"
 	"github.com/lioilsources/AlienMatch/backend/internal/media"
+	"github.com/lioilsources/AlienMatch/backend/internal/moodscore"
 	"github.com/lioilsources/AlienMatch/backend/internal/realtime"
 	"github.com/lioilsources/AlienMatch/backend/internal/service"
 	"github.com/lioilsources/AlienMatch/backend/internal/store"
@@ -51,6 +52,14 @@ func run(log *slog.Logger) error {
 	}
 	hub := realtime.NewHub()
 	svc := &service.Service{Store: st, Accounts: st, Walls: st, Flyby: st, Pub: hub, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
+	if u := os.Getenv("ALIENMATCH_GATEWAY_URL"); u != "" {
+		// Mood scoring via LiteLLM on SPARK; without it check-ins are self-only.
+		svc.Scorer = &moodscore.Gateway{
+			BaseURL: u, APIKey: os.Getenv("ALIENMATCH_GATEWAY_KEY"),
+			VLModel: envOr("ALIENMATCH_VL_MODEL", "vl"), ASRModel: envOr("ALIENMATCH_ASR_MODEL", "asr"),
+		}
+		log.Info("mood scoring enabled", "vl", envOr("ALIENMATCH_VL_MODEL", "vl"))
+	}
 	rt := &api.Realtime{Hub: hub, Tickets: realtime.NewTickets(time.Now), OriginPatterns: strings.Fields(os.Getenv("ALIENMATCH_WS_ORIGINS"))}
 	go housekeeping(ctx, svc, log)
 	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log, api.WithRealtime(rt)), ReadHeaderTimeout: 5 * time.Second}

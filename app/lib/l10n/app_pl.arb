@@ -108,5 +108,14 @@
   "flybyVenue": "to samo miejsce",
   "flybyMinutes": "{minutes} min",
   "flybyComet": "Spotkaliście się",
-  "flybyStrip": "Przeloty"
+  "flybyStrip": "Przeloty",
+  "checkinVideo": "Wideo + głos",
+  "checkinVoice": "Tylko głos",
+  "checkinNoRecording": "Tylko moja ocena",
+  "checkinPrompt1": "Powiedz, jak się dziś czujesz.",
+  "checkinPrompt2": "Co cię dziś czeka?",
+  "checkinRateNow": "A teraz oceń sam/sama:",
+  "checkinSignalUsed": "Sygnał z twarzy i głosu uwzględniony. Twoja ocena nadal waży więcej.",
+  "checkinMediaNote": "Nagranie jest usuwane zaraz po ocenie.",
+  "checkinNoPermission": "Brak uprawnień do kamery lub mikrofonu."
 }

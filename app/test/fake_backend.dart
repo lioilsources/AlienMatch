@@ -36,6 +36,9 @@ class FakeBackend {
   final stickClientIds = <String>[];
   final reports = <Map<String, dynamic>>[];
   bool? flybyEnabled;
+  bool moodConsent = false;
+  bool moodScoring = false;
+  http.Request? lastMedia;
   final uploadedKeys = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> flybyKeys = [];
   final flybyWaves = <Map<String, dynamic>>[];
@@ -64,6 +67,11 @@ class FakeBackend {
     }
     if (RegExp(r'^POST /v1/walls/\d+/ticket$').hasMatch(path)) return _json({'ticket': 'tk'});
     switch (path) {
+      case 'GET /v1/config':
+        return _json({'mood_scoring': moodScoring, 'regions': ['CZ-PHA']});
+      case 'POST /v1/checkins/media':
+        lastMedia = req;
+        return _json({...checkinResult, 'signal': true});
       case 'PUT /v1/me/flyby':
         flybyEnabled = (jsonDecode(req.body) as Map)['enabled'] as bool;
         return http.Response('', 204);
@@ -87,7 +95,7 @@ class FakeBackend {
         return _json({'user_id': 'u1', 'token': 't' * 43}, 201);
       case 'GET /v1/me':
         if (deleted) return http.Response('', 401);
-        return _json({'user_id': 'u1', 'mood_consent': false, 'vl_enabled': false, 'has_profile': profile != null, 'has_photo': hasPhoto, 'profile': ?profile});
+        return _json({'user_id': 'u1', 'mood_consent': moodConsent, 'vl_enabled': false, 'has_profile': profile != null, 'has_photo': hasPhoto, 'profile': ?profile});
       case 'PUT /v1/me/profile':
         profile = jsonDecode(req.body) as Map<String, dynamic>;
         return http.Response('', 204);

@@ -108,5 +108,14 @@
   "flybyVenue": "même lieu",
   "flybyMinutes": "{minutes} min",
   "flybyComet": "Vous vous êtes croisés",
-  "flybyStrip": "Croisements"
+  "flybyStrip": "Croisements",
+  "checkinVideo": "Vidéo + voix",
+  "checkinVoice": "Voix seulement",
+  "checkinNoRecording": "Juste mon évaluation",
+  "checkinPrompt1": "Dis comment tu vas aujourd'hui.",
+  "checkinPrompt2": "Qu'est-ce qui t'attend aujourd'hui ?",
+  "checkinRateNow": "Maintenant, évalue toi-même :",
+  "checkinSignalUsed": "Signal du visage et de la voix pris en compte. Ton évaluation compte toujours plus.",
+  "checkinMediaNote": "L'enregistrement est supprimé juste après l'évaluation.",
+  "checkinNoPermission": "Autorisation caméra ou micro manquante."
 }

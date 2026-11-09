@@ -352,4 +352,32 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Przeloty';
+
+  @override
+  String get checkinVideo => 'Wideo + głos';
+
+  @override
+  String get checkinVoice => 'Tylko głos';
+
+  @override
+  String get checkinNoRecording => 'Tylko moja ocena';
+
+  @override
+  String get checkinPrompt1 => 'Powiedz, jak się dziś czujesz.';
+
+  @override
+  String get checkinPrompt2 => 'Co cię dziś czeka?';
+
+  @override
+  String get checkinRateNow => 'A teraz oceń sam/sama:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Sygnał z twarzy i głosu uwzględniony. Twoja ocena nadal waży więcej.';
+
+  @override
+  String get checkinMediaNote => 'Nagranie jest usuwane zaraz po ocenie.';
+
+  @override
+  String get checkinNoPermission => 'Brak uprawnień do kamery lub mikrofonu.';
 }

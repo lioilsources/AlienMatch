@@ -354,4 +354,33 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Cruzamentos';
+
+  @override
+  String get checkinVideo => 'Vídeo + voz';
+
+  @override
+  String get checkinVoice => 'Só voz';
+
+  @override
+  String get checkinNoRecording => 'Só a minha avaliação';
+
+  @override
+  String get checkinPrompt1 => 'Diz como estás hoje.';
+
+  @override
+  String get checkinPrompt2 => 'O que te espera hoje?';
+
+  @override
+  String get checkinRateNow => 'Agora avalia tu:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Sinal do rosto e da voz contado. A tua avaliação continua a pesar mais.';
+
+  @override
+  String get checkinMediaNote => 'A gravação é apagada logo após a avaliação.';
+
+  @override
+  String get checkinNoPermission =>
+      'Falta a permissão da câmara ou do microfone.';
 }
