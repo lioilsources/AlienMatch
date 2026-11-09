@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 	"time"
 
@@ -15,6 +16,7 @@ import (
 	"github.com/lioilsources/AlienMatch/backend/internal/api"
 	"github.com/lioilsources/AlienMatch/backend/internal/db"
 	"github.com/lioilsources/AlienMatch/backend/internal/media"
+	"github.com/lioilsources/AlienMatch/backend/internal/realtime"
 	"github.com/lioilsources/AlienMatch/backend/internal/service"
 	"github.com/lioilsources/AlienMatch/backend/internal/store"
 )
@@ -47,9 +49,11 @@ func run(log *slog.Logger) error {
 		log.Warn("dev auth enabled: X-AlienMatch-User header is trusted")
 		auth = api.DevAuth{}
 	}
-	svc := &service.Service{Store: st, Accounts: st, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
+	hub := realtime.NewHub()
+	svc := &service.Service{Store: st, Accounts: st, Walls: st, Pub: hub, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
+	rt := &api.Realtime{Hub: hub, Tickets: realtime.NewTickets(time.Now), OriginPatterns: strings.Fields(os.Getenv("ALIENMATCH_WS_ORIGINS"))}
 	go housekeeping(ctx, svc, log)
-	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log), ReadHeaderTimeout: 5 * time.Second}
+	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log, api.WithRealtime(rt)), ReadHeaderTimeout: 5 * time.Second}
 	go func() {
 		<-ctx.Done()
 		sctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

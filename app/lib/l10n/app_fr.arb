@@ -83,5 +83,21 @@
   "kidsBoys": "Garçons",
   "kidsGirls": "Filles",
   "kidsTwins": "Jumeaux",
-  "kidsTriplets": "Triplés"
+  "kidsTriplets": "Triplés",
+  "navWalls": "Murs",
+  "wave": "Faire coucou",
+  "waveSent": "Coucou envoyé. S'il te répond, votre mur s'ouvre.",
+  "matched": "C'est réciproque ! Votre mur est ouvert.",
+  "waveLimit": "Tu as utilisé tous tes coucous du jour.",
+  "wallsEmpty": "Pas encore de murs. Fais coucou à quelqu'un sur le radar.",
+  "youShare": "Vous allez tous les deux à",
+  "draw": "Dessiner un sticker",
+  "undo": "Annuler",
+  "stick": "Coller",
+  "report": "Signaler",
+  "reportBlock": "Signaler et bloquer",
+  "peel": "Décoller",
+  "wallEnded": "Ce mur est terminé.",
+  "pendingSync": "En attente de connexion",
+  "encouragementWall": "Mur du phare"
 }

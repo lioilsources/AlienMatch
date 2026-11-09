@@ -3,6 +3,7 @@ module github.com/lioilsources/AlienMatch/backend
 go 1.26.0
 
 require (
+	github.com/coder/websocket v1.8.15
 	github.com/golang-migrate/migrate/v4 v4.20.1
 	github.com/jackc/pgx/v5 v5.12.0
 	golang.org/x/text v0.43.0

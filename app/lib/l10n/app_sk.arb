@@ -83,5 +83,21 @@
   "kidsBoys": "Chlapci",
   "kidsGirls": "Dievčatá",
   "kidsTwins": "Dvojčatá",
-  "kidsTriplets": "Trojčatá"
+  "kidsTriplets": "Trojčatá",
+  "navWalls": "Steny",
+  "wave": "Zamávať",
+  "waveSent": "Zamávané. Keď zamáva aj on/ona, otvorí sa vám stena.",
+  "matched": "Je to vzájomné! Vaša stena je otvorená.",
+  "waveLimit": "Na dnes máš zamávania vyčerpané.",
+  "wallsEmpty": "Zatiaľ žiadne steny. Zamávaj niekomu na radare.",
+  "youShare": "Obaja chodíte",
+  "draw": "Nakresliť sticker",
+  "undo": "Späť",
+  "stick": "Nalepiť",
+  "report": "Nahlásiť",
+  "reportBlock": "Nahlásiť a zablokovať",
+  "peel": "Odlepiť",
+  "wallEnded": "Táto stena skončila.",
+  "pendingSync": "Čaká na pripojenie",
+  "encouragementWall": "Stena majáka"
 }

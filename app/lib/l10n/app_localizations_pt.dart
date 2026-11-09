@@ -274,4 +274,53 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Trigémeos';
+
+  @override
+  String get navWalls => 'Murais';
+
+  @override
+  String get wave => 'Acenar';
+
+  @override
+  String get waveSent =>
+      'Aceno enviado. Se acenar de volta, abre-se o vosso mural.';
+
+  @override
+  String get matched => 'É mútuo! O vosso mural está aberto.';
+
+  @override
+  String get waveLimit => 'Já usaste todos os acenos de hoje.';
+
+  @override
+  String get wallsEmpty => 'Ainda sem murais. Acena a alguém no radar.';
+
+  @override
+  String get youShare => 'Vão os dois a';
+
+  @override
+  String get draw => 'Desenhar sticker';
+
+  @override
+  String get undo => 'Desfazer';
+
+  @override
+  String get stick => 'Colar';
+
+  @override
+  String get report => 'Denunciar';
+
+  @override
+  String get reportBlock => 'Denunciar e bloquear';
+
+  @override
+  String get peel => 'Descolar';
+
+  @override
+  String get wallEnded => 'Este mural terminou.';
+
+  @override
+  String get pendingSync => 'À espera de ligação';
+
+  @override
+  String get encouragementWall => 'Mural do farol';
 }

@@ -277,4 +277,53 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Triplés';
+
+  @override
+  String get navWalls => 'Murs';
+
+  @override
+  String get wave => 'Faire coucou';
+
+  @override
+  String get waveSent => 'Coucou envoyé. S\'il te répond, votre mur s\'ouvre.';
+
+  @override
+  String get matched => 'C\'est réciproque ! Votre mur est ouvert.';
+
+  @override
+  String get waveLimit => 'Tu as utilisé tous tes coucous du jour.';
+
+  @override
+  String get wallsEmpty =>
+      'Pas encore de murs. Fais coucou à quelqu\'un sur le radar.';
+
+  @override
+  String get youShare => 'Vous allez tous les deux à';
+
+  @override
+  String get draw => 'Dessiner un sticker';
+
+  @override
+  String get undo => 'Annuler';
+
+  @override
+  String get stick => 'Coller';
+
+  @override
+  String get report => 'Signaler';
+
+  @override
+  String get reportBlock => 'Signaler et bloquer';
+
+  @override
+  String get peel => 'Décoller';
+
+  @override
+  String get wallEnded => 'Ce mur est terminé.';
+
+  @override
+  String get pendingSync => 'En attente de connexion';
+
+  @override
+  String get encouragementWall => 'Mur du phare';
 }

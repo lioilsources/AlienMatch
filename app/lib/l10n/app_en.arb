@@ -111,5 +111,21 @@
   "kidsBoys": "Boys",
   "kidsGirls": "Girls",
   "kidsTwins": "Twins",
-  "kidsTriplets": "Triplets"
+  "kidsTriplets": "Triplets",
+  "navWalls": "Walls",
+  "wave": "Wave",
+  "waveSent": "Waved. If they wave back, a wall opens for you two.",
+  "matched": "It's mutual! Your wall is open.",
+  "waveLimit": "That's all your waves for today.",
+  "wallsEmpty": "No walls yet. Wave at someone on the radar.",
+  "youShare": "You both go to",
+  "draw": "Draw a sticker",
+  "undo": "Undo",
+  "stick": "Stick it",
+  "report": "Report",
+  "reportBlock": "Report and block",
+  "peel": "Peel off",
+  "wallEnded": "This wall has ended.",
+  "pendingSync": "Waiting for connection",
+  "encouragementWall": "Beacon wall"
 }

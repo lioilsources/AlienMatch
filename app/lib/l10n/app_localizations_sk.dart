@@ -274,4 +274,52 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Trojčatá';
+
+  @override
+  String get navWalls => 'Steny';
+
+  @override
+  String get wave => 'Zamávať';
+
+  @override
+  String get waveSent => 'Zamávané. Keď zamáva aj on/ona, otvorí sa vám stena.';
+
+  @override
+  String get matched => 'Je to vzájomné! Vaša stena je otvorená.';
+
+  @override
+  String get waveLimit => 'Na dnes máš zamávania vyčerpané.';
+
+  @override
+  String get wallsEmpty => 'Zatiaľ žiadne steny. Zamávaj niekomu na radare.';
+
+  @override
+  String get youShare => 'Obaja chodíte';
+
+  @override
+  String get draw => 'Nakresliť sticker';
+
+  @override
+  String get undo => 'Späť';
+
+  @override
+  String get stick => 'Nalepiť';
+
+  @override
+  String get report => 'Nahlásiť';
+
+  @override
+  String get reportBlock => 'Nahlásiť a zablokovať';
+
+  @override
+  String get peel => 'Odlepiť';
+
+  @override
+  String get wallEnded => 'Táto stena skončila.';
+
+  @override
+  String get pendingSync => 'Čaká na pripojenie';
+
+  @override
+  String get encouragementWall => 'Stena majáka';
 }
