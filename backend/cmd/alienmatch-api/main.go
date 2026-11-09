@@ -23,6 +23,10 @@ import (
 )
 
 func main() {
+	// "healthcheck" is for the container HEALTHCHECK (distroless has no curl).
+	if len(os.Args) > 1 && os.Args[1] == "healthcheck" {
+		os.Exit(healthcheck())
+	}
 	log := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	if err := run(log); err != nil {
 		log.Error("exit", "err", err)
@@ -93,6 +97,23 @@ func housekeeping(ctx context.Context, svc *service.Service, log *slog.Logger) {
 		case <-t.C:
 		}
 	}
+}
+
+func healthcheck() int {
+	addr := envOr("ALIENMATCH_ADDR", ":8080")
+	if strings.HasPrefix(addr, ":") {
+		addr = "127.0.0.1" + addr
+	}
+	c := &http.Client{Timeout: 3 * time.Second}
+	res, err := c.Get("http://" + addr + "/healthz")
+	if err != nil {
+		return 1
+	}
+	res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		return 1
+	}
+	return 0
 }
 
 func envOr(k, d string) string {

@@ -43,4 +43,4 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - Nasazenou migraci needitovat, přidat novou. `internal/db/sqlc` ručně needitovat.
 
 ## Kam dál
-`docs/STAV.md` (co je hotové), `docs/GPS.md` (místa), `docs/release.md` (ruční kroky ve storech), `Prompts/`.
+`docs/STAV.md` (co je hotové), `docs/GPS.md` (místa), `docs/release.md` (ruční kroky ve storech), `docs/deploy.md` (JODA), `Prompts/`.

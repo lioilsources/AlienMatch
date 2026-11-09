@@ -1,0 +1,52 @@
+# AlienMatch on JODA: Go API + its own Postgres. No published ports except
+# the API on the LAN bind address; the public hostname goes through the
+# existing Cloudflare Tunnel + Caddy. /admin and /v1/admin/* must stay
+# internal (Caddy must not route them to the public hostname).
+#
+#   deploy/joda/deploy.sh          # cross-compile, rsync this dir, compose up
+name: alienmatch
+
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: alienmatch-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: alienmatch
+      POSTGRES_USER: alienmatch
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set in .env}
+    volumes:
+      # Snap Docker only sees $HOME and /media on JODA; ./data is under $HOME.
+      - ./data/postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U alienmatch -d alienmatch"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    mem_limit: 384m
+    logging: &logging
+      driver: json-file
+      options: { max-size: 10m, max-file: "3" }
+
+  api:
+    build:
+      context: .
+    image: alienmatch/api:latest
+    container_name: alienmatch-api
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+    user: "1000:1000"
+    env_file: .env
+    environment:
+      ALIENMATCH_ADDR: ":8080"
+      ALIENMATCH_MEDIA_DIR: /media
+      ALIENMATCH_DATABASE_URL: postgres://alienmatch:${POSTGRES_PASSWORD}@db:5432/alienmatch?sslmode=disable
+    volumes:
+      - ./data/media:/media
+    ports:
+      # LAN only (snap Docker publishes around ufw, so the bind address is the
+      # restriction). Caddy/tunnel reach it here.
+      - "${ALIENMATCH_BIND:?set in .env}:${ALIENMATCH_PORT:-8096}:8080"
+    mem_limit: 256m
+    logging: *logging
