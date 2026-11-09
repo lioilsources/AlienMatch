@@ -51,7 +51,7 @@ func run(log *slog.Logger) error {
 		auth = api.DevAuth{}
 	}
 	hub := realtime.NewHub()
-	svc := &service.Service{Store: st, Accounts: st, Walls: st, Flyby: st, Pub: hub, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
+	svc := &service.Service{Store: st, Accounts: st, Walls: st, Flyby: st, Admin: st, Pub: hub, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
 	if u := os.Getenv("ALIENMATCH_GATEWAY_URL"); u != "" {
 		// Mood scoring via LiteLLM on SPARK; without it check-ins are self-only.
 		svc.Scorer = &moodscore.Gateway{
@@ -62,7 +62,7 @@ func run(log *slog.Logger) error {
 	}
 	rt := &api.Realtime{Hub: hub, Tickets: realtime.NewTickets(time.Now), OriginPatterns: strings.Fields(os.Getenv("ALIENMATCH_WS_ORIGINS"))}
 	go housekeeping(ctx, svc, log)
-	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log, api.WithRealtime(rt)), ReadHeaderTimeout: 5 * time.Second}
+	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log, api.WithRealtime(rt), api.WithAdmin(os.Getenv("ALIENMATCH_ADMIN_TOKEN"))), ReadHeaderTimeout: 5 * time.Second}
 	go func() {
 		<-ctx.Done()
 		sctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
