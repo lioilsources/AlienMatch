@@ -1,0 +1,277 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Slovak (`sk`).
+class AppLocalizationsSk extends AppLocalizations {
+  AppLocalizationsSk([String locale = 'sk']) : super(locale);
+
+  @override
+  String get appTitle => 'AlienMatch';
+
+  @override
+  String get tagline => 'Zoznamka bez slov.';
+
+  @override
+  String get start => 'Pristáť';
+
+  @override
+  String get adultConfirm => 'Mám 18 alebo viac';
+
+  @override
+  String get moodConsentTitle => 'Signál nálady z tváre a hlasu';
+
+  @override
+  String get moodConsentBody =>
+      'Voliteľné. Denný check-in vyhodnotia naše vlastné servery v EÚ; video a zvuk sa hneď po vyhodnotení zmažú. Bez súhlasu sa hodnotíš len sám.';
+
+  @override
+  String get privacyPolicy => 'Zásady ochrany súkromia';
+
+  @override
+  String get next => 'Ďalej';
+
+  @override
+  String get back => 'Späť';
+
+  @override
+  String get captureHint => 'Tvár do oválu, nos na čiaru';
+
+  @override
+  String get capture => 'Odfotiť';
+
+  @override
+  String get retake => 'Znova';
+
+  @override
+  String get cameraUnavailable =>
+      'Kamera nie je dostupná. Profilovú fotku možno urobiť len naživo.';
+
+  @override
+  String get pickVariant => 'Ktorý mimozemšťan si ty?';
+
+  @override
+  String get variantNote =>
+      'Telefón opustí len ten, ktorého vyberieš. Originál nikdy.';
+
+  @override
+  String get generationTitle => 'Tvoja generácia';
+
+  @override
+  String get statusTitle => 'Status';
+
+  @override
+  String get kidsTitle => 'Deti (voliteľné)';
+
+  @override
+  String get intentsTitle => 'Na čo máš chuť?';
+
+  @override
+  String get seekTitle => 'Koho hľadáš?';
+
+  @override
+  String get modesTitle => 'Maják';
+
+  @override
+  String get beaconSwitch => 'Môžem byť majákom pre niekoho, komu nie je dobre';
+
+  @override
+  String get encourageSwitch => 'Chcem, aby ma niekto povzbudil';
+
+  @override
+  String get beaconOnlySwitch => 'Nehľadám vzťah, len svietim';
+
+  @override
+  String get nicknameTitle => 'Prezývka';
+
+  @override
+  String get nicknameHint => 'až 12 znakov';
+
+  @override
+  String get finish => 'Hotovo';
+
+  @override
+  String get errorGeneric => 'Niečo sa pokazilo. Skús to znova.';
+
+  @override
+  String get retry => 'Skúsiť znova';
+
+  @override
+  String get checkinTitle => 'Ako sa dnes máš?';
+
+  @override
+  String get checkinSend => 'Vyslať signál';
+
+  @override
+  String get checkinDone => 'Signál prijatý. Zajtra zas.';
+
+  @override
+  String get checkinSelfOnly =>
+      'Zatiaľ sa posiela len tvoje vlastné hodnotenie. Signál z tváre a hlasu sa pripravuje.';
+
+  @override
+  String get supportTitle => 'Pár ťažších dní?';
+
+  @override
+  String supportBody(String phone) {
+    return 'Nemusíš na to byť sám. Linka pomoci: $phone. Romantický radar je teraz pozastavený, majáky zostávajú.';
+  }
+
+  @override
+  String get askAgain =>
+      'Tvoj signál a hodnotenie sa trochu líšia. Zajtra sa spýtame znova.';
+
+  @override
+  String get radarTitle => 'Radar';
+
+  @override
+  String get offRadar => 'Si mimo radaru. Pošli dnešný signál a objavíš sa.';
+
+  @override
+  String get radarEmpty => 'Zatiaľ prázdna obloha. Skús to neskôr.';
+
+  @override
+  String get planetMatch => 'Signál na match';
+
+  @override
+  String get planetEncourage => 'Maják';
+
+  @override
+  String get sharedStar => 'Zdieľate hviezdu';
+
+  @override
+  String get weakSignal => 'Slabý spoločný signál';
+
+  @override
+  String get placesTitle => 'Moje hviezdy';
+
+  @override
+  String get placesSearchHint => 'Zastávka, linka, kaviareň, škola…';
+
+  @override
+  String placesLimit(int max) {
+    return 'Najviac $max miest';
+  }
+
+  @override
+  String get placesSaved => 'Hviezdy uložené';
+
+  @override
+  String get save => 'Uložiť';
+
+  @override
+  String get settingsTitle => 'Nastavenia';
+
+  @override
+  String get locationDataTitle => 'Čo o tvojej polohe vieme';
+
+  @override
+  String get locationDataBody =>
+      'Toto je všetko. GPS súradnice nikdy nedostávame.';
+
+  @override
+  String activeKeys(int count) {
+    return 'Aktívne kľúče stretnutí: $count';
+  }
+
+  @override
+  String venueCheckins(int count) {
+    return 'Check-iny v podnikoch: $count';
+  }
+
+  @override
+  String get noPlaces => 'Žiadne vybrané miesta';
+
+  @override
+  String get deleteAccount => 'Zmazať účet';
+
+  @override
+  String get deleteConfirmTitle => 'Zmazať všetko?';
+
+  @override
+  String get deleteConfirmBody =>
+      'Fotka, profil, signály aj steny sa hneď zmažú. Nedá sa to vrátiť.';
+
+  @override
+  String get cancel => 'Zrušiť';
+
+  @override
+  String get delete => 'Zmazať';
+
+  @override
+  String get navRadar => 'Radar';
+
+  @override
+  String get navCheckin => 'Signál';
+
+  @override
+  String get navPlaces => 'Hviezdy';
+
+  @override
+  String get navSettings => 'Nastavenia';
+
+  @override
+  String get genGenz => 'Gen Z';
+
+  @override
+  String get genMillennial => 'Mileniál';
+
+  @override
+  String get genGenx => 'Gen X';
+
+  @override
+  String get genBoomer => 'Baby boomer';
+
+  @override
+  String get statusSingle => 'Single';
+
+  @override
+  String get statusMarried => 'Ženatý / vydatá';
+
+  @override
+  String get statusDivorced => 'Rozvedený / á';
+
+  @override
+  String get statusComplicated => 'Je to zložité';
+
+  @override
+  String get intentFlirt => 'Flirt';
+
+  @override
+  String get intentSex => 'Sex';
+
+  @override
+  String get intentChat => 'Pokec';
+
+  @override
+  String get intentCoffee => 'Káva';
+
+  @override
+  String get intentBeer => 'Pivo';
+
+  @override
+  String get intentWine => 'Víno';
+
+  @override
+  String get intentTea => 'Čaj';
+
+  @override
+  String get intentWalk => 'Prechádzka';
+
+  @override
+  String get intentPlay => 'Hranie';
+
+  @override
+  String get kidsBoys => 'Chlapci';
+
+  @override
+  String get kidsGirls => 'Dievčatá';
+
+  @override
+  String get kidsTwins => 'Dvojčatá';
+
+  @override
+  String get kidsTriplets => 'Trojčatá';
+}

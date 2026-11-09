@@ -1,0 +1,115 @@
+{
+  "@@locale": "en",
+  "appTitle": "AlienMatch",
+  "tagline": "Dating without words.",
+  "start": "Land",
+  "adultConfirm": "I am 18 or older",
+  "moodConsentTitle": "Mood signal from face and voice",
+  "moodConsentBody": "Optional. Your daily check-in is scored on our own servers in the EU; video and audio are deleted right after scoring. Without it you rate yourself only.",
+  "privacyPolicy": "Privacy policy",
+  "next": "Next",
+  "back": "Back",
+  "captureHint": "Face in the oval, nose on the line",
+  "capture": "Capture",
+  "retake": "Again",
+  "cameraUnavailable": "Camera is not available. The profile photo can only be taken live.",
+  "pickVariant": "Which alien are you?",
+  "variantNote": "Only the one you pick leaves your phone. The original never does.",
+  "generationTitle": "Your generation",
+  "statusTitle": "Status",
+  "kidsTitle": "Kids (optional)",
+  "intentsTitle": "What are you up for?",
+  "seekTitle": "Who are you looking for?",
+  "modesTitle": "Beacon",
+  "beaconSwitch": "I can be a beacon for someone feeling low",
+  "encourageSwitch": "I'd like someone to cheer me up",
+  "beaconOnlySwitch": "I'm not looking for a relationship, I just shine",
+  "nicknameTitle": "Nickname",
+  "nicknameHint": "up to 12 characters",
+  "finish": "Done",
+  "errorGeneric": "Something went wrong. Try again.",
+  "retry": "Try again",
+  "checkinTitle": "How are you today?",
+  "checkinSend": "Send signal",
+  "checkinDone": "Signal received. See you tomorrow.",
+  "checkinSelfOnly": "For now only your own rating is sent. Face and voice signal is coming.",
+  "supportTitle": "A few heavy days?",
+  "supportBody": "You don't have to be alone with it. Crisis line: {phone}. Romantic matching is paused for now; beacons stay available.",
+  "@supportBody": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "askAgain": "Your signal and your rating differ a bit. We'll ask again tomorrow.",
+  "radarTitle": "Radar",
+  "offRadar": "You are off the radar. Send today's signal to appear.",
+  "radarEmpty": "Empty sky for now. Come back later.",
+  "planetMatch": "Match signal",
+  "planetEncourage": "Beacon",
+  "sharedStar": "You share a star",
+  "weakSignal": "Weak shared signal",
+  "placesTitle": "My stars",
+  "placesSearchHint": "Stop, line, café, campus…",
+  "placesLimit": "At most {max} places",
+  "@placesLimit": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "placesSaved": "Stars saved",
+  "save": "Save",
+  "settingsTitle": "Settings",
+  "locationDataTitle": "What we know about your location",
+  "locationDataBody": "This is everything. We never receive GPS coordinates.",
+  "activeKeys": "Active encounter keys: {count}",
+  "@activeKeys": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "venueCheckins": "Venue check-ins: {count}",
+  "@venueCheckins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noPlaces": "No places chosen",
+  "deleteAccount": "Delete account",
+  "deleteConfirmTitle": "Delete everything?",
+  "deleteConfirmBody": "Your photo, profile, signals and walls will be deleted right away. This cannot be undone.",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "navRadar": "Radar",
+  "navCheckin": "Signal",
+  "navPlaces": "Stars",
+  "navSettings": "Settings",
+  "genGenz": "Gen Z",
+  "genMillennial": "Millennial",
+  "genGenx": "Gen X",
+  "genBoomer": "Baby boomer",
+  "statusSingle": "Single",
+  "statusMarried": "Married",
+  "statusDivorced": "Divorced",
+  "statusComplicated": "It's complicated",
+  "intentFlirt": "Flirt",
+  "intentSex": "Sex",
+  "intentChat": "Chat",
+  "intentCoffee": "Coffee",
+  "intentBeer": "Beer",
+  "intentWine": "Wine",
+  "intentTea": "Tea",
+  "intentWalk": "Walk",
+  "intentPlay": "Play",
+  "kidsBoys": "Boys",
+  "kidsGirls": "Girls",
+  "kidsTwins": "Twins",
+  "kidsTriplets": "Triplets"
+}

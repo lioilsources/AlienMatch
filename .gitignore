@@ -17,3 +17,7 @@ bin/
 # runtime data
 run/
 !/bin/
+
+# path dependencies (packages/) make the lock machine-specific
+app/pubspec.lock
+packages/*/pubspec.lock

@@ -14,6 +14,7 @@ import (
 
 	"github.com/lioilsources/AlienMatch/backend/internal/api"
 	"github.com/lioilsources/AlienMatch/backend/internal/db"
+	"github.com/lioilsources/AlienMatch/backend/internal/media"
 	"github.com/lioilsources/AlienMatch/backend/internal/service"
 	"github.com/lioilsources/AlienMatch/backend/internal/store"
 )
@@ -40,14 +41,13 @@ func run(log *slog.Logger) error {
 	}
 	defer pool.Close()
 
-	var auth api.Authenticator
+	st := store.New(pool)
+	var auth api.Authenticator = api.BearerAuth{Lookup: st.UserByTokenHash}
 	if os.Getenv("ALIENMATCH_DEV_AUTH") == "1" {
 		log.Warn("dev auth enabled: X-AlienMatch-User header is trusted")
 		auth = api.DevAuth{}
-	} else {
-		auth = denyAll{} // real auth lands in phase 2
 	}
-	svc := &service.Service{Store: store.New(pool), Now: time.Now}
+	svc := &service.Service{Store: st, Accounts: st, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
 	go housekeeping(ctx, svc, log)
 	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log), ReadHeaderTimeout: 5 * time.Second}
 	go func() {
@@ -81,10 +81,6 @@ func housekeeping(ctx context.Context, svc *service.Service, log *slog.Logger) {
 		}
 	}
 }
-
-type denyAll struct{}
-
-func (denyAll) UserID(*http.Request) (string, bool) { return "", false }
 
 func envOr(k, d string) string {
 	if v := os.Getenv(k); v != "" {
