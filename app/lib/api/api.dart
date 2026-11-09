@@ -3,11 +3,12 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 
-/// Base URL of alienmatch-api, set at build time:
-/// `--dart-define=API_BASE_URL=https://api.example`.
+/// Base URL of alienmatch-api. Release builds (CI, TestFlight, Play) use the
+/// production host; local development overrides it:
+/// `--dart-define=API_BASE_URL=http://localhost:8080`.
 const apiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: 'http://localhost:8080',
+  defaultValue: 'https://aliens.ol1n.com',
 );
 
 class ApiException implements Exception {

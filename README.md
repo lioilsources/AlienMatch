@@ -24,7 +24,8 @@ V plánech v `Prompts/` vystupuje pod kódovým jménem MIMO.
 
 ```sh
 cd app
-flutter run --profile --dart-define=API_BASE_URL=http://localhost:8080
+flutter run --profile                     # proti https://aliens.ol1n.com
+flutter run --profile --dart-define=API_BASE_URL=http://localhost:8080   # lokální backend
 ```
 
 Web: [lioilsources.github.io/AlienMatch](https://lioilsources.github.io/AlienMatch/), zásady: [privacy](https://lioilsources.github.io/AlienMatch/privacy.html).

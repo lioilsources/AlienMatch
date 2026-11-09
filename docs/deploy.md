@@ -29,4 +29,5 @@ Každé nasazení se zapíše do `~/deploy/events.jsonl`.
 
 ## Appka
 
-Build s `--dart-define=API_BASE_URL=https://aliens.ol1n.com` (web to má v `deploy.sh`; release workflowy doplnit).
+Výchozí `API_BASE_URL` v appce je `https://aliens.ol1n.com`, release workflowy nic navíc nepotřebují.
+Lokální vývoj: `--dart-define=API_BASE_URL=http://localhost:8080`.

@@ -34,5 +34,4 @@ Nastaví: `IOS_P12_*`, `IOS_PROVISION_PROFILE_BASE64`, `IOS_TEAM_ID`, `IOS_KEYCH
 `APP_STORE_CONNECT_API_*`, `ANDROID_KEYSTORE_*`, `ANDROID_KEY_*`, `FIREBASE_*`.
 
 ## Build
-API adresa se zadává při buildu: `--dart-define=API_BASE_URL=https://…` (doplnit do release workflow,
-až poběží backend na JODĚ).
+Appka míří na `https://aliens.ol1n.com` (výchozí `API_BASE_URL`), release workflowy nic navíc nepotřebují.

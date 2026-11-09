@@ -9,7 +9,8 @@ stickers na společné zdi (HandWrittenStickers), matching podle nálady a její
 ```
 cd app && flutter analyze && flutter test        # gate appky
 cd packages/mirror_face && flutter test
-flutter run --profile --dart-define=API_BASE_URL=http://localhost:8080
+flutter run --profile                     # proti https://aliens.ol1n.com
+flutter run --profile --dart-define=API_BASE_URL=http://localhost:8080   # lokální backend
 cd backend
 go vet ./... && go test ./...          # gate
 sqlc generate                          # po změně internal/db/queries nebo migrací
