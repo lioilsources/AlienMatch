@@ -5,6 +5,7 @@ import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
 import 'ink.dart';
+import 'queue_store.dart';
 import 'wall_controller.dart';
 
 const _canvas = 3000.0;
@@ -16,9 +17,11 @@ class WallScreen extends StatefulWidget {
     super.key,
     required this.match,
     this.connect = defaultConnector,
+    this.queueStore,
   });
   final MatchView match;
   final SocketConnector connect;
+  final StickerQueueStore? queueStore;
 
   @override
   State<WallScreen> createState() => _WallScreenState();
@@ -38,6 +41,7 @@ class _WallScreenState extends State<WallScreen> {
         wallId: widget.match.wallId,
         me: app.me!.userId,
         connect: widget.connect,
+        queueStore: widget.queueStore ?? FileQueueStore(),
       )..start();
       view.value = Matrix4.translationValues(
         -_canvas / 2 + 180,
