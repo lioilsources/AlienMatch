@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../api/api.dart';
+import 'queue_store.dart';
 
 /// Opens a socket; injectable for tests.
 typedef SocketConnector = WebSocketChannel Function(Uri uri);
@@ -30,12 +31,16 @@ class WallController extends ChangeNotifier {
     required this.wallId,
     required this.me,
     this.connect = defaultConnector,
-  });
+    StickerQueueStore? queueStore,
+  }) : queueStore = queueStore ?? MemoryQueueStore();
 
   final Api api;
   final int wallId;
   final String me;
   final SocketConnector connect;
+
+  /// Where unsent stickers wait across restarts.
+  final StickerQueueStore queueStore;
 
   final Map<int, Sticker> _byId = {};
   final List<Sticker> queue = [];
@@ -54,6 +59,10 @@ class WallController extends ChangeNotifier {
   int get _lastId => _byId.keys.fold(0, max);
 
   Future<void> start() async {
+    for (final s in await queueStore.load(wallId)) {
+      if (!queue.any((q) => q.clientId == s.clientId)) queue.add(s);
+    }
+    _notify();
     await _catchUp();
     await _openSocket();
   }
@@ -113,7 +122,10 @@ class WallController extends ChangeNotifier {
             ..z = s.z;
         } else {
           _byId[s.id] = s;
-          queue.removeWhere((q) => q.clientId == s.clientId);
+          if (queue.any((q) => q.clientId == s.clientId)) {
+            queue.removeWhere((q) => q.clientId == s.clientId);
+            _persist();
+          }
         }
       case 'peel' || 'hide':
         _byId.remove(ev['id'] as int);
@@ -144,8 +156,11 @@ class WallController extends ChangeNotifier {
       ..z = (stickers.isEmpty ? 0 : stickers.last.z) + 1;
     queue.add(s);
     _notify();
+    await _persist();
     await flush();
   }
+
+  Future<void> _persist() => queueStore.save(wallId, queue);
 
   /// Sends queued stickers; the server de-duplicates by client_id.
   Future<void> flush() async {
@@ -168,6 +183,7 @@ class WallController extends ChangeNotifier {
         break;
       }
     }
+    await _persist();
     _notify();
   }
 
@@ -201,6 +217,8 @@ class WallController extends ChangeNotifier {
 
   void _end() {
     ended = true;
+    queue.clear();
+    _persist(); // nothing left to send to an ended wall
     _notify();
   }
 

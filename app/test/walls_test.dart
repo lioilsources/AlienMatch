@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:alienmatch/api/api.dart';
 import 'package:alienmatch/features/walls/ink.dart';
+import 'package:alienmatch/features/walls/queue_store.dart';
 import 'package:alienmatch/features/walls/wall_controller.dart';
 import 'package:alienmatch/features/walls/wall_screen.dart';
 import 'package:alienmatch/l10n/app_localizations.dart';
@@ -33,7 +34,7 @@ Widget wallApp(AppState state, MatchView m, FakeSocket sock) => AppScope(
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        home: WallScreen(match: m, connect: (uri) => sock..uri = uri),
+        home: WallScreen(match: m, connect: (uri) => sock..uri = uri, queueStore: MemoryQueueStore()),
       ),
     );
 
@@ -142,6 +143,28 @@ void main() {
     expect(pts, isNotEmpty);
     expect(pts.every((v) => (v as num) >= 0 && v <= 1), isTrue);
     expect((ink['strokes'] as List).first.keys.toSet(), {'c', 'w', 'p'});
+  });
+
+  testWidgets('unsent stickers survive an app restart', (tester) async {
+    final (be, state) = await signedIn(tester);
+    final store = MemoryQueueStore();
+    be.stickFailures = 99; // offline the whole first session
+    final c1 = WallController(api: state.api, wallId: 7, me: 'u1', connect: (_) => FakeSocket(), queueStore: store);
+    await c1.start();
+    final ink = InkDrawing(aspect: 1, strokes: [InkStroke(color: 2, width: 0.02, points: [0.1, 0.1, 0.9, 0.9])]);
+    await c1.add(Sticker(clientId: newClientId(), authorId: 'u1', kind: 'ink', ink: ink, x: 5, y: 6));
+    await c1.add(Sticker(clientId: newClientId(), authorId: 'u1', kind: 'preset', preset: 'ufo'));
+    final ids = [for (final s in c1.queue) s.clientId];
+    c1.dispose(); // app killed
+
+    be.stickFailures = 0; // back online
+    final c2 = WallController(api: state.api, wallId: 7, me: 'u1', connect: (_) => FakeSocket(), queueStore: store);
+    await c2.start();
+    expect(c2.queue, isEmpty);
+    expect(be.stickers.map((s) => s['client_id']), ids, reason: 'same client_ids after restart');
+    expect((be.stickers.first['ink'] as Map)['strokes'], isNotEmpty);
+    expect(await store.load(7), isEmpty, reason: 'queue cleared once sent');
+    c2.dispose();
   });
 
   test('client ids are v4 UUIDs', () {
