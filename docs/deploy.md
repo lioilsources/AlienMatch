@@ -1,30 +1,32 @@
-# Nasazení backendu na JODU
+# Nasazení na JODU: aliens.ol1n.com
 
-Vzor jako PromoClown: binárka se kříženě zkompiluje na Macu, na JODU jde přes rsync jen `deploy/joda/`,
-tam běží `docker compose` (API + vlastní Postgres 17). JODA nic nekompiluje.
+Běží od 2026-11-09. Na `https://aliens.ol1n.com` je webová verze appky (Flutter web) a pod `/v1` API.
 
-## Poprvé (ručně na JODĚ)
+| Kontejner | Co | Limit RAM |
+|---|---|---|
+| `alienmatch-db` | Postgres 17 (úsporné nastavení) | 192 MB |
+| `alienmatch-api` | Go API, distroless | 128 MB |
+| `alienmatch-caddy` | web + reverse proxy, `/admin` veřejně 404 | 64 MB |
+| `alienmatch-cloudflared` | vlastní tunel `alienmatch` → Caddy | 96 MB |
 
-1. `ssh joda`, `mkdir -p ~/deploy/AlienMatch/deploy/joda`, zkopíruj `deploy/joda/.env.example` jako `.env`
-   a vyplň: `POSTGRES_PASSWORD` (náhodné), `ALIENMATCH_BIND` (LAN adresa JODY z privátních poznámek),
-   `ALIENMATCH_ADMIN_TOKEN` (náhodný), volitelně `ALIENMATCH_WS_ORIGINS`. `chmod 600 .env`.
-2. Port `8096` je v registru portů volný; zapiš ho do `~/.claude/shared/ports.md` (PR do DevConventions).
+Ven není publikovaný žádný port kromě moderátorské fronty na LAN adrese JODY (`ADMIN_BIND:8098`,
+`http://<JODA-LAN>:8098/admin`, token je v `.env` na JODĚ jako `ALIENMATCH_ADMIN_TOKEN`).
 
-## Každé nasazení
+## Nasazení
 
 ```sh
-deploy/joda/deploy.sh          # build linux/amd64 → rsync → compose up → healthcheck → ~/deploy/events.jsonl
+deploy/joda/deploy.sh          # API (linux/amd64) + web build na Macu → rsync → compose up → healthcheck
 ```
 
-Migrace se aplikují při startu API.
+Idempotentní: při prvním běhu na JODĚ vzniknou `.env` s náhodnými hesly, Cloudflare tunel `alienmatch`
+a DNS záznam `aliens.ol1n.com`. Nic z toho neopouští JODU. Migrace DB se aplikují při startu API.
+Každé nasazení se zapíše do `~/deploy/events.jsonl`.
 
-## Veřejný přístup (rozhodnutí Olina)
+## Data
 
-- Hostname pro API (návrh `api.alienmatch.ol1n.com`) přes existující Cloudflare Tunnel → Caddy → `ALIENMATCH_BIND:8096`.
-- Caddy **nesmí** pouštět ven `/admin` a `/v1/admin/*` (jen LAN nebo Cloudflare Access).
-- WebSocket `/v1/walls/{id}/ws` musí projít tunelem (Cloudflare WS podporuje).
-- Limit těla požadavku v Caddy: 3 MB (check-in s médii má max ~4 MB s rezervou; API si limity hlídá samo).
+`~/deploy/AlienMatch/deploy/joda/data/{postgres,media}`. Až Olin založí ZFS dataset `pool/alienmatch`
+(sudo), přesunout tam a přepojit volumes.
 
 ## Appka
 
-Release build potřebuje `--dart-define=API_BASE_URL=https://<hostname>` (doplnit do `release-*.yml`).
+Build s `--dart-define=API_BASE_URL=https://aliens.ol1n.com` (web to má v `deploy.sh`; release workflowy doplnit).

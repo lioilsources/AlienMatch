@@ -84,6 +84,12 @@ nikdo nezkoušel, chybí běh na pozadí.
   žádná ASR služba (Whisper) s `/v1/audio/transcriptions`. Dokud nebudou, `ALIENMATCH_GATEWAY_URL`
   zůstává prázdné a check-in je jen vlastní hodnocení.
 
+## Nasazení (2026-11-09)
+
+`https://aliens.ol1n.com` běží na JODĚ: web + API + Postgres + vlastní tunel, viz `docs/deploy.md`.
+SPARK: Director připravil `vl` a `asr` do brokeru (AiStack PR #42), po nasazení nastavit
+`ALIENMATCH_GATEWAY_URL` v `.env` na JODĚ.
+
 ## Zbývá
 
 - Fáze 0: odpovědi na otázky níže, benchmark VL 7B vs 32B.

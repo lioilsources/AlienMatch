@@ -25,3 +25,6 @@ packages/*/pubspec.lock
 # deploy artifacts
 deploy/joda/bin/
 deploy/joda/data/
+deploy/joda/web/
+deploy/joda/cloudflared/*.json
+deploy/joda/cloudflared/config.yml
