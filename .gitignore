@@ -1,0 +1,18 @@
+# devconv:start
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.jks
+key.properties
+.DS_Store
+.claude/settings.local.json
+CLAUDE.local.md
+# devconv:end
+bin/
+*.test
+*.out
+
+# runtime data
+run/
