@@ -49,7 +49,8 @@ type CheckinRecord struct {
 // Store is the persistence port; implemented over Postgres in internal/store.
 type Store interface {
 	Settings(ctx context.Context, userID string) (Settings, error)
-	InsertCheckin(ctx context.Context, c CheckinRecord) error
+	InsertCheckin(ctx context.Context, c CheckinRecord) (int64, error)
+	ApplyCheckinVL(ctx context.Context, userID string, id int64, vl mood.VLScore, fused mood.Fused) error
 	RecentCheckins(ctx context.Context, userID string, limit int) ([]mood.Point, error)
 	SaveState(ctx context.Context, userID string, s mood.State, supportPause bool) error
 	Region(ctx context.Context, userID string) (string, error)
@@ -69,7 +70,11 @@ type Service struct {
 	Flyby    FlybyStore
 	Admin    AdminStore
 	// Scorer is nil when the mood models on SPARK are not configured.
-	Scorer  moodscore.Scorer
+	Scorer moodscore.Scorer
+	// Lease starts the models on demand (nil = always on); Pending holds
+	// recordings in memory while they start.
+	Lease   Lease
+	Pending *PendingQueue
 	Pub     Publisher
 	Now     func() time.Time
 	Options matching.Options
@@ -84,32 +89,39 @@ type CheckinResult struct {
 
 // Checkin fuses scores, stores them and recomputes the user's state.
 func (s *Service) Checkin(ctx context.Context, userID string, mode Mode, self float64, vl *mood.VLScore) (CheckinResult, error) {
+	_, res, err := s.checkin(ctx, userID, mode, self, vl)
+	return res, err
+}
+
+// checkin stores one check-in and returns its id (for a late VL score).
+func (s *Service) checkin(ctx context.Context, userID string, mode Mode, self float64, vl *mood.VLScore) (int64, CheckinResult, error) {
 	if mode != ModeVideo && mode != ModeVoice && mode != ModeSelf {
-		return CheckinResult{}, ErrBadMode
+		return 0, CheckinResult{}, ErrBadMode
 	}
 	if mode == ModeSelf {
 		vl = nil
 	}
 	set, err := s.Store.Settings(ctx, userID)
 	if err != nil {
-		return CheckinResult{}, fmt.Errorf("settings: %w", err)
+		return 0, CheckinResult{}, fmt.Errorf("settings: %w", err)
 	}
 	if !set.VLEnabled {
 		vl = nil
 	}
 	fused, err := mood.Fuse(self, vl, set.Weights)
 	if err != nil {
-		return CheckinResult{}, err
+		return 0, CheckinResult{}, err
 	}
 	now := s.Now()
-	if err := s.Store.InsertCheckin(ctx, CheckinRecord{UserID: userID, At: now, Mode: mode, Self: self, VL: vl, Fused: fused}); err != nil {
-		return CheckinResult{}, fmt.Errorf("insert checkin: %w", err)
+	id, err := s.Store.InsertCheckin(ctx, CheckinRecord{UserID: userID, At: now, Mode: mode, Self: self, VL: vl, Fused: fused})
+	if err != nil {
+		return 0, CheckinResult{}, fmt.Errorf("insert checkin: %w", err)
 	}
 	st, pause, err := s.Recompute(ctx, userID)
 	if err != nil {
-		return CheckinResult{}, err
+		return 0, CheckinResult{}, err
 	}
-	return CheckinResult{State: st, SupportPause: pause, AskAgain: fused.Disagreement}, nil
+	return id, CheckinResult{State: st, SupportPause: pause, AskAgain: fused.Disagreement}, nil
 }
 
 // Recompute derives and saves (level, trend) from history. The matching job

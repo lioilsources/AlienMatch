@@ -117,5 +117,6 @@
   "checkinRateNow": "Jetzt bewerte es selbst:",
   "checkinSignalUsed": "Signal aus Gesicht und Stimme gezählt. Deine Bewertung wiegt weiter mehr.",
   "checkinMediaNote": "Die Aufnahme wird direkt nach der Auswertung gelöscht.",
-  "checkinNoPermission": "Kamera- oder Mikrofonberechtigung fehlt."
+  "checkinNoPermission": "Kamera- oder Mikrofonberechtigung fehlt.",
+  "checkinSignalPending": "Das Signal aus Gesicht und Stimme wird vorbereitet und in ein paar Minuten ergänzt."
 }

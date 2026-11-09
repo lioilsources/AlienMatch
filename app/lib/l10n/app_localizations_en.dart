@@ -384,4 +384,8 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get checkinNoPermission =>
       'Camera or microphone permission is missing.';
+
+  @override
+  String get checkinSignalPending =>
+      'The face and voice signal is being prepared; it will be added in a few minutes.';
 }

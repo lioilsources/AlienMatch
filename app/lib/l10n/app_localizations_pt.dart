@@ -383,4 +383,8 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get checkinNoPermission =>
       'Falta a permissão da câmara ou do microfone.';
+
+  @override
+  String get checkinSignalPending =>
+      'O sinal do rosto e da voz está a ser preparado; será adicionado dentro de minutos.';
 }

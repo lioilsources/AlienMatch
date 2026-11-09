@@ -821,6 +821,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Camera or microphone permission is missing.'**
   String get checkinNoPermission;
+
+  /// No description provided for @checkinSignalPending.
+  ///
+  /// In en, this message translates to:
+  /// **'The face and voice signal is being prepared; it will be added in a few minutes.'**
+  String get checkinSignalPending;
 }
 
 class _AppLocalizationsDelegate

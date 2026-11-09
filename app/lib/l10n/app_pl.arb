@@ -117,5 +117,6 @@
   "checkinRateNow": "A teraz oceń sam/sama:",
   "checkinSignalUsed": "Sygnał z twarzy i głosu uwzględniony. Twoja ocena nadal waży więcej.",
   "checkinMediaNote": "Nagranie jest usuwane zaraz po ocenie.",
-  "checkinNoPermission": "Brak uprawnień do kamery lub mikrofonu."
+  "checkinNoPermission": "Brak uprawnień do kamery lub mikrofonu.",
+  "checkinSignalPending": "Sygnał z twarzy i głosu jest przygotowywany, zostanie dodany za kilka minut."
 }

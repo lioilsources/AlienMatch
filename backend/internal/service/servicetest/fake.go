@@ -45,13 +45,29 @@ func (f *Fake) Settings(_ context.Context, u string) (service.Settings, error) {
 	return s, nil
 }
 
-func (f *Fake) InsertCheckin(_ context.Context, c service.CheckinRecord) error {
+func (f *Fake) InsertCheckin(_ context.Context, c service.CheckinRecord) (int64, error) {
 	f.Records = append(f.Records, c)
 	v := c.Fused.Mood
 	if c.VL != nil {
 		v = c.VL.Valence
 	}
 	f.Checkins[c.UserID] = append(f.Checkins[c.UserID], mood.Point{At: c.At, Mood: c.Fused.Mood, Valence: v})
+	return int64(len(f.Records)), nil
+}
+
+// ApplyCheckinVL updates record id (1-based) and the user's history point.
+func (f *Fake) ApplyCheckinVL(_ context.Context, u string, id int64, vl mood.VLScore, fused mood.Fused) error {
+	if id < 1 || int(id) > len(f.Records) || f.Records[id-1].UserID != u {
+		return service.ErrNotFound
+	}
+	r := &f.Records[id-1]
+	r.VL, r.Fused = &vl, fused
+	pts := f.Checkins[u]
+	for i := range pts {
+		if pts[i].At.Equal(r.At) {
+			pts[i].Mood, pts[i].Valence = fused.Mood, vl.Valence
+		}
+	}
 	return nil
 }
 

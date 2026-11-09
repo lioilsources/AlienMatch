@@ -152,5 +152,6 @@
   "checkinRateNow": "Now rate it yourself:",
   "checkinSignalUsed": "Signal from face and voice counted. Your rating still weighs more.",
   "checkinMediaNote": "The recording is deleted right after scoring.",
-  "checkinNoPermission": "Camera or microphone permission is missing."
+  "checkinNoPermission": "Camera or microphone permission is missing.",
+  "checkinSignalPending": "The face and voice signal is being prepared; it will be added in a few minutes."
 }

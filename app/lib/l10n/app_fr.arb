@@ -117,5 +117,6 @@
   "checkinRateNow": "Maintenant, évalue toi-même :",
   "checkinSignalUsed": "Signal du visage et de la voix pris en compte. Ton évaluation compte toujours plus.",
   "checkinMediaNote": "L'enregistrement est supprimé juste après l'évaluation.",
-  "checkinNoPermission": "Autorisation caméra ou micro manquante."
+  "checkinNoPermission": "Autorisation caméra ou micro manquante.",
+  "checkinSignalPending": "Le signal du visage et de la voix est en préparation ; il sera ajouté dans quelques minutes."
 }

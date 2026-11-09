@@ -122,6 +122,25 @@ void main() {
     expect(rec.disposed, isTrue);
   });
 
+  testWidgets('opening the check-in warms up the models; pending signal is explained', (tester) async {
+    final (be, _) = await pump(tester);
+    expect(be.warmups, 1);
+    be.scoringPending = true;
+    await tester.tap(find.byKey(const Key('modeVoice')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('sendSignal')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('signalPending')), findsOneWidget);
+    expect(find.byKey(const Key('signalUsed')), findsNothing);
+  });
+
+  testWidgets('no warm-up without consent', (tester) async {
+    final (be, _) = await pump(tester, consent: false);
+    expect(be.warmups, 0);
+  });
+
   testWidgets('rating only is always possible', (tester) async {
     final (be, _) = await pump(tester);
     await tester.tap(find.byKey(const Key('modeSelf')));

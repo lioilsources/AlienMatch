@@ -87,8 +87,10 @@ nikdo nezkoušel, chybí běh na pozadí.
 ## Nasazení (2026-11-09)
 
 `https://aliens.ol1n.com` běží na JODĚ: web + API + Postgres + vlastní tunel, viz `docs/deploy.md`.
-SPARK: Director připravil `vl` a `asr` do brokeru (AiStack PR #42), po nasazení nastavit
-`ALIENMATCH_GATEWAY_URL` v `.env` na JODĚ.
+SPARK: `asr` a `vl` jsou v brokeru (projekt `alienmatch`). Backend je spouští **na vyžádání** přes
+API brokeru (Olin nechce pevné okno), nahrávka mezitím čeká jen v paměti (max 15 min). Chybí klíč
+k LiteLLM gateway (`ALIENMATCH_GATEWAY_KEY`), pak nastavit `ALIENMATCH_GATEWAY_URL` a
+`ALIENMATCH_BROKER_URL` v `.env` na JODĚ. Varianta L40S: `docs/PLAN-l40s.md`.
 
 ## Zbývá
 

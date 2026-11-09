@@ -117,5 +117,6 @@
   "checkinRateNow": "A teraz to ohodnoť sám/sama:",
   "checkinSignalUsed": "Signál z tváre a hlasu započítaný. Tvoje hodnotenie má stále väčšiu váhu.",
   "checkinMediaNote": "Nahrávka sa hneď po vyhodnotení zmaže.",
-  "checkinNoPermission": "Chýba povolenie ku kamere alebo mikrofónu."
+  "checkinNoPermission": "Chýba povolenie ku kamere alebo mikrofónu.",
+  "checkinSignalPending": "Signál z tváre a hlasu sa pripravuje, dopočíta sa o pár minút."
 }

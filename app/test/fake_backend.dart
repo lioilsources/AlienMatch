@@ -39,6 +39,8 @@ class FakeBackend {
   bool moodConsent = false;
   bool moodScoring = false;
   http.Request? lastMedia;
+  bool scoringPending = false;
+  int warmups = 0;
   final uploadedKeys = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> flybyKeys = [];
   final flybyWaves = <Map<String, dynamic>>[];
@@ -71,7 +73,10 @@ class FakeBackend {
         return _json({'mood_scoring': moodScoring, 'regions': ['CZ-PHA']});
       case 'POST /v1/checkins/media':
         lastMedia = req;
-        return _json({...checkinResult, 'signal': true});
+        return _json({...checkinResult, 'signal': !scoringPending, 'signal_pending': scoringPending});
+      case 'POST /v1/checkins/warmup':
+        warmups++;
+        return _json({'scoring': scoringPending ? 'starting' : 'ready'});
       case 'PUT /v1/me/flyby':
         flybyEnabled = (jsonDecode(req.body) as Map)['enabled'] as bool;
         return http.Response('', 204);

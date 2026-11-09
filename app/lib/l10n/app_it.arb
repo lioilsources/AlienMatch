@@ -117,5 +117,6 @@
   "checkinRateNow": "Ora valuta tu:",
   "checkinSignalUsed": "Segnale da viso e voce conteggiato. La tua valutazione pesa ancora di più.",
   "checkinMediaNote": "La registrazione viene cancellata subito dopo la valutazione.",
-  "checkinNoPermission": "Manca il permesso per fotocamera o microfono."
+  "checkinNoPermission": "Manca il permesso per fotocamera o microfono.",
+  "checkinSignalPending": "Il segnale da viso e voce è in preparazione; verrà aggiunto tra qualche minuto."
 }

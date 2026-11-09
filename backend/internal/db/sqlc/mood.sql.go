@@ -11,6 +11,36 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+const applyCheckinVL = `-- name: ApplyCheckinVL :exec
+UPDATE checkins SET vl_energy = $1, vl_valence = $2, vl_confidence = $3,
+    mood = $4, disagreement = $5
+WHERE id = $6 AND user_id = $7
+`
+
+type ApplyCheckinVLParams struct {
+	VlEnergy     pgtype.Float4 `json:"vl_energy"`
+	VlValence    pgtype.Float4 `json:"vl_valence"`
+	VlConfidence pgtype.Float4 `json:"vl_confidence"`
+	Mood         float32       `json:"mood"`
+	Disagreement bool          `json:"disagreement"`
+	ID           int64         `json:"id"`
+	UserID       pgtype.UUID   `json:"user_id"`
+}
+
+// Late VL score for a check-in recorded while the models were starting.
+func (q *Queries) ApplyCheckinVL(ctx context.Context, arg ApplyCheckinVLParams) error {
+	_, err := q.db.Exec(ctx, applyCheckinVL,
+		arg.VlEnergy,
+		arg.VlValence,
+		arg.VlConfidence,
+		arg.Mood,
+		arg.Disagreement,
+		arg.ID,
+		arg.UserID,
+	)
+	return err
+}
+
 const insertCheckin = `-- name: InsertCheckin :one
 INSERT INTO checkins (user_id, at, mode, self_score, vl_energy, vl_valence, vl_confidence, mood, disagreement)
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)

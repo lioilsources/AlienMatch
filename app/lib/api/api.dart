@@ -101,9 +101,15 @@ class Api {
     return j['mood_scoring'] as bool? ?? false;
   }
 
+  /// Asks the server to start the mood models (on demand on SPARK).
+  Future<String> warmUpScoring() async {
+    final j = await _send('POST', '/v1/checkins/warmup');
+    return j['scoring'] as String? ?? 'off';
+  }
+
   /// Check-in with a recording: key frames (video mode) and the voice. The
   /// server keeps scores only; media is discarded after scoring.
-  Future<({CheckinResult result, bool signal})> checkinMedia({
+  Future<({CheckinResult result, bool signal, bool pending})> checkinMedia({
     required String mode,
     required double self,
     required List<Uint8List> frames,
@@ -122,7 +128,7 @@ class Api {
     final res = await http.Response.fromStream(await _http.send(req).timeout(const Duration(seconds: 40)));
     if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
     final j = jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>;
-    return (result: CheckinResult.fromJson(j), signal: j['signal'] as bool? ?? false);
+    return (result: CheckinResult.fromJson(j), signal: j['signal'] as bool? ?? false, pending: j['signal_pending'] as bool? ?? false);
   }
 
   Future<Radar> radar() async =>
