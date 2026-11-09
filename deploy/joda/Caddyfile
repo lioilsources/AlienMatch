@@ -1,0 +1,58 @@
+# TLS terminates at Cloudflare; the tunnel talks plain HTTP to Caddy.
+{
+	admin off
+	auto_https off
+}
+
+http://aliens.ol1n.com {
+	encode zstd gzip
+
+	request_body {
+		max_size 5MB
+	}
+
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		Permissions-Policy "geolocation=(), interest-cohort=()"
+	}
+
+	# The moderation queue is never public.
+	@admin path /admin /admin/* /v1/admin/*
+	handle @admin {
+		respond 404
+	}
+
+	# API (REST + wall WebSockets).
+	@api path /v1/* /healthz
+	handle @api {
+		reverse_proxy api:8080
+	}
+
+	# Flutter web app.
+	handle {
+		root * /srv/web
+		@static path /assets/* /canvaskit/* /icons/* *.js *.wasm *.png *.json
+		header @static Cache-Control "public, max-age=3600"
+		header /index.html Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output stdout
+		format json
+	}
+}
+
+# LAN only (ADMIN_BIND): moderation page + its API.
+:8081 {
+	@admin path /admin /v1/admin/*
+	handle @admin {
+		reverse_proxy api:8080
+	}
+	handle {
+		respond 404
+	}
+}

@@ -1,16 +1,22 @@
-# AlienMatch on JODA: Go API + its own Postgres. No published ports except
-# the API on the LAN bind address; the public hostname goes through the
-# existing Cloudflare Tunnel + Caddy. /admin and /v1/admin/* must stay
-# internal (Caddy must not route them to the public hostname).
+# AlienMatch on JODA: aliens.ol1n.com = Flutter web (static, Caddy) + API under
+# /v1 + own Postgres. Public traffic only through the project's Cloudflare
+# tunnel -> Caddy; nothing is published on the host except the moderation
+# queue on JODA's LAN address (ADMIN_BIND). JODA has ~3.8 GB RAM shared by many
+# projects, hence the tight limits.
 #
-#   deploy/joda/deploy.sh          # cross-compile, rsync this dir, compose up
+#   deploy/joda/deploy.sh        # build api + web on the Mac, rsync, compose up
 name: alienmatch
+
+x-logging: &logging
+  driver: json-file
+  options: { max-size: 10m, max-file: "3" }
 
 services:
   db:
     image: postgres:17-alpine
     container_name: alienmatch-db
     restart: unless-stopped
+    command: postgres -c shared_buffers=32MB -c max_connections=20 -c work_mem=2MB -c maintenance_work_mem=16MB
     environment:
       POSTGRES_DB: alienmatch
       POSTGRES_USER: alienmatch
@@ -18,15 +24,14 @@ services:
     volumes:
       # Snap Docker only sees $HOME and /media on JODA; ./data is under $HOME.
       - ./data/postgres:/var/lib/postgresql/data
+    networks: [alienmatch]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U alienmatch -d alienmatch"]
       interval: 10s
       timeout: 5s
       retries: 10
-    mem_limit: 384m
-    logging: &logging
-      driver: json-file
-      options: { max-size: 10m, max-file: "3" }
+    mem_limit: 192m
+    logging: *logging
 
   api:
     build:
@@ -44,9 +49,35 @@ services:
       ALIENMATCH_DATABASE_URL: postgres://alienmatch:${POSTGRES_PASSWORD}@db:5432/alienmatch?sslmode=disable
     volumes:
       - ./data/media:/media
-    ports:
-      # LAN only (snap Docker publishes around ufw, so the bind address is the
-      # restriction). Caddy/tunnel reach it here.
-      - "${ALIENMATCH_BIND:?set in .env}:${ALIENMATCH_PORT:-8096}:8080"
-    mem_limit: 256m
+    networks: [alienmatch]
+    mem_limit: 128m
     logging: *logging
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: alienmatch-caddy
+    restart: unless-stopped
+    depends_on: [api]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./web:/srv/web:ro
+    ports:
+      # Moderation queue only, on JODA's LAN address (never public).
+      - "${ADMIN_BIND:?set in .env}:${ADMIN_PORT:-8098}:8081"
+    networks: [alienmatch]
+    mem_limit: 64m
+    logging: *logging
+
+  cloudflared:
+    image: cloudflare/cloudflared:2026.7.3
+    container_name: alienmatch-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    volumes:
+      - ./cloudflared:/etc/cloudflared:ro
+    networks: [alienmatch]
+    mem_limit: 96m
+    logging: *logging
+
+networks:
+  alienmatch:
