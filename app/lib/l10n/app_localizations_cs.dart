@@ -380,4 +380,8 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get checkinNoPermission => 'Chybí povolení ke kameře nebo mikrofonu.';
+
+  @override
+  String get checkinSignalPending =>
+      'Signál z tváře a hlasu se připravuje, dopočítá se za pár minut.';
 }

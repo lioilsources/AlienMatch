@@ -23,3 +23,9 @@ ON CONFLICT (user_id) DO UPDATE SET
 
 -- name: UserWeights :one
 SELECT vl_enabled, w_self, w_vl FROM users WHERE id = $1 AND deleted_at IS NULL;
+
+-- name: ApplyCheckinVL :exec
+-- Late VL score for a check-in recorded while the models were starting.
+UPDATE checkins SET vl_energy = @vl_energy, vl_valence = @vl_valence, vl_confidence = @vl_confidence,
+    mood = @mood, disagreement = @disagreement
+WHERE id = @id AND user_id = @user_id;

@@ -117,5 +117,6 @@
   "checkinRateNow": "Ahora valóralo tú:",
   "checkinSignalUsed": "Señal de cara y voz contada. Tu valoración sigue pesando más.",
   "checkinMediaNote": "La grabación se borra justo después de evaluarla.",
-  "checkinNoPermission": "Falta el permiso de cámara o micrófono."
+  "checkinNoPermission": "Falta el permiso de cámara o micrófono.",
+  "checkinSignalPending": "La señal de cara y voz se está preparando; se añadirá en unos minutos."
 }

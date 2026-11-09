@@ -33,7 +33,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
   Recording? recording;
   int prompt = 0;
   double value = 0.5;
-  bool busy = false, failed = false, noPermission = false, signal = false;
+  bool busy = false, failed = false, noPermission = false, signal = false, pending = false;
   CheckinResult? result;
   Timer? timer;
 
@@ -46,6 +46,8 @@ class _CheckinScreenState extends State<CheckinScreen> {
       if (!kIsWeb && app.me?.moodConsent == true) {
         app.api.moodScoringAvailable().then((v) {
           if (mounted) setState(() => scoringAvailable = v);
+          // Start the models now so they are likely up when the recording ends.
+          if (v) app.api.warmUpScoring().catchError((_) => 'off');
         }, onError: (_) {});
       }
     }
@@ -121,6 +123,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
         final r = await app.api.checkinMedia(mode: mode, self: value, frames: mode == 'video' ? rec.frames : const [], audio: rec.audio, lang: lang);
         result = r.result;
         signal = r.signal;
+        pending = r.pending;
       } else {
         result = await app.api.checkin(mode: 'self', self: value);
         signal = false;
@@ -233,6 +236,11 @@ class _CheckinScreenState extends State<CheckinScreen> {
         Padding(
           padding: const EdgeInsets.only(top: 8),
           child: Text(l.checkinSignalUsed, key: const Key('signalUsed'), style: const TextStyle(color: Space.dim)),
+        ),
+      if (pending)
+        Padding(
+          padding: const EdgeInsets.only(top: 8),
+          child: Text(l.checkinSignalPending, key: const Key('signalPending'), style: const TextStyle(color: Space.dim)),
         ),
       if (r.askAgainSoon) Padding(padding: const EdgeInsets.only(top: 8), child: Text(l.askAgain, style: const TextStyle(color: Space.dim))),
       if (r.supportCard)

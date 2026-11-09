@@ -382,4 +382,8 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get checkinNoPermission => 'Немає дозволу на камеру або мікрофон.';
+
+  @override
+  String get checkinSignalPending =>
+      'Сигнал з обличчя та голосу готується, його буде додано за кілька хвилин.';
 }

@@ -64,12 +64,12 @@ func (s *PG) Settings(ctx context.Context, userID string) (service.Settings, err
 	return service.Settings{VLEnabled: r.VlEnabled, Weights: mood.Weights{Self: float64(r.WSelf), VL: float64(r.WVl)}}, nil
 }
 
-func (s *PG) InsertCheckin(ctx context.Context, c service.CheckinRecord) error {
+func (s *PG) InsertCheckin(ctx context.Context, c service.CheckinRecord) (int64, error) {
 	id, err := uid(c.UserID)
 	if err != nil {
-		return err
+		return 0, err
 	}
-	_, err = s.q.InsertCheckin(ctx, sqlc.InsertCheckinParams{
+	return s.q.InsertCheckin(ctx, sqlc.InsertCheckinParams{
 		UserID:       id,
 		At:           ts(c.At),
 		Mode:         sqlc.CheckinMode(c.Mode),
@@ -80,7 +80,18 @@ func (s *PG) InsertCheckin(ctx context.Context, c service.CheckinRecord) error {
 		Mood:         float32(c.Fused.Mood),
 		Disagreement: c.Fused.Disagreement,
 	})
-	return err
+}
+
+func (s *PG) ApplyCheckinVL(ctx context.Context, userID string, checkinID int64, vl mood.VLScore, fused mood.Fused) error {
+	id, err := uid(userID)
+	if err != nil {
+		return err
+	}
+	f := func(v float64) pgtype.Float4 { return pgtype.Float4{Float32: float32(v), Valid: true} }
+	return s.q.ApplyCheckinVL(ctx, sqlc.ApplyCheckinVLParams{
+		VlEnergy: f(vl.Energy), VlValence: f(vl.Valence), VlConfidence: f(vl.Confidence),
+		Mood: float32(fused.Mood), Disagreement: fused.Disagreement, ID: checkinID, UserID: id,
+	})
 }
 
 func (s *PG) RecentCheckins(ctx context.Context, userID string, limit int) ([]mood.Point, error) {

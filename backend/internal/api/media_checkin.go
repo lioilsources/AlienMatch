@@ -24,6 +24,10 @@ func (h *handler) routesMedia(mux *http.ServeMux) {
 		writeJSON(w, http.StatusOK, map[string]any{"mood_scoring": h.svc.MoodScoringAvailable(), "regions": service.Regions})
 	})
 	mux.HandleFunc("POST /v1/checkins/media", h.withUser(h.mediaCheckin))
+	// Opening the check-in screen asks SPARK to start the models on demand.
+	mux.HandleFunc("POST /v1/checkins/warmup", h.withUser(func(w http.ResponseWriter, r *http.Request) {
+		writeJSON(w, http.StatusOK, map[string]string{"scoring": h.svc.WarmUp(r.Context(), userOf(r))})
+	}))
 }
 
 // mediaCheckin reads multipart parts straight into memory. Deliberately not
@@ -110,5 +114,6 @@ func (h *handler) mediaCheckin(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{
 		"level": res.State.Level, "trend": res.State.Trend,
 		"support_card": res.SupportPause, "ask_again_soon": res.AskAgain, "signal": res.Signal,
+		"signal_pending": res.Pending,
 	})
 }

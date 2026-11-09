@@ -19,6 +19,7 @@ import (
 	"github.com/lioilsources/AlienMatch/backend/internal/moodscore"
 	"github.com/lioilsources/AlienMatch/backend/internal/realtime"
 	"github.com/lioilsources/AlienMatch/backend/internal/service"
+	"github.com/lioilsources/AlienMatch/backend/internal/sparklease"
 	"github.com/lioilsources/AlienMatch/backend/internal/store"
 )
 
@@ -63,6 +64,29 @@ func run(log *slog.Logger) error {
 			VLModel: envOr("ALIENMATCH_VL_MODEL", "vl"), ASRModel: envOr("ALIENMATCH_ASR_MODEL", "asr"),
 		}
 		log.Info("mood scoring enabled", "vl", envOr("ALIENMATCH_VL_MODEL", "vl"))
+		if b := os.Getenv("ALIENMATCH_BROKER_URL"); b != "" {
+			// Models are started on demand through the SPARK broker.
+			lease := sparklease.New(sparklease.Config{
+				BrokerURL: b, Token: os.Getenv("ALIENMATCH_BROKER_TOKEN"), Project: "alienmatch",
+				Services: []string{"asr", "vl"}, Priority: 20,
+			}, log, time.Now)
+			svc.Lease = lease
+			svc.Pending = &service.PendingQueue{}
+			go lease.Run(ctx, 15*time.Second)
+			go func() {
+				t := time.NewTicker(5 * time.Second)
+				defer t.Stop()
+				for {
+					select {
+					case <-ctx.Done():
+						return
+					case <-t.C:
+						svc.ProcessPending(ctx)
+					}
+				}
+			}()
+			log.Info("mood models on demand via broker")
+		}
 	}
 	rt := &api.Realtime{Hub: hub, Tickets: realtime.NewTickets(time.Now), OriginPatterns: strings.Fields(os.Getenv("ALIENMATCH_WS_ORIGINS"))}
 	go housekeeping(ctx, svc, log)

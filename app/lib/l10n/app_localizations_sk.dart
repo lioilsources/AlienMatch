@@ -381,4 +381,8 @@ class AppLocalizationsSk extends AppLocalizations {
   @override
   String get checkinNoPermission =>
       'Chýba povolenie ku kamere alebo mikrofónu.';
+
+  @override
+  String get checkinSignalPending =>
+      'Signál z tváre a hlasu sa pripravuje, dopočíta sa o pár minút.';
 }
