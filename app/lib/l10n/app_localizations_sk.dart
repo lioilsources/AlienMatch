@@ -352,4 +352,33 @@ class AppLocalizationsSk extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Prelety';
+
+  @override
+  String get checkinVideo => 'Video + hlas';
+
+  @override
+  String get checkinVoice => 'Len hlas';
+
+  @override
+  String get checkinNoRecording => 'Len moje hodnotenie';
+
+  @override
+  String get checkinPrompt1 => 'Povedz, ako sa dnes máš.';
+
+  @override
+  String get checkinPrompt2 => 'Čo ťa dnes čaká?';
+
+  @override
+  String get checkinRateNow => 'A teraz to ohodnoť sám/sama:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Signál z tváre a hlasu započítaný. Tvoje hodnotenie má stále väčšiu váhu.';
+
+  @override
+  String get checkinMediaNote => 'Nahrávka sa hneď po vyhodnotení zmaže.';
+
+  @override
+  String get checkinNoPermission =>
+      'Chýba povolenie ku kamere alebo mikrofónu.';
 }

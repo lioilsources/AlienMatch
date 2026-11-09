@@ -66,13 +66,27 @@ Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 Server, appka a nativní BLE jsou hotové, podrobnosti v `docs/GPS.md`. Na skutečných telefonech to zatím
 nikdo nezkoušel, chybí běh na pozadí.
 
+## Check-in s videem a hlasem (2026-11-09)
+
+- Appka: video + hlas, nebo jen hlas, 14 s, dvě stálé výzvy. Pošle 3 snímky (640 px JPEG) a zvuk
+  (AAC 16 kHz mono), žádné video. Nahrávka v telefonu se po načtení smaže. Pak vlastní škála.
+  Bez souhlasu čl. 9 nebo když server vyhodnocení nemá, se nic nenahrává a jde jen hodnocení (`self`).
+- Backend: `POST /v1/checkins/media` čte multipart proudově do paměti (nikdy dočasné soubory, test
+  hlídá `TMPDIR`), zavolá gateway na SPARKu (ASR → přepis, VL → `{energy, valence, confidence}`),
+  buffery vynuluje. Při chybě modelu fallback na vlastní hodnocení. `GET /v1/config` řekne appce,
+  jestli vyhodnocení běží.
+- **Na SPARKu chybí (rozhodnutí Olina, repo AiStack):** broker nemá v katalogu `vl`
+  (Qwen2.5-VL-7B je v LiteLLM jako alias `vl`, `deploy/docker-compose.vl.yaml`) a na SPARKu není
+  žádná ASR služba (Whisper) s `/v1/audio/transcriptions`. Dokud nebudou, `ALIENMATCH_GATEWAY_URL`
+  zůstává prázdné a check-in je jen vlastní hodnocení.
+
 ## Zbývá
 
 - Fáze 0: odpovědi na otázky níže, benchmark VL 7B vs 32B.
 - Fáze 1: balíčky `mirror_face` (z MirrorBooth), `sticker_canvas`, `stickers-svc` (glyph_extractor).
 - Fáze 2: auth (magic-link/Apple/Google), profily + media (MinIO), mood-worker na SPARKu
   (Whisper + VL přes LiteLLM), matching job à 10 min, waves → match, zeď.
-- Fáze 3: fronta pro offline přes restart appky (teď jen v paměti), admin fronta reportů, Průlet na pozadí a test na zařízeních, video/hlas check-in + mood-worker, MinIO, moderace, IAP.
+- Fáze 3: fronta pro offline přes restart appky (teď jen v paměti), admin fronta reportů, Průlet na pozadí a test na zařízeních, `vl` + ASR v brokeru (AiStack), kalibrace vah `w_self/w_vl` per uživatel, MinIO, moderace, IAP.
 
 ## Rozhodnutí Olina (2026-11-09, §8 hlavního plánu)
 

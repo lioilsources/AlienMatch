@@ -354,4 +354,32 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Прольоти';
+
+  @override
+  String get checkinVideo => 'Відео + голос';
+
+  @override
+  String get checkinVoice => 'Лише голос';
+
+  @override
+  String get checkinNoRecording => 'Лише моя оцінка';
+
+  @override
+  String get checkinPrompt1 => 'Скажи, як ти сьогодні.';
+
+  @override
+  String get checkinPrompt2 => 'Що на тебе сьогодні чекає?';
+
+  @override
+  String get checkinRateNow => 'А тепер оціни сам/сама:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Сигнал з обличчя та голосу враховано. Твоя оцінка й далі важить більше.';
+
+  @override
+  String get checkinMediaNote => 'Запис видаляється одразу після оцінки.';
+
+  @override
+  String get checkinNoPermission => 'Немає дозволу на камеру або мікрофон.';
 }

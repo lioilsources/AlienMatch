@@ -353,4 +353,34 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get flybyStrip => 'Incroci';
+
+  @override
+  String get checkinVideo => 'Video + voce';
+
+  @override
+  String get checkinVoice => 'Solo voce';
+
+  @override
+  String get checkinNoRecording => 'Solo la mia valutazione';
+
+  @override
+  String get checkinPrompt1 => 'Di\' come stai oggi.';
+
+  @override
+  String get checkinPrompt2 => 'Cosa ti aspetta oggi?';
+
+  @override
+  String get checkinRateNow => 'Ora valuta tu:';
+
+  @override
+  String get checkinSignalUsed =>
+      'Segnale da viso e voce conteggiato. La tua valutazione pesa ancora di più.';
+
+  @override
+  String get checkinMediaNote =>
+      'La registrazione viene cancellata subito dopo la valutazione.';
+
+  @override
+  String get checkinNoPermission =>
+      'Manca il permesso per fotocamera o microfono.';
 }

@@ -143,5 +143,14 @@
     }
   },
   "flybyComet": "You met",
-  "flybyStrip": "Fly-bys"
+  "flybyStrip": "Fly-bys",
+  "checkinVideo": "Video + voice",
+  "checkinVoice": "Voice only",
+  "checkinNoRecording": "Just my rating",
+  "checkinPrompt1": "Say how you feel today.",
+  "checkinPrompt2": "What's ahead of you today?",
+  "checkinRateNow": "Now rate it yourself:",
+  "checkinSignalUsed": "Signal from face and voice counted. Your rating still weighs more.",
+  "checkinMediaNote": "The recording is deleted right after scoring.",
+  "checkinNoPermission": "Camera or microphone permission is missing."
 }

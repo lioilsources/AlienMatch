@@ -10,6 +10,7 @@ import (
 
 	"github.com/lioilsources/AlienMatch/backend/internal/matching"
 	"github.com/lioilsources/AlienMatch/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/moodscore"
 	"github.com/lioilsources/AlienMatch/backend/internal/places"
 )
 
@@ -66,9 +67,11 @@ type Service struct {
 	Media    MediaStore
 	Walls    WallStore
 	Flyby    FlybyStore
-	Pub      Publisher
-	Now      func() time.Time
-	Options  matching.Options
+	// Scorer is nil when the mood models on SPARK are not configured.
+	Scorer  moodscore.Scorer
+	Pub     Publisher
+	Now     func() time.Time
+	Options matching.Options
 }
 
 // CheckinResult is returned to the app after a check-in.

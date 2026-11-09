@@ -767,6 +767,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fly-bys'**
   String get flybyStrip;
+
+  /// No description provided for @checkinVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video + voice'**
+  String get checkinVideo;
+
+  /// No description provided for @checkinVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice only'**
+  String get checkinVoice;
+
+  /// No description provided for @checkinNoRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Just my rating'**
+  String get checkinNoRecording;
+
+  /// No description provided for @checkinPrompt1.
+  ///
+  /// In en, this message translates to:
+  /// **'Say how you feel today.'**
+  String get checkinPrompt1;
+
+  /// No description provided for @checkinPrompt2.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s ahead of you today?'**
+  String get checkinPrompt2;
+
+  /// No description provided for @checkinRateNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Now rate it yourself:'**
+  String get checkinRateNow;
+
+  /// No description provided for @checkinSignalUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Signal from face and voice counted. Your rating still weighs more.'**
+  String get checkinSignalUsed;
+
+  /// No description provided for @checkinMediaNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The recording is deleted right after scoring.'**
+  String get checkinMediaNote;
+
+  /// No description provided for @checkinNoPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera or microphone permission is missing.'**
+  String get checkinNoPermission;
 }
 
 class _AppLocalizationsDelegate

@@ -108,5 +108,14 @@
   "flybyVenue": "mismo sitio",
   "flybyMinutes": "{minutes} min",
   "flybyComet": "Os habéis cruzado",
-  "flybyStrip": "Cruces"
+  "flybyStrip": "Cruces",
+  "checkinVideo": "Vídeo + voz",
+  "checkinVoice": "Solo voz",
+  "checkinNoRecording": "Solo mi valoración",
+  "checkinPrompt1": "Di cómo estás hoy.",
+  "checkinPrompt2": "¿Qué te espera hoy?",
+  "checkinRateNow": "Ahora valóralo tú:",
+  "checkinSignalUsed": "Señal de cara y voz contada. Tu valoración sigue pesando más.",
+  "checkinMediaNote": "La grabación se borra justo después de evaluarla.",
+  "checkinNoPermission": "Falta el permiso de cámara o micrófono."
 }

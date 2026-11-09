@@ -71,6 +71,7 @@ func Handler(svc *service.Service, auth Authenticator, log *slog.Logger, opts ..
 	mux.HandleFunc("GET /v1/users/{id}/photo", h.withUser(h.photo))
 	h.routesWalls(mux)
 	h.routesFlyby(mux)
+	h.routesMedia(mux)
 	return noCoordinates(mux)
 }
 

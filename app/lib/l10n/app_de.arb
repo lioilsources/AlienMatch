@@ -108,5 +108,14 @@
   "flybyVenue": "derselbe Ort",
   "flybyMinutes": "{minutes} Min.",
   "flybyComet": "Ihr habt euch getroffen",
-  "flybyStrip": "Vorbeiflüge"
+  "flybyStrip": "Vorbeiflüge",
+  "checkinVideo": "Video + Stimme",
+  "checkinVoice": "Nur Stimme",
+  "checkinNoRecording": "Nur meine Bewertung",
+  "checkinPrompt1": "Sag, wie es dir heute geht.",
+  "checkinPrompt2": "Was steht dir heute bevor?",
+  "checkinRateNow": "Jetzt bewerte es selbst:",
+  "checkinSignalUsed": "Signal aus Gesicht und Stimme gezählt. Deine Bewertung wiegt weiter mehr.",
+  "checkinMediaNote": "Die Aufnahme wird direkt nach der Auswertung gelöscht.",
+  "checkinNoPermission": "Kamera- oder Mikrofonberechtigung fehlt."
 }

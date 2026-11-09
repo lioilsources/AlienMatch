@@ -108,5 +108,14 @@
   "flybyVenue": "той самий заклад",
   "flybyMinutes": "{minutes} хв",
   "flybyComet": "Ви зустрілися",
-  "flybyStrip": "Прольоти"
+  "flybyStrip": "Прольоти",
+  "checkinVideo": "Відео + голос",
+  "checkinVoice": "Лише голос",
+  "checkinNoRecording": "Лише моя оцінка",
+  "checkinPrompt1": "Скажи, як ти сьогодні.",
+  "checkinPrompt2": "Що на тебе сьогодні чекає?",
+  "checkinRateNow": "А тепер оціни сам/сама:",
+  "checkinSignalUsed": "Сигнал з обличчя та голосу враховано. Твоя оцінка й далі важить більше.",
+  "checkinMediaNote": "Запис видаляється одразу після оцінки.",
+  "checkinNoPermission": "Немає дозволу на камеру або мікрофон."
 }

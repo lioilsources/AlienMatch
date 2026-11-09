@@ -108,5 +108,14 @@
   "flybyVenue": "stejný podnik",
   "flybyMinutes": "{minutes} min",
   "flybyComet": "Potkali jste se",
-  "flybyStrip": "Průlety"
+  "flybyStrip": "Průlety",
+  "checkinVideo": "Video + hlas",
+  "checkinVoice": "Jen hlas",
+  "checkinNoRecording": "Jen moje hodnocení",
+  "checkinPrompt1": "Řekni, jak ti dnes je.",
+  "checkinPrompt2": "Co tě dnes čeká?",
+  "checkinRateNow": "A teď to ohodnoť sám/sama:",
+  "checkinSignalUsed": "Signál z tváře a hlasu započítán. Tvoje hodnocení má pořád větší váhu.",
+  "checkinMediaNote": "Nahrávka se hned po vyhodnocení smaže.",
+  "checkinNoPermission": "Chybí povolení ke kameře nebo mikrofonu."
 }
