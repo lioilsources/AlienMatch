@@ -322,4 +322,34 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get encouragementWall => 'Zeď majáku';
+
+  @override
+  String get flybyTitle => 'Průlet';
+
+  @override
+  String get flybyBody =>
+      'Telefon přes Bluetooth pozná jiné AlienMatch telefony poblíž, třeba ve stejné tramvaji. Polohu nepoužívá. Kdo to byl, se dozvíš, jen když zamáváte oba.';
+
+  @override
+  String get flybyRadioOff => 'Bluetooth je vypnutý nebo chybí povolení.';
+
+  @override
+  String get flybyVehicle => 'stejný spoj';
+
+  @override
+  String get flybyStop => 'stejná zastávka';
+
+  @override
+  String get flybyVenue => 'stejný podnik';
+
+  @override
+  String flybyMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get flybyComet => 'Potkali jste se';
+
+  @override
+  String get flybyStrip => 'Průlety';
 }

@@ -25,7 +25,12 @@ String newClientId([Random? r]) {
 /// One wall: server stickers + an offline queue, kept in sync over a
 /// WebSocket with REST catch-up (`after=lastId`) on every reconnect.
 class WallController extends ChangeNotifier {
-  WallController({required this.api, required this.wallId, required this.me, this.connect = defaultConnector});
+  WallController({
+    required this.api,
+    required this.wallId,
+    required this.me,
+    this.connect = defaultConnector,
+  });
 
   final Api api;
   final int wallId;
@@ -43,7 +48,8 @@ class WallController extends ChangeNotifier {
   bool _disposed = false;
 
   /// Bottom to top.
-  List<Sticker> get stickers => [..._byId.values, ...queue]..sort((a, b) => a.z.compareTo(b.z));
+  List<Sticker> get stickers =>
+      [..._byId.values, ...queue]..sort((a, b) => a.z.compareTo(b.z));
 
   int get _lastId => _byId.keys.fold(0, max);
 
@@ -74,7 +80,12 @@ class WallController extends ChangeNotifier {
       final uri = await api.wallSocket(wallId);
       final ch = connect(uri);
       _ch = ch;
-      _sub = ch.stream.listen(_onEvent, onDone: _onDrop, onError: (_) => _onDrop(), cancelOnError: true);
+      _sub = ch.stream.listen(
+        _onEvent,
+        onDone: _onDrop,
+        onError: (_) => _onDrop(),
+        cancelOnError: true,
+      );
       _backoff = 1;
     } on ApiException catch (e) {
       if (e.status == 404) {
@@ -145,7 +156,11 @@ class WallController extends ChangeNotifier {
         _byId[saved.id] = saved;
         online = true;
       } on ApiException catch (e) {
-        if (e.status == 400) queue.removeWhere((q) => q.clientId == s.clientId); // rejected for good
+        if (e.status == 400) {
+          queue.removeWhere(
+            (q) => q.clientId == s.clientId,
+          ); // rejected for good
+        }
         if (e.status == 404) _end();
         break;
       } catch (_) {

@@ -324,4 +324,34 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get encouragementWall => 'Стіна маяка';
+
+  @override
+  String get flybyTitle => 'Проліт';
+
+  @override
+  String get flybyBody =>
+      'Телефон через Bluetooth помічає інші телефони з AlienMatch поруч, наприклад у тому ж трамваї. Без геолокації. Хто це був, дізнаєшся, лише якщо ви обоє помахаєте.';
+
+  @override
+  String get flybyRadioOff => 'Bluetooth вимкнено або немає дозволу.';
+
+  @override
+  String get flybyVehicle => 'той самий рейс';
+
+  @override
+  String get flybyStop => 'та сама зупинка';
+
+  @override
+  String get flybyVenue => 'той самий заклад';
+
+  @override
+  String flybyMinutes(int minutes) {
+    return '$minutes хв';
+  }
+
+  @override
+  String get flybyComet => 'Ви зустрілися';
+
+  @override
+  String get flybyStrip => 'Прольоти';
 }

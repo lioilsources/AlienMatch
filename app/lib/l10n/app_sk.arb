@@ -99,5 +99,14 @@
   "peel": "Odlepiť",
   "wallEnded": "Táto stena skončila.",
   "pendingSync": "Čaká na pripojenie",
-  "encouragementWall": "Stena majáka"
+  "encouragementWall": "Stena majáka",
+  "flybyTitle": "Prelet",
+  "flybyBody": "Telefón cez Bluetooth spozná iné telefóny s AlienMatch nablízku, napríklad v tej istej električke. Polohu nepoužíva. Kto to bol, sa dozvieš, len keď zamávate obaja.",
+  "flybyRadioOff": "Bluetooth je vypnutý alebo chýba povolenie.",
+  "flybyVehicle": "rovnaký spoj",
+  "flybyStop": "rovnaká zastávka",
+  "flybyVenue": "rovnaký podnik",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Stretli ste sa",
+  "flybyStrip": "Prelety"
 }

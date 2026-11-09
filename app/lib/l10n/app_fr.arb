@@ -99,5 +99,14 @@
   "peel": "Décoller",
   "wallEnded": "Ce mur est terminé.",
   "pendingSync": "En attente de connexion",
-  "encouragementWall": "Mur du phare"
+  "encouragementWall": "Mur du phare",
+  "flybyTitle": "Croisement",
+  "flybyBody": "Ton téléphone repère par Bluetooth les autres téléphones AlienMatch à proximité, par exemple dans le même tram. Aucune position. Tu ne sauras qui c'était que si vous faites coucou tous les deux.",
+  "flybyRadioOff": "Le Bluetooth est désactivé ou l'autorisation manque.",
+  "flybyVehicle": "même trajet",
+  "flybyStop": "même arrêt",
+  "flybyVenue": "même lieu",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Vous vous êtes croisés",
+  "flybyStrip": "Croisements"
 }

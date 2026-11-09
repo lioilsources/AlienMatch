@@ -99,5 +99,14 @@
   "peel": "Despegar",
   "wallEnded": "Este muro ha terminado.",
   "pendingSync": "Esperando conexión",
-  "encouragementWall": "Muro del faro"
+  "encouragementWall": "Muro del faro",
+  "flybyTitle": "Cruce",
+  "flybyBody": "Tu móvil detecta por Bluetooth otros móviles con AlienMatch cerca, por ejemplo en el mismo tranvía. Sin ubicación. Solo sabrás quién era si os saludáis los dos.",
+  "flybyRadioOff": "El Bluetooth está apagado o falta el permiso.",
+  "flybyVehicle": "mismo trayecto",
+  "flybyStop": "misma parada",
+  "flybyVenue": "mismo sitio",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Os habéis cruzado",
+  "flybyStrip": "Cruces"
 }

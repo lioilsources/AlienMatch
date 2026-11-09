@@ -99,5 +99,14 @@
   "peel": "Stacca",
   "wallEnded": "Questo muro è terminato.",
   "pendingSync": "In attesa di connessione",
-  "encouragementWall": "Muro del faro"
+  "encouragementWall": "Muro del faro",
+  "flybyTitle": "Incrocio",
+  "flybyBody": "Il telefono rileva via Bluetooth altri telefoni con AlienMatch vicini, per esempio sullo stesso tram. Nessuna posizione. Saprai chi era solo se vi salutate entrambi.",
+  "flybyRadioOff": "Il Bluetooth è spento o manca il permesso.",
+  "flybyVehicle": "stessa corsa",
+  "flybyStop": "stessa fermata",
+  "flybyVenue": "stesso locale",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Vi siete incrociati",
+  "flybyStrip": "Incroci"
 }

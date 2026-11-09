@@ -324,4 +324,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get encouragementWall => 'Beacon wall';
+
+  @override
+  String get flybyTitle => 'Fly-by';
+
+  @override
+  String get flybyBody =>
+      'Your phone notices other AlienMatch phones nearby over Bluetooth, for example on the same tram. No location is used. You only learn who it was if you both wave.';
+
+  @override
+  String get flybyRadioOff => 'Bluetooth is off or permission is missing.';
+
+  @override
+  String get flybyVehicle => 'same ride';
+
+  @override
+  String get flybyStop => 'same stop';
+
+  @override
+  String get flybyVenue => 'same place';
+
+  @override
+  String flybyMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get flybyComet => 'You met';
+
+  @override
+  String get flybyStrip => 'Fly-bys';
 }

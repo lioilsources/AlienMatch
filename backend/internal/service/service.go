@@ -65,6 +65,7 @@ type Service struct {
 	Accounts AccountStore
 	Media    MediaStore
 	Walls    WallStore
+	Flyby    FlybyStore
 	Pub      Publisher
 	Now      func() time.Time
 	Options  matching.Options
@@ -129,6 +130,8 @@ func (s *Service) Recompute(ctx context.Context, userID string) (mood.State, boo
 type RadarEntry struct {
 	Candidate     matching.Candidate
 	Constellation places.Constellation
+	// Comet is the contact type of a mutual fly-by (vehicle | stop | venue), or "".
+	Comet string
 }
 
 // Radar returns candidates for userID in their own (coarse) region, ranked
@@ -163,9 +166,13 @@ func (s *Service) Radar(ctx context.Context, userID string) ([]RadarEntry, error
 		return nil, fmt.Errorf("place counts: %w", err)
 	}
 	ranked := places.Rank(me.Places, cands, func(c matching.Candidate) []string { return c.Profile.Places }, counts)
+	comets, err := s.comets(ctx, userID)
+	if err != nil {
+		return nil, fmt.Errorf("comets: %w", err)
+	}
 	out := make([]RadarEntry, len(ranked))
 	for i, r := range ranked {
-		out[i] = RadarEntry{Candidate: r.Item, Constellation: r.Constellation}
+		out[i] = RadarEntry{Candidate: r.Item, Constellation: r.Constellation, Comet: comets[r.Item.Profile.ID]}
 	}
 	return out, nil
 }

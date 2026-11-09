@@ -17,8 +17,18 @@ const inkPalette = [
 
 /// Emoji for image presets (placeholders until the illustrated set exists).
 const presetEmoji = {
-  'heart': '❤️', 'ufo': '🛸', 'coffee': '☕', 'tea': '🍵', 'wine': '🍷', 'beer': '🍺',
-  'star': '⭐', 'wave': '👋', 'rocket': '🚀', 'hug': '🤗', 'flower': '🌸', 'fire': '🔥',
+  'heart': '❤️',
+  'ufo': '🛸',
+  'coffee': '☕',
+  'tea': '🍵',
+  'wine': '🍷',
+  'beer': '🍺',
+  'star': '⭐',
+  'wave': '👋',
+  'rocket': '🚀',
+  'hug': '🤗',
+  'flower': '🌸',
+  'fire': '🔥',
 };
 const gentlePresets = ['ufo', 'coffee', 'tea', 'star', 'wave', 'hug', 'flower'];
 
@@ -37,10 +47,15 @@ class InkPainter extends CustomPainter {
         ..style = PaintingStyle.stroke;
       final path = Path();
       for (var i = 0; i + 1 < s.points.length; i += 2) {
-        final o = Offset(s.points[i] * size.width, s.points[i + 1] * size.height);
+        final o = Offset(
+          s.points[i] * size.width,
+          s.points[i + 1] * size.height,
+        );
         i == 0 ? path.moveTo(o.dx, o.dy) : path.lineTo(o.dx, o.dy);
       }
-      if (s.points.length == 2) path.lineTo(s.points[0] * size.width + 0.1, s.points[1] * size.height);
+      if (s.points.length == 2) {
+        path.lineTo(s.points[0] * size.width + 0.1, s.points[1] * size.height);
+      }
       canvas.drawPath(path, paint);
     }
   }
@@ -86,9 +101,16 @@ class _InkPadState extends State<InkPad> {
       aspect: (w / h).clamp(0.1, 10.0),
       strokes: [
         for (final s in strokes)
-          InkStroke(color: s.color, width: (6 / w).clamp(0.002, 0.2), points: [
-            for (var i = 0; i < s.pts.length; i += step) ...[nx(s.pts[i].dx), ny(s.pts[i].dy)],
-          ]),
+          InkStroke(
+            color: s.color,
+            width: (6 / w).clamp(0.002, 0.2),
+            points: [
+              for (var i = 0; i < s.pts.length; i += step) ...[
+                nx(s.pts[i].dx),
+                ny(s.pts[i].dy),
+              ],
+            ],
+          ),
       ],
     );
   }
@@ -96,53 +118,85 @@ class _InkPadState extends State<InkPad> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final preview = InkDrawing(aspect: 1, strokes: [
-      for (final s in strokes)
-        if (box.isEmpty)
-          InkStroke(color: s.color, width: 0.01, points: const [])
-        else
-          InkStroke(color: s.color, width: 6 / box.width, points: [for (final p in s.pts) ...[p.dx / box.width, p.dy / box.height]]),
-    ]);
+    final preview = InkDrawing(
+      aspect: 1,
+      strokes: [
+        for (final s in strokes)
+          if (box.isEmpty)
+            InkStroke(color: s.color, width: 0.01, points: const [])
+          else
+            InkStroke(
+              color: s.color,
+              width: 6 / box.width,
+              points: [
+                for (final p in s.pts) ...[p.dx / box.width, p.dy / box.height],
+              ],
+            ),
+      ],
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(l.draw),
         actions: [
-          IconButton(tooltip: l.undo, onPressed: strokes.isEmpty ? null : () => setState(strokes.removeLast), icon: const Icon(Icons.undo)),
+          IconButton(
+            tooltip: l.undo,
+            onPressed: strokes.isEmpty
+                ? null
+                : () => setState(strokes.removeLast),
+            icon: const Icon(Icons.undo),
+          ),
           FilledButton(
             key: const Key('stickIt'),
-            onPressed: strokes.isEmpty ? null : () => Navigator.pop(context, _normalized()),
+            onPressed: strokes.isEmpty
+                ? null
+                : () => Navigator.pop(context, _normalized()),
             child: Text(l.stick),
           ),
           const SizedBox(width: 8),
         ],
       ),
-      body: LayoutBuilder(builder: (context, c) {
-        box = Size(c.maxWidth, c.maxHeight);
-        return GestureDetector(
-          key: const Key('inkCanvas'),
-          onPanStart: (d) => setState(() => strokes.add((color: color, pts: [d.localPosition]))),
-          onPanUpdate: (d) => setState(() => strokes.last.pts.add(d.localPosition)),
-          child: CustomPaint(painter: InkPainter(preview), size: Size.infinite, child: const SizedBox.expand()),
-        );
-      }),
+      body: LayoutBuilder(
+        builder: (context, c) {
+          box = Size(c.maxWidth, c.maxHeight);
+          return GestureDetector(
+            key: const Key('inkCanvas'),
+            onPanStart: (d) => setState(
+              () => strokes.add((color: color, pts: [d.localPosition])),
+            ),
+            onPanUpdate: (d) =>
+                setState(() => strokes.last.pts.add(d.localPosition)),
+            child: CustomPaint(
+              painter: InkPainter(preview),
+              size: Size.infinite,
+              child: const SizedBox.expand(),
+            ),
+          );
+        },
+      ),
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12),
-          child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            for (var i = 0; i < inkPalette.length; i++)
-              GestureDetector(
-                onTap: () => setState(() => color = i),
-                child: Container(
-                  width: 32,
-                  height: 32,
-                  decoration: BoxDecoration(
-                    color: inkPalette[i],
-                    shape: BoxShape.circle,
-                    border: Border.all(color: i == color ? Colors.white : Colors.transparent, width: 3),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (var i = 0; i < inkPalette.length; i++)
+                GestureDetector(
+                  onTap: () => setState(() => color = i),
+                  child: Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: inkPalette[i],
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: i == color ? Colors.white : Colors.transparent,
+                        width: 3,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-          ]),
+            ],
+          ),
         ),
       ),
     );

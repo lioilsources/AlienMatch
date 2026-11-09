@@ -323,4 +323,35 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get encouragementWall => 'Mural do farol';
+
+  @override
+  String get flybyTitle => 'Cruzamento';
+
+  @override
+  String get flybyBody =>
+      'O telemóvel deteta por Bluetooth outros telemóveis com AlienMatch por perto, por exemplo no mesmo elétrico. Sem localização. Só sabes quem era se acenarem os dois.';
+
+  @override
+  String get flybyRadioOff =>
+      'O Bluetooth está desligado ou falta a permissão.';
+
+  @override
+  String get flybyVehicle => 'mesma viagem';
+
+  @override
+  String get flybyStop => 'mesma paragem';
+
+  @override
+  String get flybyVenue => 'mesmo local';
+
+  @override
+  String flybyMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get flybyComet => 'Cruzaram-se';
+
+  @override
+  String get flybyStrip => 'Cruzamentos';
 }

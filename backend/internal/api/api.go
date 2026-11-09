@@ -70,6 +70,7 @@ func Handler(svc *service.Service, auth Authenticator, log *slog.Logger, opts ..
 	mux.HandleFunc("PUT /v1/me/photo", h.withUser(h.setPhoto))
 	mux.HandleFunc("GET /v1/users/{id}/photo", h.withUser(h.photo))
 	h.routesWalls(mux)
+	h.routesFlyby(mux)
 	return noCoordinates(mux)
 }
 
@@ -159,6 +160,8 @@ type RadarPlanet struct {
 	// user's list is revealed beyond this one id.
 	Star       string `json:"star,omitempty"`
 	WeakSignal bool   `json:"weak_signal,omitempty"`
+	// Comet: mutual fly-by contact type (vehicle | stop | venue). Never time or place.
+	Comet string `json:"comet,omitempty"`
 }
 
 func (h *handler) radar(w http.ResponseWriter, r *http.Request) {
@@ -180,6 +183,7 @@ func (h *handler) radar(w http.ResponseWriter, r *http.Request) {
 			Level: c.Profile.State.Level, Trend: c.Profile.State.Trend,
 			Intents: c.SharedIntents,
 			Star:    e.Constellation.Star, WeakSignal: e.Constellation.WeakSignal,
+			Comet: e.Comet,
 		})
 	}
 	writeJSON(w, http.StatusOK, map[string]any{"off_radar": false, "planets": out})

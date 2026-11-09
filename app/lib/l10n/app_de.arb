@@ -99,5 +99,14 @@
   "peel": "Abziehen",
   "wallEnded": "Diese Wand ist beendet.",
   "pendingSync": "Warte auf Verbindung",
-  "encouragementWall": "Leuchtturm-Wand"
+  "encouragementWall": "Leuchtturm-Wand",
+  "flybyTitle": "Vorbeiflug",
+  "flybyBody": "Dein Handy erkennt andere AlienMatch-Handys in der Nähe per Bluetooth, etwa in derselben Tram. Kein Standort. Wer es war, erfährst du nur, wenn ihr beide winkt.",
+  "flybyRadioOff": "Bluetooth ist aus oder die Berechtigung fehlt.",
+  "flybyVehicle": "dieselbe Fahrt",
+  "flybyStop": "dieselbe Haltestelle",
+  "flybyVenue": "derselbe Ort",
+  "flybyMinutes": "{minutes} Min.",
+  "flybyComet": "Ihr habt euch getroffen",
+  "flybyStrip": "Vorbeiflüge"
 }

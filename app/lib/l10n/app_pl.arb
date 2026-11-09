@@ -99,5 +99,14 @@
   "peel": "Odklej",
   "wallEnded": "Ta ściana się zakończyła.",
   "pendingSync": "Czeka na połączenie",
-  "encouragementWall": "Ściana latarni"
+  "encouragementWall": "Ściana latarni",
+  "flybyTitle": "Przelot",
+  "flybyBody": "Telefon przez Bluetooth zauważa inne telefony z AlienMatch w pobliżu, np. w tym samym tramwaju. Bez lokalizacji. Kto to był, dowiesz się tylko, gdy oboje pomachacie.",
+  "flybyRadioOff": "Bluetooth jest wyłączony lub brak uprawnień.",
+  "flybyVehicle": "ten sam kurs",
+  "flybyStop": "ten sam przystanek",
+  "flybyVenue": "to samo miejsce",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Spotkaliście się",
+  "flybyStrip": "Przeloty"
 }

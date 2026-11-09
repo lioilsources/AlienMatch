@@ -99,5 +99,14 @@
   "peel": "Odlepit",
   "wallEnded": "Tahle zeď skončila.",
   "pendingSync": "Čeká na připojení",
-  "encouragementWall": "Zeď majáku"
+  "encouragementWall": "Zeď majáku",
+  "flybyTitle": "Průlet",
+  "flybyBody": "Telefon přes Bluetooth pozná jiné AlienMatch telefony poblíž, třeba ve stejné tramvaji. Polohu nepoužívá. Kdo to byl, se dozvíš, jen když zamáváte oba.",
+  "flybyRadioOff": "Bluetooth je vypnutý nebo chybí povolení.",
+  "flybyVehicle": "stejný spoj",
+  "flybyStop": "stejná zastávka",
+  "flybyVenue": "stejný podnik",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Potkali jste se",
+  "flybyStrip": "Průlety"
 }

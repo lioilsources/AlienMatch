@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../api/api.dart';
+import '../flyby/controller.dart';
 
 /// Where the token lives. Abstracted so tests do not need platform channels.
 abstract class TokenStore {
@@ -25,10 +26,23 @@ enum Stage { loading, welcome, onboarding, home }
 
 /// App-wide session: the anonymous account token and the caller's profile.
 class AppState extends ChangeNotifier {
-  AppState({required this.api, required this.tokens});
+  AppState({required this.api, required this.tokens, this.flybyFactory});
 
   final Api api;
   final TokenStore tokens;
+
+  /// Builds the fly-by controller (native BLE in the app, fakes in tests).
+  final FlybyController Function(Api api)? flybyFactory;
+  FlybyController? _flyby;
+
+  /// Layer B, created on first use and loaded once.
+  FlybyController? get flyby {
+    if (_flyby == null && flybyFactory != null) {
+      _flyby = flybyFactory!(api)..load();
+    }
+    return _flyby;
+  }
+
   Stage stage = Stage.loading;
   Me? me;
   Object? error;
@@ -73,6 +87,9 @@ class AppState extends ChangeNotifier {
 
   Future<void> deleteAccount() async {
     await api.deleteAccount();
+    await _flyby?.store.wipe();
+    _flyby?.dispose();
+    _flyby = null;
     await tokens.clear();
     api.token = null;
     me = null;
@@ -87,7 +104,9 @@ class AppState extends ChangeNotifier {
 
 /// Exposes [AppState] to the widget tree.
 class AppScope extends InheritedNotifier<AppState> {
-  const AppScope({super.key, required AppState state, required super.child}) : super(notifier: state);
+  const AppScope({super.key, required AppState state, required super.child})
+    : super(notifier: state);
 
-  static AppState of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<AppScope>()!.notifier!;
+  static AppState of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<AppScope>()!.notifier!;
 }
