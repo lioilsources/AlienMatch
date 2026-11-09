@@ -21,3 +21,7 @@ run/
 # path dependencies (packages/) make the lock machine-specific
 app/pubspec.lock
 packages/*/pubspec.lock
+
+# deploy artifacts
+deploy/joda/bin/
+deploy/joda/data/
