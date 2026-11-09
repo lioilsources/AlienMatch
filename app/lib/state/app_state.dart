@@ -48,7 +48,14 @@ class AppState extends ChangeNotifier {
   Object? error;
 
   Future<void> load() async {
-    final t = await tokens.read();
+    String? t;
+    try {
+      t = await tokens.read();
+    } catch (e) {
+      // Unreadable keychain: start over rather than spin forever.
+      error = e;
+      t = null;
+    }
     if (t == null) {
       _set(Stage.welcome);
       return;
@@ -73,6 +80,7 @@ class AppState extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
+      // Network down or timed out: the UI shows a retry button.
       error = e;
       notifyListeners();
     }

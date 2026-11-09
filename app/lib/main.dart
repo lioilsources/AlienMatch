@@ -14,6 +14,8 @@ import 'l10n/app_localizations.dart';
 import 'state/app_state.dart';
 
 void main() {
+  // Must run before AppState.load(): reading the token uses a platform channel.
+  WidgetsFlutterBinding.ensureInitialized();
   final state = AppState(
     api: Api(),
     tokens: SecureTokenStore(),
@@ -58,6 +60,24 @@ class _Root extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = AppScope.of(context);
     return switch (s.stage) {
+      Stage.loading when s.error != null => Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('📡', style: TextStyle(fontSize: 64)),
+              const SizedBox(height: 16),
+              Text(AppLocalizations.of(context).errorGeneric),
+              const SizedBox(height: 16),
+              FilledButton(
+                key: const Key('startupRetry'),
+                onPressed: s.refresh,
+                child: Text(AppLocalizations.of(context).retry),
+              ),
+            ],
+          ),
+        ),
+      ),
       Stage.loading => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
