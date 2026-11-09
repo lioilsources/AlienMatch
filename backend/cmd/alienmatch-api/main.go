@@ -48,6 +48,7 @@ func run(log *slog.Logger) error {
 		auth = denyAll{} // real auth lands in phase 2
 	}
 	svc := &service.Service{Store: store.New(pool), Now: time.Now}
+	go housekeeping(ctx, svc, log)
 	srv := &http.Server{Addr: addr, Handler: api.Handler(svc, auth, log), ReadHeaderTimeout: 5 * time.Second}
 	go func() {
 		<-ctx.Done()
@@ -60,6 +61,25 @@ func run(log *slog.Logger) error {
 		return err
 	}
 	return nil
+}
+
+// housekeeping refreshes k-anonymity counts and enforces TTLs every 10 minutes.
+func housekeeping(ctx context.Context, svc *service.Service, log *slog.Logger) {
+	t := time.NewTicker(10 * time.Minute)
+	defer t.Stop()
+	for {
+		st, err := svc.Housekeeping(ctx)
+		if err != nil {
+			log.Error("housekeeping", "err", err)
+		} else {
+			log.Info("housekeeping", "tek", st.TEK, "encounters", st.Encounters, "venue_checkins", st.VenueCheckins, "events", st.Events)
+		}
+		select {
+		case <-ctx.Done():
+			return
+		case <-t.C:
+		}
+	}
 }
 
 type denyAll struct{}

@@ -16,3 +16,4 @@ bin/
 
 # runtime data
 run/
+!/bin/

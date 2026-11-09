@@ -17,6 +17,8 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - `backend/internal/mood` — fúze self/VL skóre, level, trend, čerstvost, pauza pro podporu
 - `backend/internal/matching` — matice §1.3, kandidáti na radar
 - `backend/internal/db` — migrace (embed, golang-migrate), sqlc dotazy, generovaný kód v `sqlc/`
+- `backend/internal/places` — souhvězdí, k-anonymita, ranking; `catalog` — import GTFS/OSM
+- `backend/cmd/places-import`, `bin/fetch-catalog-praha.sh` — katalog míst (data do `run/`)
 - `backend/internal/store` — Postgres adaptér; `service` — use-casy; `api` — HTTP
 - `backend/cmd/alienmatch-api` — server
 - `Prompts/` — zadání
@@ -29,9 +31,11 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - Slovník: nálada / energie / signál. Nikdy „deprese“, „bipolární“, „porucha“; BiPolarMonitor se do produktu nepropisuje.
 - Žádné video/audio/raw snímky na serveru; ukládají se jen skóre a timestampy.
 - API nevrací čísla nálady, jen level/trend pro auru.
+- **Server nikdy nedostane souřadnici uživatele.** `lat/lon` jen v katalogu `places`; API je odmítá. Místa max 8, zobrazení jen při k ≥ 5 a nejvýš jedno. TTL vrstev B a C vynucuje job. Viz `docs/GPS.md`.
+- Katalog nikdy neobsahuje zdravotnictví, bydlení, ZŠ ani SŠ.
 - Do matchingu jen stav < 36 h. VL je poradní, self skóre má přednost.
 - Žádná SDK třetích stran pro tracking/analytiku.
 - Nasazenou migraci needitovat, přidat novou. `internal/db/sqlc` ručně needitovat.
 
 ## Kam dál
-`docs/STAV.md` (co je hotové, otevřené otázky), `Prompts/00-SEZNAMKA_PLAN.md`.
+`docs/STAV.md` (co je hotové), `docs/GPS.md` (místa), `Prompts/`.
