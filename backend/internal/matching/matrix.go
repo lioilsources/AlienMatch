@@ -4,7 +4,7 @@
 // by a database trigger (see db/migrations) so no code path can bypass it.
 package matching
 
-import "github.com/lioilsources/Mimo/backend/internal/mood"
+import "github.com/lioilsources/AlienMatch/backend/internal/mood"
 
 // Signal is a user's current (level, trend).
 type Signal struct {
@@ -108,6 +108,8 @@ type Party struct {
 	CanBeBeacon bool
 	// SupportPause: repeated LOW with low valence; romance paused.
 	SupportPause bool
+	// BeaconOnly: beacon profile that does not seek a relationship; never romantic.
+	BeaconOnly bool
 }
 
 // Options are rollout switches. The zero value is the MVP.
@@ -145,7 +147,7 @@ func Decide(a, b Party, opt Options) Result {
 }
 
 func romantic(a, b Party) Result {
-	if a.SupportPause || b.SupportPause {
+	if a.SupportPause || b.SupportPause || a.BeaconOnly || b.BeaconOnly {
 		return None
 	}
 	return Match

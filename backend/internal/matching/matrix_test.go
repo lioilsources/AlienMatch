@@ -3,7 +3,7 @@ package matching
 import (
 	"testing"
 
-	"github.com/lioilsources/Mimo/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
 )
 
 var allLevels = []mood.Level{mood.LevelLow, mood.LevelMid, mood.LevelHigh}
@@ -137,5 +137,15 @@ func TestSupportPausePausesRomanceKeepsEncouragement(t *testing.T) {
 	seeker := Party{Signal: low, WantsEncouragement: true, SupportPause: true}
 	if r := Decide(Party{Signal: hUp, CanBeBeacon: true}, seeker, Options{}); r != Encourage {
 		t.Errorf("support pause encouragement = %v, want Encourage", r)
+	}
+}
+
+func TestBeaconOnlyNeverRomantic(t *testing.T) {
+	b := Party{Signal: hUp, CanBeBeacon: true, BeaconOnly: true}
+	if r := Decide(b, Party{Signal: hUp}, Options{EnableOptional: true}); r != None {
+		t.Errorf("beacon-only romantic = %v, want None", r)
+	}
+	if r := Decide(b, Party{Signal: low, WantsEncouragement: true}, Options{}); r != Encourage {
+		t.Errorf("beacon-only encouragement = %v, want Encourage", r)
 	}
 }

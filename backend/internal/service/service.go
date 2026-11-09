@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/lioilsources/Mimo/backend/internal/matching"
-	"github.com/lioilsources/Mimo/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/matching"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
 )
 
 // HistoryWindow is how many recent check-ins are loaded to compute state.
@@ -21,10 +21,22 @@ type Settings struct {
 	Weights   mood.Weights
 }
 
+// Mode is how the check-in was recorded. Media never reach the API.
+type Mode string
+
+const (
+	ModeVideo Mode = "video" // video + voice (default)
+	ModeVoice Mode = "voice" // voice-only fallback
+)
+
+// ErrBadMode is returned for an unknown check-in mode.
+var ErrBadMode = errors.New("service: bad check-in mode")
+
 // CheckinRecord is what gets persisted: scores only, never media.
 type CheckinRecord struct {
 	UserID string
 	At     time.Time
+	Mode   Mode
 	Self   float64
 	VL     *mood.VLScore
 	Fused  mood.Fused
@@ -58,7 +70,10 @@ type CheckinResult struct {
 }
 
 // Checkin fuses scores, stores them and recomputes the user's state.
-func (s *Service) Checkin(ctx context.Context, userID string, self float64, vl *mood.VLScore) (CheckinResult, error) {
+func (s *Service) Checkin(ctx context.Context, userID string, mode Mode, self float64, vl *mood.VLScore) (CheckinResult, error) {
+	if mode != ModeVideo && mode != ModeVoice {
+		return CheckinResult{}, ErrBadMode
+	}
 	set, err := s.Store.Settings(ctx, userID)
 	if err != nil {
 		return CheckinResult{}, fmt.Errorf("settings: %w", err)
@@ -71,7 +86,7 @@ func (s *Service) Checkin(ctx context.Context, userID string, self float64, vl *
 		return CheckinResult{}, err
 	}
 	now := s.Now()
-	if err := s.Store.InsertCheckin(ctx, CheckinRecord{UserID: userID, At: now, Self: self, VL: vl, Fused: fused}); err != nil {
+	if err := s.Store.InsertCheckin(ctx, CheckinRecord{UserID: userID, At: now, Mode: mode, Self: self, VL: vl, Fused: fused}); err != nil {
 		return CheckinResult{}, fmt.Errorf("insert checkin: %w", err)
 	}
 	st, pause, err := s.Recompute(ctx, userID)

@@ -1,6 +1,6 @@
 -- name: InsertCheckin :one
-INSERT INTO checkins (user_id, at, self_score, vl_energy, vl_valence, vl_confidence, mood, disagreement)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+INSERT INTO checkins (user_id, at, mode, self_score, vl_energy, vl_valence, vl_confidence, mood, disagreement)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING id;
 
 -- name: RecentCheckins :many

@@ -12,14 +12,15 @@ import (
 )
 
 const insertCheckin = `-- name: InsertCheckin :one
-INSERT INTO checkins (user_id, at, self_score, vl_energy, vl_valence, vl_confidence, mood, disagreement)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+INSERT INTO checkins (user_id, at, mode, self_score, vl_energy, vl_valence, vl_confidence, mood, disagreement)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING id
 `
 
 type InsertCheckinParams struct {
 	UserID       pgtype.UUID        `json:"user_id"`
 	At           pgtype.Timestamptz `json:"at"`
+	Mode         CheckinMode        `json:"mode"`
 	SelfScore    float32            `json:"self_score"`
 	VlEnergy     pgtype.Float4      `json:"vl_energy"`
 	VlValence    pgtype.Float4      `json:"vl_valence"`
@@ -32,6 +33,7 @@ func (q *Queries) InsertCheckin(ctx context.Context, arg InsertCheckinParams) (i
 	row := q.db.QueryRow(ctx, insertCheckin,
 		arg.UserID,
 		arg.At,
+		arg.Mode,
 		arg.SelfScore,
 		arg.VlEnergy,
 		arg.VlValence,

@@ -4,7 +4,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/lioilsources/Mimo/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
 )
 
 // Generation flag; no numeric age anywhere in the product.

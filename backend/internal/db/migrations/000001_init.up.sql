@@ -1,4 +1,4 @@
--- MIMO core schema. Deployed migrations are immutable: add a new file instead.
+-- AlienMatch core schema. Deployed migrations are immutable: add a new file instead.
 -- Privacy: check-ins keep scores only; no video, audio or raw frames are ever stored.
 
 CREATE TYPE mood_level AS ENUM ('LOW', 'MID', 'HIGH');
@@ -6,6 +6,7 @@ CREATE TYPE mood_trend AS ENUM ('RISING', 'FLAT', 'FALLING');
 CREATE TYPE generation AS ENUM ('genz', 'millennial', 'genx', 'boomer');
 CREATE TYPE rel_status AS ENUM ('single', 'married', 'divorced', 'complicated');
 CREATE TYPE match_kind AS ENUM ('match', 'encourage');
+CREATE TYPE checkin_mode AS ENUM ('video', 'voice'); -- voice-only fallback for shy users
 
 CREATE TABLE users (
     id                    uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -32,6 +33,7 @@ CREATE TABLE profiles (
     seek_statuses         rel_status[] NOT NULL DEFAULT '{}',
     can_be_beacon         boolean NOT NULL DEFAULT false,
     wants_encouragement   boolean NOT NULL DEFAULT false,
+    beacon_only           boolean NOT NULL DEFAULT false, -- beacon profile not seeking a relationship: never romantic
     updated_at            timestamptz NOT NULL DEFAULT now()
 );
 
@@ -45,6 +47,7 @@ CREATE TABLE checkins (
     id                    bigserial PRIMARY KEY,
     user_id               uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     at                    timestamptz NOT NULL,
+    mode                  checkin_mode NOT NULL,
     self_score            real NOT NULL CHECK (self_score BETWEEN 0 AND 1),
     vl_energy             real CHECK (vl_energy BETWEEN 0 AND 1),
     vl_valence            real CHECK (vl_valence BETWEEN 0 AND 1),
@@ -97,22 +100,25 @@ BEGIN
     SELECT level INTO la FROM mood_state WHERE user_id = NEW.user_a;
     SELECT level INTO lb FROM mood_state WHERE user_id = NEW.user_b;
     IF la IS NULL OR lb IS NULL THEN
-        RAISE EXCEPTION 'mimo: match needs mood state for both users' USING ERRCODE = 'check_violation';
+        RAISE EXCEPTION 'alienmatch: match needs mood state for both users' USING ERRCODE = 'check_violation';
     END IF;
     IF la = 'LOW' AND lb = 'LOW' THEN
-        RAISE EXCEPTION 'mimo: LOW x LOW is never allowed' USING ERRCODE = 'check_violation';
+        RAISE EXCEPTION 'alienmatch: LOW x LOW is never allowed' USING ERRCODE = 'check_violation';
     END IF;
     IF NEW.kind = 'match' AND (la = 'LOW' OR lb = 'LOW') THEN
-        RAISE EXCEPTION 'mimo: LOW user cannot get a romantic match' USING ERRCODE = 'check_violation';
+        RAISE EXCEPTION 'alienmatch: LOW user cannot get a romantic match' USING ERRCODE = 'check_violation';
+    END IF;
+    SELECT * INTO pa FROM profiles WHERE user_id = NEW.user_a;
+    SELECT * INTO pb FROM profiles WHERE user_id = NEW.user_b;
+    IF NEW.kind = 'match' AND (pa.beacon_only OR pb.beacon_only) THEN
+        RAISE EXCEPTION 'alienmatch: beacon-only profile cannot get a romantic match' USING ERRCODE = 'check_violation';
     END IF;
     IF NEW.kind = 'encourage' THEN
-        SELECT * INTO pa FROM profiles WHERE user_id = NEW.user_a;
-        SELECT * INTO pb FROM profiles WHERE user_id = NEW.user_b;
         IF NOT (
             (la = 'HIGH' AND lb = 'LOW' AND pa.can_be_beacon AND pb.wants_encouragement) OR
             (lb = 'HIGH' AND la = 'LOW' AND pb.can_be_beacon AND pa.wants_encouragement)
         ) THEN
-            RAISE EXCEPTION 'mimo: encouragement needs HIGH beacon x LOW seeker with both opt-ins' USING ERRCODE = 'check_violation';
+            RAISE EXCEPTION 'alienmatch: encouragement needs HIGH beacon x LOW seeker with both opt-ins' USING ERRCODE = 'check_violation';
         END IF;
     END IF;
     RETURN NEW;

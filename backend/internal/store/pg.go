@@ -11,10 +11,10 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/lioilsources/Mimo/backend/internal/db/sqlc"
-	"github.com/lioilsources/Mimo/backend/internal/matching"
-	"github.com/lioilsources/Mimo/backend/internal/mood"
-	"github.com/lioilsources/Mimo/backend/internal/service"
+	"github.com/lioilsources/AlienMatch/backend/internal/db/sqlc"
+	"github.com/lioilsources/AlienMatch/backend/internal/matching"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/service"
 )
 
 // PG is the Postgres store.
@@ -72,6 +72,7 @@ func (s *PG) InsertCheckin(ctx context.Context, c service.CheckinRecord) error {
 	_, err = s.q.InsertCheckin(ctx, sqlc.InsertCheckinParams{
 		UserID:       id,
 		At:           ts(c.At),
+		Mode:         sqlc.CheckinMode(c.Mode),
 		SelfScore:    float32(c.Self),
 		VlEnergy:     f4(c.VL, func(v mood.VLScore) float64 { return v.Energy }),
 		VlValence:    f4(c.VL, func(v mood.VLScore) float64 { return v.Valence }),
@@ -145,6 +146,7 @@ func (s *PG) Pool(ctx context.Context, region string, freshAfter time.Time) ([]m
 				CanBeBeacon:        r.CanBeBeacon,
 				WantsEncouragement: r.WantsEncouragement,
 				SupportPause:       r.SupportPause,
+				BeaconOnly:         r.BeaconOnly,
 			},
 		}
 		for _, g := range r.SeekGenerations {

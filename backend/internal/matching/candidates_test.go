@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lioilsources/Mimo/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
 )
 
 var now = time.Date(2026, 11, 9, 12, 0, 0, 0, time.UTC)

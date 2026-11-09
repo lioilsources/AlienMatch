@@ -1,4 +1,4 @@
-// Command mimo-api serves profiles, check-ins and the radar.
+// Command alienmatch-api serves profiles, check-ins and the radar.
 package main
 
 import (
@@ -12,10 +12,10 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/lioilsources/Mimo/backend/internal/api"
-	"github.com/lioilsources/Mimo/backend/internal/db"
-	"github.com/lioilsources/Mimo/backend/internal/service"
-	"github.com/lioilsources/Mimo/backend/internal/store"
+	"github.com/lioilsources/AlienMatch/backend/internal/api"
+	"github.com/lioilsources/AlienMatch/backend/internal/db"
+	"github.com/lioilsources/AlienMatch/backend/internal/service"
+	"github.com/lioilsources/AlienMatch/backend/internal/store"
 )
 
 func main() {
@@ -27,8 +27,8 @@ func main() {
 }
 
 func run(log *slog.Logger) error {
-	dbURL := os.Getenv("MIMO_DATABASE_URL")
-	addr := envOr("MIMO_ADDR", ":8080")
+	dbURL := os.Getenv("ALIENMATCH_DATABASE_URL")
+	addr := envOr("ALIENMATCH_ADDR", ":8080")
 	if err := db.Migrate(dbURL); err != nil {
 		return err
 	}
@@ -41,8 +41,8 @@ func run(log *slog.Logger) error {
 	defer pool.Close()
 
 	var auth api.Authenticator
-	if os.Getenv("MIMO_DEV_AUTH") == "1" {
-		log.Warn("dev auth enabled: X-Mimo-User header is trusted")
+	if os.Getenv("ALIENMATCH_DEV_AUTH") == "1" {
+		log.Warn("dev auth enabled: X-AlienMatch-User header is trusted")
 		auth = api.DevAuth{}
 	} else {
 		auth = denyAll{} // real auth lands in phase 2

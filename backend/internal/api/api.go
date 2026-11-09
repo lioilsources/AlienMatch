@@ -1,4 +1,4 @@
-// Package api is the HTTP surface of mimo-api.
+// Package api is the HTTP surface of alienmatch-api.
 //
 // Product rule: no endpoint accepts free text from users except the moderated
 // nickname. Messages are stickers (media keys), never strings.
@@ -11,9 +11,9 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/lioilsources/Mimo/backend/internal/matching"
-	"github.com/lioilsources/Mimo/backend/internal/mood"
-	"github.com/lioilsources/Mimo/backend/internal/service"
+	"github.com/lioilsources/AlienMatch/backend/internal/matching"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/service"
 )
 
 // Authenticator resolves the calling user. Real auth (magic link, Apple,
@@ -22,11 +22,11 @@ type Authenticator interface {
 	UserID(r *http.Request) (string, bool)
 }
 
-// DevAuth trusts the X-Mimo-User header. Never enable in production.
+// DevAuth trusts the X-AlienMatch-User header. Never enable in production.
 type DevAuth struct{}
 
 func (DevAuth) UserID(r *http.Request) (string, bool) {
-	u := r.Header.Get("X-Mimo-User")
+	u := r.Header.Get("X-AlienMatch-User")
 	return u, u != ""
 }
 
@@ -64,6 +64,7 @@ func userOf(r *http.Request) string { return r.Context().Value(userKey{}).(strin
 // CheckinRequest comes from the mood-worker result plus the self scale.
 // The app never uploads media here; video/audio go to SPARK and are discarded.
 type CheckinRequest struct {
+	Mode service.Mode  `json:"mode"` // video (default) | voice
 	Self float64       `json:"self"`
 	VL   *mood.VLScore `json:"vl,omitempty"`
 }
@@ -82,8 +83,14 @@ func (h *handler) checkin(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, http.StatusBadRequest, "bad json")
 		return
 	}
-	res, err := h.svc.Checkin(r.Context(), userOf(r), req.Self, req.VL)
+	if req.Mode == "" {
+		req.Mode = service.ModeVideo
+	}
+	res, err := h.svc.Checkin(r.Context(), userOf(r), req.Mode, req.Self, req.VL)
 	switch {
+	case errors.Is(err, service.ErrBadMode):
+		writeErr(w, http.StatusBadRequest, "bad mode")
+		return
 	case errors.Is(err, mood.ErrOutOfRange):
 		writeErr(w, http.StatusBadRequest, "score out of range")
 		return

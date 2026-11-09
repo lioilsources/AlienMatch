@@ -11,6 +11,48 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type CheckinMode string
+
+const (
+	CheckinModeVideo CheckinMode = "video"
+	CheckinModeVoice CheckinMode = "voice"
+)
+
+func (e *CheckinMode) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = CheckinMode(s)
+	case string:
+		*e = CheckinMode(s)
+	default:
+		return fmt.Errorf("unsupported scan type for CheckinMode: %T", src)
+	}
+	return nil
+}
+
+type NullCheckinMode struct {
+	CheckinMode CheckinMode `json:"checkin_mode"`
+	Valid       bool        `json:"valid"` // Valid is true if CheckinMode is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullCheckinMode) Scan(value interface{}) error {
+	if value == nil {
+		ns.CheckinMode, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.CheckinMode.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullCheckinMode) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.CheckinMode), nil
+}
+
 type Generation string
 
 const (
@@ -231,6 +273,7 @@ type Checkin struct {
 	ID           int64              `json:"id"`
 	UserID       pgtype.UUID        `json:"user_id"`
 	At           pgtype.Timestamptz `json:"at"`
+	Mode         CheckinMode        `json:"mode"`
 	SelfScore    float32            `json:"self_score"`
 	VlEnergy     pgtype.Float4      `json:"vl_energy"`
 	VlValence    pgtype.Float4      `json:"vl_valence"`
@@ -289,6 +332,7 @@ type Profile struct {
 	SeekStatuses       []RelStatus        `json:"seek_statuses"`
 	CanBeBeacon        bool               `json:"can_be_beacon"`
 	WantsEncouragement bool               `json:"wants_encouragement"`
+	BeaconOnly         bool               `json:"beacon_only"`
 	UpdatedAt          pgtype.Timestamptz `json:"updated_at"`
 }
 

@@ -1,7 +1,7 @@
 -- name: MatchingPool :many
 -- Fresh profiles in one region; freshness cutoff is passed in (now - 36h).
 SELECT p.user_id, p.generation, p.status, p.region,
-       p.seek_generations::text[] AS seek_generations, p.seek_statuses::text[] AS seek_statuses, p.can_be_beacon, p.wants_encouragement,
+       p.seek_generations::text[] AS seek_generations, p.seek_statuses::text[] AS seek_statuses, p.can_be_beacon, p.wants_encouragement, p.beacon_only,
        s.level, s.trend, s.mood, s.last_checkin_at, s.support_pause,
        COALESCE(array_agg(t.tag) FILTER (WHERE t.tag IS NOT NULL), '{}')::text[] AS intents
 FROM profiles p

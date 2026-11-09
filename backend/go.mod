@@ -1,4 +1,4 @@
-module github.com/lioilsources/Mimo/backend
+module github.com/lioilsources/AlienMatch/backend
 
 go 1.25.11
 

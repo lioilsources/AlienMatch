@@ -15,7 +15,7 @@ Aktualizováno 2026-11-09.
   filtry hledám/generace/status/kraj, sdílený intent povinný, u povzbuzení jen pokec/kafe/čaj.
 - Postgres schéma (všechny tabulky z §4) + trigger `matches_guard`: LOW×LOW ani LOW v romantickém
   matchi nejde vložit ani holým SQL (integrační test).
-- `mimo-api`: `POST /v1/checkins`, `GET /v1/radar`, migrace při startu, dev auth.
+- `alienmatch-api`: `POST /v1/checkins` (režim video/voice), `GET /v1/radar`, migrace při startu, dev auth.
 
 ## Rozhodnutí, která jsem udělal sám (k revizi)
 
@@ -32,11 +32,11 @@ Aktualizováno 2026-11-09.
   (Whisper + VL přes LiteLLM), matching job à 10 min, waves → match, zeď.
 - Fáze 3+: Flutter appka, realtime zeď, moderace, IAP, smazání účtu včetně MinIO.
 
-## Otevřené otázky pro Olina (§8 plánu)
+## Rozhodnutí Olina (2026-11-09, §8 hlavního plánu)
 
-1. Název a doména?
-2. Originální (nesymetrická) fotka někdy odemknutelná, nebo „jen mimozemšťan“ navždy?
-3. Check-in: povinně video + hlas, nebo i fallback hlas-only / foto-only?
-4. Povzbuzení i pro čisté „maják“ profily, které nehledají vztah?
-5. MVP jen CZ/SK, nebo rovnou EN?
-6. Ol1n Pass: Signál+ lifetime, nebo jen jednorázové packy?
+1. Název **AlienMatch**, veřejné repo `lioilsources/AlienMatch`. Doména zatím nerozhodnuta.
+2. Originální (nesymetrická) fotka se **nikdy** neodemyká.
+3. Check-in: video + hlas, nebo fallback **jen hlas** (`mode: voice`). Jiné režimy nejsou.
+4. Profily „jen maják“ (nehledají vztah) jsou povolené: sloupec `beacon_only`, nikdy romantický match.
+5. Lokalizace do **všech jazyků** od začátku (stickers jsou jazykově neutrální; UI přes ARB).
+6. Ol1n Pass kryje Signál+ **lifetime** (`entitlements.source = ol1n_pass`, `expires_at = NULL`).

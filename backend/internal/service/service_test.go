@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lioilsources/Mimo/backend/internal/matching"
-	"github.com/lioilsources/Mimo/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/matching"
+	"github.com/lioilsources/AlienMatch/backend/internal/mood"
 )
 
 type fakeStore struct {
@@ -84,7 +84,7 @@ func TestCheckinRespectsVLOff(t *testing.T) {
 	f.settings["u"] = Settings{VLEnabled: false, Weights: mood.DefaultWeights()}
 	c := &clock{time.Date(2026, 11, 9, 8, 0, 0, 0, time.UTC)}
 	s := &Service{Store: f, Now: c.now}
-	res, err := s.Checkin(context.Background(), "u", 0.8, &mood.VLScore{Energy: 0, Valence: 0, Confidence: 1})
+	res, err := s.Checkin(context.Background(), "u", ModeVideo, 0.8, &mood.VLScore{Energy: 0, Valence: 0, Confidence: 1})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -104,7 +104,7 @@ func TestCheckinSupportPauseAfterFiveLowDays(t *testing.T) {
 	var res CheckinResult
 	for range 5 {
 		var err error
-		res, err = s.Checkin(context.Background(), "u", 0.1, &mood.VLScore{Energy: 0.1, Valence: 0.1, Confidence: 0.9})
+		res, err = s.Checkin(context.Background(), "u", ModeVideo, 0.1, &mood.VLScore{Energy: 0.1, Valence: 0.1, Confidence: 0.9})
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -123,7 +123,7 @@ func TestRadarOffWhenStale(t *testing.T) {
 	for _, id := range []string{"a", "b"} {
 		f.settings[id] = Settings{Weights: mood.DefaultWeights()}
 		f.profiles[id] = matching.Profile{ID: id, Region: "CZ-PHA", Generation: matching.GenZ, Status: matching.StatusSingle, Intents: []matching.Intent{matching.IntentCafe}}
-		if _, err := s.Checkin(context.Background(), id, 0.9, nil); err != nil {
+		if _, err := s.Checkin(context.Background(), id, ModeVoice, 0.9, nil); err != nil {
 			t.Fatal(err)
 		}
 	}
@@ -134,5 +134,14 @@ func TestRadarOffWhenStale(t *testing.T) {
 	c.t = base.Add(37 * time.Hour)
 	if _, err := s.Radar(context.Background(), "a"); !errors.Is(err, ErrNotFound) {
 		t.Fatalf("stale user should be off radar, err=%v", err)
+	}
+}
+
+func TestCheckinRejectsUnknownMode(t *testing.T) {
+	f := newFake()
+	f.settings["u"] = Settings{Weights: mood.DefaultWeights()}
+	s := &Service{Store: f, Now: (&clock{}).now}
+	if _, err := s.Checkin(context.Background(), "u", "photo", 0.5, nil); !errors.Is(err, ErrBadMode) {
+		t.Fatalf("err=%v", err)
 	}
 }

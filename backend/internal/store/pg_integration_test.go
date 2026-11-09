@@ -9,25 +9,36 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/lioilsources/Mimo/backend/internal/db"
-	"github.com/lioilsources/Mimo/backend/internal/matching"
+	"github.com/lioilsources/AlienMatch/backend/internal/db"
+	"github.com/lioilsources/AlienMatch/backend/internal/matching"
 )
 
-// Runs only with MIMO_TEST_DATABASE_URL pointing at a throwaway database.
+// Runs only with ALIENMATCH_TEST_DATABASE_URL pointing at a throwaway database.
 func testPool(t *testing.T) *pgxpool.Pool {
 	t.Helper()
-	url := os.Getenv("MIMO_TEST_DATABASE_URL")
+	url := os.Getenv("ALIENMATCH_TEST_DATABASE_URL")
 	if url == "" {
-		t.Skip("MIMO_TEST_DATABASE_URL not set")
-	}
-	if err := db.Migrate(url); err != nil {
-		t.Fatal(err)
+		t.Skip("ALIENMATCH_TEST_DATABASE_URL not set")
 	}
 	pool, err := pgxpool.New(context.Background(), url)
 	if err != nil {
 		t.Fatal(err)
 	}
 	t.Cleanup(pool.Close)
+	// Start every test from an empty schema; refuse anything not named *test*.
+	var name string
+	if err := pool.QueryRow(context.Background(), `SELECT current_database()`).Scan(&name); err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(name, "test") {
+		t.Fatalf("refusing to reset database %q: name must contain \"test\"", name)
+	}
+	if _, err := pool.Exec(context.Background(), `DROP SCHEMA public CASCADE; CREATE SCHEMA public`); err != nil {
+		t.Fatal(err)
+	}
+	if err := db.Migrate(url); err != nil {
+		t.Fatal(err)
+	}
 	return pool
 }
 
@@ -117,5 +128,18 @@ func TestPoolScansEnumArrays(t *testing.T) {
 	}
 	if len(ps) != 1 || len(ps[0].SeekGens) != 2 || ps[0].SeekStatus[0] != matching.StatusSingle || ps[0].Intents[0] != matching.IntentCafe {
 		t.Fatalf("pool=%+v", ps)
+	}
+}
+
+func TestDBGuardBeaconOnlyNeverRomantic(t *testing.T) {
+	pool := testPool(t)
+	ctx := context.Background()
+	a := seedUser(t, pool, "HIGH", true, false)
+	b := seedUser(t, pool, "HIGH", false, false)
+	if _, err := pool.Exec(ctx, `UPDATE profiles SET beacon_only = true WHERE user_id = $1`, a); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := New(pool).CreateMatch(ctx, a, b, matching.Match); err == nil || !strings.Contains(err.Error(), "beacon-only") {
+		t.Fatalf("err=%v, want beacon-only rejection", err)
 	}
 }
