@@ -158,6 +158,7 @@ func (s *PG) Pool(ctx context.Context, region string, freshAfter time.Time) ([]m
 		for _, t := range r.Intents {
 			p.Intents = append(p.Intents, matching.Intent(t))
 		}
+		p.Places = r.Places
 		out = append(out, p)
 	}
 	return out, nil

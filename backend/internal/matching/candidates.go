@@ -53,7 +53,8 @@ type Profile struct {
 	Intents    []Intent
 	SeekGens   []Generation // empty = any
 	SeekStatus []Status     // empty = any
-	Region     string       // coarse: district/region code, never GPS
+	Region     string       // coarse district/region code, picked by hand, never from GPS
+	Places     []string     // constellation: catalog place ids (Prompts/01-GPS.md layer A)
 	State      mood.State
 	Party      Party // Signal is filled from State by Candidates
 }

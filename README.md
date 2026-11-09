@@ -35,4 +35,18 @@ dokud nepřijde skutečné přihlášení.
 
 - `GET /healthz`
 - `POST /v1/checkins` `{"self":0.7,"vl":{"energy":…,"valence":…,"confidence":…}}` → level, trend, příznaky
-- `GET /v1/radar` → planety na radaru (`match` / `encourage`), nebo `off_radar` bez check-inu za 36 h
+- `GET /v1/radar` → planety na radaru (`match` / `encourage`, případně `star` / `weak_signal`), nebo `off_radar` bez check-inu za 36 h
+- `GET /v1/places?q=andel` → hledání v katalogu míst ve vlastním regionu
+- `PUT /v1/me/places` `{"place_ids":[…]}` → moje souhvězdí (max 8)
+- `GET /v1/me/location-data` → všechno, co server ví o mých místech
+
+Souřadnice uživatele server nikdy nepřijímá, viz `docs/GPS.md`.
+
+## Katalog míst
+
+```sh
+bin/fetch-catalog-praha.sh            # stáhne PID GTFS + OSM do run/, vypíše počty
+bin/fetch-catalog-praha.sh --import   # a zapíše do ALIENMATCH_DATABASE_URL
+```
+
+Data: jízdní řády PID © ROPID (CC BY 4.0), mapová data © přispěvatelé OpenStreetMap (ODbL).

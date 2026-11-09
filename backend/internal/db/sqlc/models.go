@@ -53,6 +53,49 @@ func (ns NullCheckinMode) Value() (driver.Value, error) {
 	return string(ns.CheckinMode), nil
 }
 
+type EncounterKind string
+
+const (
+	EncounterKindVehicle EncounterKind = "vehicle"
+	EncounterKindStop    EncounterKind = "stop"
+	EncounterKindVenue   EncounterKind = "venue"
+)
+
+func (e *EncounterKind) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = EncounterKind(s)
+	case string:
+		*e = EncounterKind(s)
+	default:
+		return fmt.Errorf("unsupported scan type for EncounterKind: %T", src)
+	}
+	return nil
+}
+
+type NullEncounterKind struct {
+	EncounterKind EncounterKind `json:"encounter_kind"`
+	Valid         bool          `json:"valid"` // Valid is true if EncounterKind is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullEncounterKind) Scan(value interface{}) error {
+	if value == nil {
+		ns.EncounterKind, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.EncounterKind.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullEncounterKind) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.EncounterKind), nil
+}
+
 type Generation string
 
 const (
@@ -225,6 +268,53 @@ func (ns NullMoodTrend) Value() (driver.Value, error) {
 	return string(ns.MoodTrend), nil
 }
 
+type PlaceKind string
+
+const (
+	PlaceKindStop    PlaceKind = "stop"
+	PlaceKindRoute   PlaceKind = "route"
+	PlaceKindPoi     PlaceKind = "poi"
+	PlaceKindEdu     PlaceKind = "edu"
+	PlaceKindOffice  PlaceKind = "office"
+	PlaceKindPartner PlaceKind = "partner"
+	PlaceKindEvent   PlaceKind = "event"
+)
+
+func (e *PlaceKind) Scan(src interface{}) error {
+	switch s := src.(type) {
+	case []byte:
+		*e = PlaceKind(s)
+	case string:
+		*e = PlaceKind(s)
+	default:
+		return fmt.Errorf("unsupported scan type for PlaceKind: %T", src)
+	}
+	return nil
+}
+
+type NullPlaceKind struct {
+	PlaceKind PlaceKind `json:"place_kind"`
+	Valid     bool      `json:"valid"` // Valid is true if PlaceKind is not NULL
+}
+
+// Scan implements the Scanner interface.
+func (ns *NullPlaceKind) Scan(value interface{}) error {
+	if value == nil {
+		ns.PlaceKind, ns.Valid = "", false
+		return nil
+	}
+	ns.Valid = true
+	return ns.PlaceKind.Scan(value)
+}
+
+// Value implements the driver Valuer interface.
+func (ns NullPlaceKind) Value() (driver.Value, error) {
+	if !ns.Valid {
+		return nil, nil
+	}
+	return string(ns.PlaceKind), nil
+}
+
 type RelStatus string
 
 const (
@@ -282,6 +372,16 @@ type Checkin struct {
 	Disagreement bool               `json:"disagreement"`
 }
 
+type Encounter struct {
+	ID     int64         `json:"id"`
+	UserA  pgtype.UUID   `json:"user_a"`
+	UserB  pgtype.UUID   `json:"user_b"`
+	Kind   EncounterKind `json:"kind"`
+	Day    pgtype.Date   `json:"day"`
+	AWaved bool          `json:"a_waved"`
+	BWaved bool          `json:"b_waved"`
+}
+
 type Entitlement struct {
 	UserID    pgtype.UUID        `json:"user_id"`
 	Product   string             `json:"product"`
@@ -319,6 +419,36 @@ type MoodState struct {
 	ComputedAt    pgtype.Timestamptz `json:"computed_at"`
 }
 
+type Partner struct {
+	PartnerID   int64       `json:"partner_id"`
+	PlaceID     string      `json:"place_id"`
+	BeaconMajor int32       `json:"beacon_major"`
+	BeaconMinor int32       `json:"beacon_minor"`
+	Plan        string      `json:"plan"`
+	Since       pgtype.Date `json:"since"`
+}
+
+type Place struct {
+	PlaceID    string             `json:"place_id"`
+	Kind       PlaceKind          `json:"kind"`
+	Name       string             `json:"name"`
+	NameSearch string             `json:"name_search"`
+	Subtype    string             `json:"subtype"`
+	Lat        pgtype.Float8      `json:"lat"`
+	Lon        pgtype.Float8      `json:"lon"`
+	Region     string             `json:"region"`
+	Source     string             `json:"source"`
+	PartnerID  pgtype.Int8        `json:"partner_id"`
+	ExpiresAt  pgtype.Timestamptz `json:"expires_at"`
+}
+
+type PlaceCount struct {
+	PlaceID     string             `json:"place_id"`
+	Region      string             `json:"region"`
+	ActiveCount int32              `json:"active_count"`
+	ComputedAt  pgtype.Timestamptz `json:"computed_at"`
+}
+
 type Profile struct {
 	UserID             pgtype.UUID        `json:"user_id"`
 	Nickname           pgtype.Text        `json:"nickname"`
@@ -334,6 +464,12 @@ type Profile struct {
 	WantsEncouragement bool               `json:"wants_encouragement"`
 	BeaconOnly         bool               `json:"beacon_only"`
 	UpdatedAt          pgtype.Timestamptz `json:"updated_at"`
+}
+
+type ProfilePlace struct {
+	UserID  pgtype.UUID        `json:"user_id"`
+	PlaceID string             `json:"place_id"`
+	AddedAt pgtype.Timestamptz `json:"added_at"`
 }
 
 type ProfileTag struct {
@@ -367,6 +503,13 @@ type Sticker struct {
 	RemovedAt  pgtype.Timestamptz `json:"removed_at"`
 }
 
+type TekUpload struct {
+	UserID pgtype.UUID `json:"user_id"`
+	Day    pgtype.Date `json:"day"`
+	Tek    []byte      `json:"tek"`
+	Region string      `json:"region"`
+}
+
 type User struct {
 	ID               pgtype.UUID        `json:"id"`
 	CreatedAt        pgtype.Timestamptz `json:"created_at"`
@@ -377,6 +520,13 @@ type User struct {
 	WVl              float32            `json:"w_vl"`
 	CheckinLocalTime pgtype.Time        `json:"checkin_local_time"`
 	DeletedAt        pgtype.Timestamptz `json:"deleted_at"`
+}
+
+type VenueCheckin struct {
+	UserID     pgtype.UUID        `json:"user_id"`
+	PlaceID    string             `json:"place_id"`
+	HourBucket pgtype.Timestamptz `json:"hour_bucket"`
+	ExpiresAt  pgtype.Timestamptz `json:"expires_at"`
 }
 
 type Wall struct {

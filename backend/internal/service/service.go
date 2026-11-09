@@ -5,10 +5,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"slices"
 	"time"
 
 	"github.com/lioilsources/AlienMatch/backend/internal/matching"
 	"github.com/lioilsources/AlienMatch/backend/internal/mood"
+	"github.com/lioilsources/AlienMatch/backend/internal/places"
 )
 
 // HistoryWindow is how many recent check-ins are loaded to compute state.
@@ -50,6 +52,7 @@ type Store interface {
 	SaveState(ctx context.Context, userID string, s mood.State, supportPause bool) error
 	Region(ctx context.Context, userID string) (string, error)
 	Pool(ctx context.Context, region string, freshAfter time.Time) ([]matching.Profile, error)
+	PlaceStore
 }
 
 // ErrNotFound is returned when the user has no profile or state.
@@ -114,8 +117,15 @@ func (s *Service) Recompute(ctx context.Context, userID string) (mood.State, boo
 	return st, pause, nil
 }
 
-// Radar returns the candidates for userID in their own (coarse) region.
-func (s *Service) Radar(ctx context.Context, userID string) ([]matching.Candidate, error) {
+// RadarEntry is one planet: a candidate plus what may be shown about shared places.
+type RadarEntry struct {
+	Candidate     matching.Candidate
+	Constellation places.Constellation
+}
+
+// Radar returns candidates for userID in their own (coarse) region, ranked
+// by shared places. The ranking score never leaves the server.
+func (s *Service) Radar(ctx context.Context, userID string) ([]RadarEntry, error) {
 	region, err := s.Store.Region(ctx, userID)
 	if err != nil {
 		return nil, fmt.Errorf("region: %w", err)
@@ -125,11 +135,21 @@ func (s *Service) Radar(ctx context.Context, userID string) ([]matching.Candidat
 	if err != nil {
 		return nil, fmt.Errorf("pool: %w", err)
 	}
-	for _, p := range pool {
-		if p.ID == userID {
-			return matching.Candidates(p, pool, now, s.Options), nil
-		}
+	idx := slices.IndexFunc(pool, func(p matching.Profile) bool { return p.ID == userID })
+	if idx < 0 {
+		// Not in the fresh pool: no check-in in 36 h, user is off the radar.
+		return nil, ErrNotFound
 	}
-	// Not in the fresh pool: no check-in in 36 h, user is off the radar.
-	return nil, ErrNotFound
+	me := pool[idx]
+	cands := matching.Candidates(me, pool, now, s.Options)
+	counts, err := s.Store.PlaceCounts(ctx, me.Places)
+	if err != nil {
+		return nil, fmt.Errorf("place counts: %w", err)
+	}
+	ranked := places.Rank(me.Places, cands, func(c matching.Candidate) []string { return c.Profile.Places }, counts)
+	out := make([]RadarEntry, len(ranked))
+	for i, r := range ranked {
+		out[i] = RadarEntry{Candidate: r.Item, Constellation: r.Constellation}
+	}
+	return out, nil
 }

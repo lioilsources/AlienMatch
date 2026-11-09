@@ -24,6 +24,10 @@ Aktualizováno 2026-11-09.
 - Pauza romantiky počítá dny s check-inem, ne kalendářní dny za sebou.
 - Neznámý level se bere jako LOW (bezpečná strana).
 
+## Místa (Prompts/01-GPS.md)
+
+Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
+
 ## Zbývá
 
 - Fáze 0: odpovědi na otázky níže, benchmark VL 7B vs 32B.
