@@ -99,5 +99,14 @@
   "peel": "Descolar",
   "wallEnded": "Este mural terminou.",
   "pendingSync": "À espera de ligação",
-  "encouragementWall": "Mural do farol"
+  "encouragementWall": "Mural do farol",
+  "flybyTitle": "Cruzamento",
+  "flybyBody": "O telemóvel deteta por Bluetooth outros telemóveis com AlienMatch por perto, por exemplo no mesmo elétrico. Sem localização. Só sabes quem era se acenarem os dois.",
+  "flybyRadioOff": "O Bluetooth está desligado ou falta a permissão.",
+  "flybyVehicle": "mesma viagem",
+  "flybyStop": "mesma paragem",
+  "flybyVenue": "mesmo local",
+  "flybyMinutes": "{minutes} min",
+  "flybyComet": "Cruzaram-se",
+  "flybyStrip": "Cruzamentos"
 }

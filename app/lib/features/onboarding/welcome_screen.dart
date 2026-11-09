@@ -44,9 +44,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             const SizedBox(height: 48),
             const Center(child: Text('👽', style: TextStyle(fontSize: 96))),
             const SizedBox(height: 16),
-            Text(l.appTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              l.appTitle,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: 8),
-            Text(l.tagline, textAlign: TextAlign.center, style: const TextStyle(color: Space.dim)),
+            Text(
+              l.tagline,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Space.dim),
+            ),
             const SizedBox(height: 40),
             CheckboxListTile(
               key: const Key('adult'),
@@ -63,11 +71,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               subtitle: Text(l.moodConsentBody),
             ),
             const SizedBox(height: 24),
-            if (failed) Text(l.errorGeneric, textAlign: TextAlign.center, style: const TextStyle(color: Colors.redAccent)),
+            if (failed)
+              Text(
+                l.errorGeneric,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.redAccent),
+              ),
             FilledButton(
               key: const Key('start'),
               onPressed: adult && !busy ? _start : null,
-              child: Padding(padding: const EdgeInsets.all(12), child: Text(l.start)),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Text(l.start),
+              ),
             ),
           ],
         ),

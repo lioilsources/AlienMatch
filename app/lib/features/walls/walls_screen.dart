@@ -34,33 +34,64 @@ class WallsScreenState extends State<WallsScreen> {
       child: FutureBuilder<List<MatchView>>(
         future: future,
         builder: (context, snap) {
-          if (snap.connectionState != ConnectionState.done) return const Center(child: CircularProgressIndicator());
+          if (snap.connectionState != ConnectionState.done) {
+            return const Center(child: CircularProgressIndicator());
+          }
           final ms = snap.data ?? const <MatchView>[];
           if (snap.hasError || ms.isEmpty) {
-            return ListView(padding: const EdgeInsets.all(32), children: [
-              const SizedBox(height: 120),
-              const Text('🪐', textAlign: TextAlign.center, style: TextStyle(fontSize: 64)),
-              const SizedBox(height: 16),
-              Text(snap.hasError ? l.errorGeneric : l.wallsEmpty, textAlign: TextAlign.center),
-            ]);
-          }
-          return ListView(children: [
-            for (final m in ms)
-              ListTile(
-                key: Key('wall-${m.wallId}'),
-                leading: ClipOval(
-                  child: SizedBox(
-                    width: 48,
-                    height: 48,
-                    child: Image.network(api.photoUrl(m.otherId), headers: api.imageHeaders, fit: BoxFit.cover, errorBuilder: (_, _, _) => const Text('👽', style: TextStyle(fontSize: 32))),
-                  ),
+            return ListView(
+              padding: const EdgeInsets.all(32),
+              children: [
+                const SizedBox(height: 120),
+                const Text(
+                  '🪐',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 64),
                 ),
-                title: Text(m.otherNickname.isEmpty ? '👽' : m.otherNickname),
-                subtitle: m.sharedPlaces.isEmpty ? null : Text('⭐ ${m.sharedPlaces.join(' · ')}', style: const TextStyle(color: Space.dim)),
-                trailing: Text(m.kind == 'encourage' ? '🗼' : '🛸', style: const TextStyle(fontSize: 22)),
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => WallScreen(match: m))).then((_) => reload()),
-              ),
-          ]);
+                const SizedBox(height: 16),
+                Text(
+                  snap.hasError ? l.errorGeneric : l.wallsEmpty,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            );
+          }
+          return ListView(
+            children: [
+              for (final m in ms)
+                ListTile(
+                  key: Key('wall-${m.wallId}'),
+                  leading: ClipOval(
+                    child: SizedBox(
+                      width: 48,
+                      height: 48,
+                      child: Image.network(
+                        api.photoUrl(m.otherId),
+                        headers: api.imageHeaders,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, _, _) =>
+                            const Text('👽', style: TextStyle(fontSize: 32)),
+                      ),
+                    ),
+                  ),
+                  title: Text(m.otherNickname.isEmpty ? '👽' : m.otherNickname),
+                  subtitle: m.sharedPlaces.isEmpty
+                      ? null
+                      : Text(
+                          '⭐ ${m.sharedPlaces.join(' · ')}',
+                          style: const TextStyle(color: Space.dim),
+                        ),
+                  trailing: Text(
+                    m.kind == 'encourage' ? '🗼' : '🛸',
+                    style: const TextStyle(fontSize: 22),
+                  ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => WallScreen(match: m)),
+                  ).then((_) => reload()),
+                ),
+            ],
+          );
         },
       ),
     );

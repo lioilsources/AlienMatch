@@ -36,10 +36,16 @@ class _CaptureScreenState extends State<CaptureScreen> {
   Future<void> _init() async {
     try {
       final cams = await availableCameras();
-      final front = cams.where((c) => c.lensDirection == CameraLensDirection.front);
+      final front = cams.where(
+        (c) => c.lensDirection == CameraLensDirection.front,
+      );
       final desc = front.isNotEmpty ? front.first : cams.first;
       frontCamera = desc.lensDirection == CameraLensDirection.front;
-      final c = CameraController(desc, ResolutionPreset.high, enableAudio: false);
+      final c = CameraController(
+        desc,
+        ResolutionPreset.high,
+        enableAudio: false,
+      );
       await c.initialize();
       if (!mounted) return c.dispose();
       setState(() => cam = c);
@@ -66,7 +72,12 @@ class _CaptureScreenState extends State<CaptureScreen> {
       final codec = await ui.instantiateImageCodec(await file.readAsBytes());
       final still = (await codec.getNextFrame()).image;
       final out = {
-        for (final side in MirrorSide.values) side: await symmetricVariant(still, side, mirrorStillHorizontally: frontCamera),
+        for (final side in MirrorSide.values)
+          side: await symmetricVariant(
+            still,
+            side,
+            mirrorStillHorizontally: frontCamera,
+          ),
       };
       still.dispose();
       if (mounted) setState(() => variants = out);
@@ -108,67 +119,96 @@ class _CaptureScreenState extends State<CaptureScreen> {
   }
 
   Widget _camera(AppLocalizations l) {
-    if (unavailable) return Center(child: Text(l.cameraUnavailable, textAlign: TextAlign.center));
+    if (unavailable) {
+      return Center(
+        child: Text(l.cameraUnavailable, textAlign: TextAlign.center),
+      );
+    }
     final c = cam;
     if (c == null) return const Center(child: CircularProgressIndicator());
-    return Column(children: [
-      Text(l.captureHint, style: Theme.of(context).textTheme.titleMedium),
-      const SizedBox(height: 12),
-      Expanded(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: Stack(fit: StackFit.expand, children: [
-            FittedBox(
-              fit: BoxFit.cover,
-              child: SizedBox(width: 1, height: c.value.aspectRatio, child: CameraPreview(c)),
+    return Column(
+      children: [
+        Text(l.captureHint, style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 12),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: 1,
+                    height: c.value.aspectRatio,
+                    child: CameraPreview(c),
+                  ),
+                ),
+                const CustomPaint(painter: _GuidePainter()),
+              ],
             ),
-            const CustomPaint(painter: _GuidePainter()),
-          ]),
+          ),
         ),
-      ),
-      const SizedBox(height: 16),
-      if (failed) Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent)),
-      FilledButton.icon(
-        onPressed: busy ? null : _shoot,
-        icon: const Icon(Icons.camera_alt),
-        label: Padding(padding: const EdgeInsets.all(12), child: Text(l.capture)),
-      ),
-    ]);
+        const SizedBox(height: 16),
+        if (failed)
+          Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent)),
+        FilledButton.icon(
+          onPressed: busy ? null : _shoot,
+          icon: const Icon(Icons.camera_alt),
+          label: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(l.capture),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _pick(AppLocalizations l, Map<MirrorSide, ui.Image> v) {
-    return Column(children: [
-      Text(l.pickVariant, style: Theme.of(context).textTheme.headlineSmall),
-      const SizedBox(height: 8),
-      Text(l.variantNote, textAlign: TextAlign.center, style: const TextStyle(color: Space.dim)),
-      const SizedBox(height: 16),
-      Expanded(
-        child: Row(children: [
-          for (final side in MirrorSide.values)
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(6),
-                child: InkWell(
-                  key: Key('variant-${side.label}'),
-                  onTap: busy ? null : () => _choose(side),
-                  borderRadius: BorderRadius.circular(20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: AspectRatio(aspectRatio: 1, child: RawImage(image: v[side], fit: BoxFit.cover)),
+    return Column(
+      children: [
+        Text(l.pickVariant, style: Theme.of(context).textTheme.headlineSmall),
+        const SizedBox(height: 8),
+        Text(
+          l.variantNote,
+          textAlign: TextAlign.center,
+          style: const TextStyle(color: Space.dim),
+        ),
+        const SizedBox(height: 16),
+        Expanded(
+          child: Row(
+            children: [
+              for (final side in MirrorSide.values)
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: InkWell(
+                      key: Key('variant-${side.label}'),
+                      onTap: busy ? null : () => _choose(side),
+                      borderRadius: BorderRadius.circular(20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: RawImage(image: v[side], fit: BoxFit.cover),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-        ]),
-      ),
-      if (failed) Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent)),
-      if (busy) const LinearProgressIndicator(),
-      TextButton.icon(
-        onPressed: busy ? null : () => setState(() => variants = null),
-        icon: const Icon(Icons.refresh),
-        label: Text(l.retake),
-      ),
-    ]);
+            ],
+          ),
+        ),
+        if (failed)
+          Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent)),
+        if (busy) const LinearProgressIndicator(),
+        TextButton.icon(
+          onPressed: busy ? null : () => setState(() => variants = null),
+          icon: const Icon(Icons.refresh),
+          label: Text(l.retake),
+        ),
+      ],
+    );
   }
 }
 
@@ -183,8 +223,19 @@ class _GuidePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
     final c = size.center(Offset.zero);
-    canvas.drawOval(Rect.fromCenter(center: c, width: size.width * 0.62, height: size.width * 0.82), p);
-    canvas.drawLine(Offset(c.dx, 0), Offset(c.dx, size.height), p..strokeWidth = 1);
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: c,
+        width: size.width * 0.62,
+        height: size.width * 0.82,
+      ),
+      p,
+    );
+    canvas.drawLine(
+      Offset(c.dx, 0),
+      Offset(c.dx, size.height),
+      p..strokeWidth = 1,
+    );
   }
 
   @override

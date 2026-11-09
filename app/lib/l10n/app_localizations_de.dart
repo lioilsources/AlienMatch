@@ -325,4 +325,34 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get encouragementWall => 'Leuchtturm-Wand';
+
+  @override
+  String get flybyTitle => 'Vorbeiflug';
+
+  @override
+  String get flybyBody =>
+      'Dein Handy erkennt andere AlienMatch-Handys in der Nähe per Bluetooth, etwa in derselben Tram. Kein Standort. Wer es war, erfährst du nur, wenn ihr beide winkt.';
+
+  @override
+  String get flybyRadioOff => 'Bluetooth ist aus oder die Berechtigung fehlt.';
+
+  @override
+  String get flybyVehicle => 'dieselbe Fahrt';
+
+  @override
+  String get flybyStop => 'dieselbe Haltestelle';
+
+  @override
+  String get flybyVenue => 'derselbe Ort';
+
+  @override
+  String flybyMinutes(int minutes) {
+    return '$minutes Min.';
+  }
+
+  @override
+  String get flybyComet => 'Ihr habt euch getroffen';
+
+  @override
+  String get flybyStrip => 'Vorbeiflüge';
 }

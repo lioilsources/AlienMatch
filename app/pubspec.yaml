@@ -44,6 +44,9 @@ dependencies:
   mirror_face:
     path: ../packages/mirror_face
   web_socket_channel: ^3.0.3
+  crypto: ^3.0.8
+  path_provider: ^2.1.6
+  sensors_plus: ^7.1.1
 
 dev_dependencies:
   flutter_test:

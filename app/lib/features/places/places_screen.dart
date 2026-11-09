@@ -10,15 +10,15 @@ import '../../state/app_state.dart';
 const maxPlaces = 8;
 
 String placeEmoji(String kind) => switch (kind) {
-      'stop' => '🚏',
-      'route' => '🚋',
-      'poi' => '☕',
-      'edu' => '🎓',
-      'office' => '🏢',
-      'partner' => '🛬',
-      'event' => '🎪',
-      _ => '⭐',
-    };
+  'stop' => '🚏',
+  'route' => '🚋',
+  'poi' => '☕',
+  'edu' => '🎓',
+  'office' => '🏢',
+  'partner' => '🛬',
+  'event' => '🎪',
+  _ => '⭐',
+};
 
 /// "My stars": pick up to 8 places from the public catalog. Search is a
 /// catalog lookup, not communication; no GPS is read or sent.
@@ -99,34 +99,65 @@ class _PlacesScreenState extends State<PlacesScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    return ListView(padding: const EdgeInsets.all(16), children: [
-      Text(l.placesTitle, style: Theme.of(context).textTheme.headlineSmall),
-      const SizedBox(height: 4),
-      Text(l.placesLimit(maxPlaces), style: const TextStyle(color: Space.dim)),
-      const SizedBox(height: 12),
-      Wrap(spacing: 8, runSpacing: 8, children: [
-        for (final m in mine) InputChip(label: Text('${placeEmoji(m.kind)} ${m.name}'), onDeleted: () => _toggle(m)),
-      ]),
-      const SizedBox(height: 16),
-      TextField(
-        key: const Key('placeSearch'),
-        controller: q,
-        onChanged: _search,
-        maxLength: 64,
-        decoration: InputDecoration(prefixIcon: const Icon(Icons.search), hintText: l.placesSearchHint, counterText: ''),
-      ),
-      for (final r in results)
-        CheckboxListTile(
-          value: mine.any((m) => m.id == r.id),
-          onChanged: (_) => _toggle(r),
-          secondary: Text(placeEmoji(r.kind), style: const TextStyle(fontSize: 24)),
-          title: Text(r.name),
-          subtitle: r.subtype.isEmpty ? null : Text(r.subtype, style: const TextStyle(color: Space.dim)),
+    return ListView(
+      padding: const EdgeInsets.all(16),
+      children: [
+        Text(l.placesTitle, style: Theme.of(context).textTheme.headlineSmall),
+        const SizedBox(height: 4),
+        Text(
+          l.placesLimit(maxPlaces),
+          style: const TextStyle(color: Space.dim),
         ),
-      const SizedBox(height: 16),
-      if (failed) Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent)),
-      if (saved) Text(l.placesSaved, style: const TextStyle(color: Space.accent)),
-      FilledButton(onPressed: saving ? null : _save, child: Padding(padding: const EdgeInsets.all(12), child: Text(l.save))),
-    ]);
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final m in mine)
+              InputChip(
+                label: Text('${placeEmoji(m.kind)} ${m.name}'),
+                onDeleted: () => _toggle(m),
+              ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        TextField(
+          key: const Key('placeSearch'),
+          controller: q,
+          onChanged: _search,
+          maxLength: 64,
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.search),
+            hintText: l.placesSearchHint,
+            counterText: '',
+          ),
+        ),
+        for (final r in results)
+          CheckboxListTile(
+            value: mine.any((m) => m.id == r.id),
+            onChanged: (_) => _toggle(r),
+            secondary: Text(
+              placeEmoji(r.kind),
+              style: const TextStyle(fontSize: 24),
+            ),
+            title: Text(r.name),
+            subtitle: r.subtype.isEmpty
+                ? null
+                : Text(r.subtype, style: const TextStyle(color: Space.dim)),
+          ),
+        const SizedBox(height: 16),
+        if (failed)
+          Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent)),
+        if (saved)
+          Text(l.placesSaved, style: const TextStyle(color: Space.accent)),
+        FilledButton(
+          onPressed: saving ? null : _save,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(l.save),
+          ),
+        ),
+      ],
+    );
   }
 }

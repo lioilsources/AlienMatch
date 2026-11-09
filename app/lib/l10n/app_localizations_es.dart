@@ -324,4 +324,34 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get encouragementWall => 'Muro del faro';
+
+  @override
+  String get flybyTitle => 'Cruce';
+
+  @override
+  String get flybyBody =>
+      'Tu móvil detecta por Bluetooth otros móviles con AlienMatch cerca, por ejemplo en el mismo tranvía. Sin ubicación. Solo sabrás quién era si os saludáis los dos.';
+
+  @override
+  String get flybyRadioOff => 'El Bluetooth está apagado o falta el permiso.';
+
+  @override
+  String get flybyVehicle => 'mismo trayecto';
+
+  @override
+  String get flybyStop => 'misma parada';
+
+  @override
+  String get flybyVenue => 'mismo sitio';
+
+  @override
+  String flybyMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get flybyComet => 'Os habéis cruzado';
+
+  @override
+  String get flybyStrip => 'Cruces';
 }

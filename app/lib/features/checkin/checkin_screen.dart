@@ -27,7 +27,9 @@ class _CheckinScreenState extends State<CheckinScreen> {
       failed = false;
     });
     try {
-      final r = await AppScope.of(context).api.checkin(mode: 'self', self: value);
+      final r = await AppScope.of(
+        context,
+      ).api.checkin(mode: 'self', self: value);
       if (mounted) setState(() => result = r);
     } catch (_) {
       if (mounted) setState(() => failed = true);
@@ -48,26 +50,46 @@ class _CheckinScreenState extends State<CheckinScreen> {
         const SizedBox(height: 32),
         Center(child: _Planet(value: value)),
         const SizedBox(height: 24),
-        Row(children: [
-          const Text('🌑', style: TextStyle(fontSize: 28)),
-          Expanded(
-            child: Slider(key: const Key('selfScale'), value: value, onChanged: busy ? null : (v) => setState(() => value = v)),
-          ),
-          const Text('🌟', style: TextStyle(fontSize: 28)),
-        ]),
+        Row(
+          children: [
+            const Text('🌑', style: TextStyle(fontSize: 28)),
+            Expanded(
+              child: Slider(
+                key: const Key('selfScale'),
+                value: value,
+                onChanged: busy ? null : (v) => setState(() => value = v),
+              ),
+            ),
+            const Text('🌟', style: TextStyle(fontSize: 28)),
+          ],
+        ),
         const SizedBox(height: 8),
         Text(l.checkinSelfOnly, style: const TextStyle(color: Space.dim)),
         const SizedBox(height: 24),
         FilledButton(
           key: const Key('sendSignal'),
           onPressed: busy ? null : _send,
-          child: Padding(padding: const EdgeInsets.all(12), child: Text(l.checkinSend)),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Text(l.checkinSend),
+          ),
         ),
-        if (failed) Padding(padding: const EdgeInsets.only(top: 12), child: Text(l.errorGeneric, style: const TextStyle(color: Colors.redAccent))),
+        if (failed)
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: Text(
+              l.errorGeneric,
+              style: const TextStyle(color: Colors.redAccent),
+            ),
+          ),
         if (r != null) ...[
           const SizedBox(height: 24),
           Text(l.checkinDone, key: const Key('checkinDone')),
-          if (r.askAgainSoon) Padding(padding: const EdgeInsets.only(top: 8), child: Text(l.askAgain, style: const TextStyle(color: Space.dim))),
+          if (r.askAgainSoon)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(l.askAgain, style: const TextStyle(color: Space.dim)),
+            ),
           if (r.supportCard)
             Card(
               key: const Key('supportCard'),
@@ -75,11 +97,17 @@ class _CheckinScreenState extends State<CheckinScreen> {
               margin: const EdgeInsets.only(top: 16),
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(l.supportTitle, style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 8),
-                  Text(l.supportBody(crisisLine(region))),
-                ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l.supportTitle,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(l.supportBody(crisisLine(region))),
+                  ],
+                ),
               ),
             ),
         ],
@@ -94,7 +122,11 @@ class _Planet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final glow = Color.lerp(const Color(0xFF5B5670), const Color(0xFFFFE27A), value)!;
+    final glow = Color.lerp(
+      const Color(0xFF5B5670),
+      const Color(0xFFFFE27A),
+      value,
+    )!;
     final size = 90 + 70 * value;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 120),
@@ -103,7 +135,13 @@ class _Planet extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: RadialGradient(colors: [glow, glow.withValues(alpha: 0.2)]),
-        boxShadow: [BoxShadow(color: glow.withValues(alpha: 0.6 * value), blurRadius: 60 * value, spreadRadius: 10 * value)],
+        boxShadow: [
+          BoxShadow(
+            color: glow.withValues(alpha: 0.6 * value),
+            blurRadius: 60 * value,
+            spreadRadius: 10 * value,
+          ),
+        ],
       ),
     );
   }

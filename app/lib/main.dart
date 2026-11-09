@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'api/api.dart';
+import 'flyby/controller.dart';
+import 'flyby/motion.dart';
+import 'flyby/radio.dart';
+import 'flyby/store.dart';
 import 'design/space.dart';
 import 'features/home/home_screen.dart';
 import 'features/onboarding/profile_steps.dart';
@@ -10,7 +14,16 @@ import 'l10n/app_localizations.dart';
 import 'state/app_state.dart';
 
 void main() {
-  final state = AppState(api: Api(), tokens: SecureTokenStore())..load();
+  final state = AppState(
+    api: Api(),
+    tokens: SecureTokenStore(),
+    flybyFactory: (api) => FlybyController(
+      api: api,
+      store: DeviceFlybyStore(),
+      radio: NativeFlybyRadio(),
+      motion: motionStream(),
+    ),
+  )..load();
   runApp(AlienMatchApp(state: state));
 }
 
@@ -45,7 +58,9 @@ class _Root extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = AppScope.of(context);
     return switch (s.stage) {
-      Stage.loading => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      Stage.loading => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
       Stage.welcome => const WelcomeScreen(),
       Stage.onboarding => const OnboardingFlow(),
       Stage.home => const HomeScreen(),

@@ -6,6 +6,7 @@ import '../../api/api.dart';
 import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
+import 'flyby_strip.dart';
 
 /// Star map, not a swipe deck. Planets are people the mood matrix lets
 /// through; shared places are drawn as a line to one of MY stars.
@@ -48,8 +49,17 @@ class _RadarScreenState extends State<RadarScreen> {
           if (r.offRadar) {
             return _Message(key: const Key('offRadar'), text: l.offRadar);
           }
-          if (r.planets.isEmpty) return _Message(text: l.radarEmpty);
-          return StarMap(planets: r.planets);
+          final flyby = AppScope.of(context).flyby;
+          final map = r.planets.isEmpty
+              ? _Message(text: l.radarEmpty)
+              : StarMap(planets: r.planets);
+          if (flyby == null) return map;
+          return Column(
+            children: [
+              FlybyStrip(flyby: flyby),
+              Expanded(child: map),
+            ],
+          );
         },
       ),
     );
@@ -219,18 +229,31 @@ class _PlanetViewState extends State<PlanetView>
             ),
             child: child,
           ),
-          child: ClipOval(
-            child: Image.network(
-              api.photoUrl(p.userId),
-              headers: api.imageHeaders,
-              fit: BoxFit.cover,
-              errorBuilder: (_, _, _) => const ColoredBox(
-                color: Space.nebula,
-                child: Center(
-                  child: Text('👽', style: TextStyle(fontSize: 32)),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Positioned.fill(
+                child: ClipOval(
+                  child: Image.network(
+                    api.photoUrl(p.userId),
+                    headers: api.imageHeaders,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => const ColoredBox(
+                      color: Space.nebula,
+                      child: Center(
+                        child: Text('👽', style: TextStyle(fontSize: 32)),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+              if (p.comet != null)
+                const Positioned(
+                  right: -6,
+                  top: -6,
+                  child: Text('☄️', style: TextStyle(fontSize: 20)),
+                ),
+            ],
           ),
         ),
       ),
@@ -311,6 +334,14 @@ class _PlanetViewState extends State<PlanetView>
                   child: Text(
                     '✨ ${l.weakSignal}',
                     style: const TextStyle(color: Space.dim),
+                  ),
+                ),
+              if (p.comet != null)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    '☄️ ${l.flybyComet}: ${contactLabel(l, p.comet!)}',
+                    key: const Key('comet'),
                   ),
                 ),
               const SizedBox(height: 16),

@@ -530,6 +530,7 @@ type User struct {
 	CheckinLocalTime pgtype.Time        `json:"checkin_local_time"`
 	DeletedAt        pgtype.Timestamptz `json:"deleted_at"`
 	TokenHash        []byte             `json:"token_hash"`
+	FlybyEnabled     bool               `json:"flyby_enabled"`
 }
 
 type VenueCheckin struct {

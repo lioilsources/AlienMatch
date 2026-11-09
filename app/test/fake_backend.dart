@@ -35,6 +35,10 @@ class FakeBackend {
   int stickFailures = 0; // simulate offline: first N sticker posts fail
   final stickClientIds = <String>[];
   final reports = <Map<String, dynamic>>[];
+  bool? flybyEnabled;
+  final uploadedKeys = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> flybyKeys = [];
+  final flybyWaves = <Map<String, dynamic>>[];
 
   late final client = MockClient((req) async {
     requests.add(req);
@@ -60,6 +64,17 @@ class FakeBackend {
     }
     if (RegExp(r'^POST /v1/walls/\d+/ticket$').hasMatch(path)) return _json({'ticket': 'tk'});
     switch (path) {
+      case 'PUT /v1/me/flyby':
+        flybyEnabled = (jsonDecode(req.body) as Map)['enabled'] as bool;
+        return http.Response('', 204);
+      case 'POST /v1/flyby/keys':
+        uploadedKeys.add(jsonDecode(req.body) as Map<String, dynamic>);
+        return http.Response('', 204);
+      case 'GET /v1/flyby/keys':
+        return _json({'keys': flybyKeys});
+      case 'POST /v1/flyby/waves':
+        flybyWaves.add(jsonDecode(req.body) as Map<String, dynamic>);
+        return http.Response('', 202);
       case 'POST /v1/waves':
         if (waveStatus != 200) return http.Response('limit', waveStatus);
         return _json({'matched': waveMatches, if (waveMatches) 'kind': 'match', if (waveMatches) 'wall_id': 7});

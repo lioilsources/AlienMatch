@@ -99,5 +99,14 @@
   "peel": "Відліпити",
   "wallEnded": "Ця стіна завершилася.",
   "pendingSync": "Очікує з'єднання",
-  "encouragementWall": "Стіна маяка"
+  "encouragementWall": "Стіна маяка",
+  "flybyTitle": "Проліт",
+  "flybyBody": "Телефон через Bluetooth помічає інші телефони з AlienMatch поруч, наприклад у тому ж трамваї. Без геолокації. Хто це був, дізнаєшся, лише якщо ви обоє помахаєте.",
+  "flybyRadioOff": "Bluetooth вимкнено або немає дозволу.",
+  "flybyVehicle": "той самий рейс",
+  "flybyStop": "та сама зупинка",
+  "flybyVenue": "той самий заклад",
+  "flybyMinutes": "{minutes} хв",
+  "flybyComet": "Ви зустрілися",
+  "flybyStrip": "Прольоти"
 }

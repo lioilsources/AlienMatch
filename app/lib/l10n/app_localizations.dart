@@ -713,6 +713,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Beacon wall'**
   String get encouragementWall;
+
+  /// No description provided for @flybyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fly-by'**
+  String get flybyTitle;
+
+  /// No description provided for @flybyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone notices other AlienMatch phones nearby over Bluetooth, for example on the same tram. No location is used. You only learn who it was if you both wave.'**
+  String get flybyBody;
+
+  /// No description provided for @flybyRadioOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth is off or permission is missing.'**
+  String get flybyRadioOff;
+
+  /// No description provided for @flybyVehicle.
+  ///
+  /// In en, this message translates to:
+  /// **'same ride'**
+  String get flybyVehicle;
+
+  /// No description provided for @flybyStop.
+  ///
+  /// In en, this message translates to:
+  /// **'same stop'**
+  String get flybyStop;
+
+  /// No description provided for @flybyVenue.
+  ///
+  /// In en, this message translates to:
+  /// **'same place'**
+  String get flybyVenue;
+
+  /// No description provided for @flybyMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String flybyMinutes(int minutes);
+
+  /// No description provided for @flybyComet.
+  ///
+  /// In en, this message translates to:
+  /// **'You met'**
+  String get flybyComet;
+
+  /// No description provided for @flybyStrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Fly-bys'**
+  String get flybyStrip;
 }
 
 class _AppLocalizationsDelegate

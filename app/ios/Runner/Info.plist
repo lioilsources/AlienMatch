@@ -28,6 +28,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>AlienMatch uses Bluetooth to notice other AlienMatch phones nearby, for example on the same tram. It never uses your location.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>AlienMatch takes your profile photo live and turns it into a symmetric alien face. The original photo never leaves your phone.</string>
 	<key>UIApplicationSceneManifest</key>

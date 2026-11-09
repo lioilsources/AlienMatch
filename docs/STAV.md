@@ -61,13 +61,18 @@ Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 - Report skryje sticker okamžitě (`review`), block ukončí zeď a skryje oba z radaru.
 - Moderace VL modelem zatím neběží: stickers se doručují hned, sporné řeší report.
 
+## Průlet, vrstva B (2026-11-09)
+
+Server, appka a nativní BLE jsou hotové, podrobnosti v `docs/GPS.md`. Na skutečných telefonech to zatím
+nikdo nezkoušel, chybí běh na pozadí.
+
 ## Zbývá
 
 - Fáze 0: odpovědi na otázky níže, benchmark VL 7B vs 32B.
 - Fáze 1: balíčky `mirror_face` (z MirrorBooth), `sticker_canvas`, `stickers-svc` (glyph_extractor).
 - Fáze 2: auth (magic-link/Apple/Google), profily + media (MinIO), mood-worker na SPARKu
   (Whisper + VL přes LiteLLM), matching job à 10 min, waves → match, zeď.
-- Fáze 3: fronta pro offline přes restart appky (teď jen v paměti), admin fronta reportů, BLE vrstva B (TEK/RPI, nativní advertising), video/hlas check-in + mood-worker, MinIO, moderace, IAP.
+- Fáze 3: fronta pro offline přes restart appky (teď jen v paměti), admin fronta reportů, Průlet na pozadí a test na zařízeních, video/hlas check-in + mood-worker, MinIO, moderace, IAP.
 
 ## Rozhodnutí Olina (2026-11-09, §8 hlavního plánu)
 
