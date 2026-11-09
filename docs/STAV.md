@@ -28,13 +28,34 @@ Aktualizováno 2026-11-09.
 
 Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 
+## Appka (fáze 3, první řez)
+
+- Flutter `app/` (iOS, Android, web), bundle `com.ol1n.alienmatch`, Distribution pipeline, ikona (FLUX Schnell).
+- Onboarding: 18+ a samostatný souhlas čl. 9 → profil jen z ikon (generace, status, děti, intenty, koho hledám,
+  maják) → přezdívka → živé foto s vodítkem → výběr L+L / R+R → upload jen zvolené varianty.
+- Check-in: škála planeta → supernova, zatím režim `self` (video/hlas přijde s mood-workerem), karta pomoci 116 123.
+- Radar: hvězdná mapa, aura podle úrovně, pulz podle trendu, čára ke sdílené hvězdě, slabý signál.
+- Moje hvězdy (max 8), „Co o tvé poloze víme“, smazání účtu.
+- 10 jazyků v ARB: cs, en, sk, de, pl, es, fr, it, pt, uk.
+- Backend: anonymní účet (token, server drží jen SHA-256), profil, fotka (FS, MinIO později), smazání účtu
+  ověřené testem přes všechny tabulky s uuid.
+
+## Rozhodnutí Olina k 01-GPS (2026-11-09)
+
+1. Začínáme Prahou.
+2. Vrstva B (BLE „Průlet“) **už v MVP**.
+3. Beacony: vysvětleno, rozhodnutí o zdarma pro prvních 20 podniků čeká.
+4. Limit 8 míst.
+5. Název sdíleného místa se po matchi odhalí **automaticky**.
+
 ## Zbývá
 
 - Fáze 0: odpovědi na otázky níže, benchmark VL 7B vs 32B.
 - Fáze 1: balíčky `mirror_face` (z MirrorBooth), `sticker_canvas`, `stickers-svc` (glyph_extractor).
 - Fáze 2: auth (magic-link/Apple/Google), profily + media (MinIO), mood-worker na SPARKu
   (Whisper + VL přes LiteLLM), matching job à 10 min, waves → match, zeď.
-- Fáze 3+: Flutter appka, realtime zeď, moderace, IAP, smazání účtu včetně MinIO.
+- Fáze 3: zamávání → match (odhalení sdíleného místa automaticky), zeď se stickers (realtime), report/block,
+  BLE vrstva B (TEK/RPI, nativní advertising), video/hlas check-in + mood-worker, MinIO, moderace, IAP.
 
 ## Rozhodnutí Olina (2026-11-09, §8 hlavního plánu)
 

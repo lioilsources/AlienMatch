@@ -7,6 +7,9 @@ stickers na společné zdi (HandWrittenStickers), matching podle nálady a její
 
 ## Build a test
 ```
+cd app && flutter analyze && flutter test        # gate appky
+cd packages/mirror_face && flutter test
+flutter run --profile --dart-define=API_BASE_URL=http://localhost:8080
 cd backend
 go vet ./... && go test ./...          # gate
 sqlc generate                          # po změně internal/db/queries nebo migrací
@@ -14,6 +17,7 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 ```
 
 ## Mapa
+- `app/` — Flutter appka (iOS, Android, web), l10n v `app/lib/l10n/*.arb`; `packages/mirror_face` — symetrická tvář (z MirrorBooth)
 - `backend/internal/mood` — fúze self/VL skóre, level, trend, čerstvost, pauza pro podporu
 - `backend/internal/matching` — matice §1.3, kandidáti na radar
 - `backend/internal/db` — migrace (embed, golang-migrate), sqlc dotazy, generovaný kód v `sqlc/`
@@ -27,7 +31,8 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - **LOW × LOW nikdy.** Tvrdě v `matching` i triggerem `matches_guard` v DB. Nikdy konfigurovatelné.
 - LOW uživatel ani profil „jen maják“ nikdy nedostane romantický match; povzbuzení jen HIGH maják × LOW s oběma opt-iny.
 - Zveřejní se jen symetrická varianta tváře; originální fotka se neodemyká nikdy.
-- **Žádné textové pole** pro uživatele kromě přezdívky (≤ 12 znaků, moderovaná). Hlídat v review.
+- **Žádné textové pole** pro uživatele kromě přezdívky (≤ 12 znaků) a hledání v katalogu míst. Hlídají to widget testy (`app/test/app_test.dart`).
+- Profilová fotka jen živě z kamery, nikdy z galerie; server dostane jen zvolenou symetrickou variantu.
 - Slovník: nálada / energie / signál. Nikdy „deprese“, „bipolární“, „porucha“; BiPolarMonitor se do produktu nepropisuje.
 - Žádné video/audio/raw snímky na serveru; ukládají se jen skóre a timestampy.
 - API nevrací čísla nálady, jen level/trend pro auru.
@@ -38,4 +43,4 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - Nasazenou migraci needitovat, přidat novou. `internal/db/sqlc` ručně needitovat.
 
 ## Kam dál
-`docs/STAV.md` (co je hotové), `docs/GPS.md` (místa), `Prompts/`.
+`docs/STAV.md` (co je hotové), `docs/GPS.md` (místa), `docs/release.md` (ruční kroky ve storech), `Prompts/`.

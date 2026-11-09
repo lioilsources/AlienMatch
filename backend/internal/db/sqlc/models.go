@@ -16,6 +16,7 @@ type CheckinMode string
 const (
 	CheckinModeVideo CheckinMode = "video"
 	CheckinModeVoice CheckinMode = "voice"
+	CheckinModeSelf  CheckinMode = "self"
 )
 
 func (e *CheckinMode) Scan(src interface{}) error {
@@ -452,7 +453,7 @@ type PlaceCount struct {
 type Profile struct {
 	UserID             pgtype.UUID        `json:"user_id"`
 	Nickname           pgtype.Text        `json:"nickname"`
-	PhotoKey           string             `json:"photo_key"`
+	PhotoKey           pgtype.Text        `json:"photo_key"`
 	Generation         Generation         `json:"generation"`
 	Status             RelStatus          `json:"status"`
 	KidsCount          pgtype.Int2        `json:"kids_count"`
@@ -520,6 +521,7 @@ type User struct {
 	WVl              float32            `json:"w_vl"`
 	CheckinLocalTime pgtype.Time        `json:"checkin_local_time"`
 	DeletedAt        pgtype.Timestamptz `json:"deleted_at"`
+	TokenHash        []byte             `json:"token_hash"`
 }
 
 type VenueCheckin struct {

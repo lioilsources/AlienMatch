@@ -19,8 +19,8 @@ import (
 	"github.com/lioilsources/AlienMatch/backend/internal/service"
 )
 
-// Authenticator resolves the calling user. Real auth (magic link, Apple,
-// Google) comes in phase 2; DevAuth exists only for local development.
+// Authenticator resolves the calling user. BearerAuth is the real one
+// (anonymous account tokens); DevAuth exists only for local development.
 type Authenticator interface {
 	UserID(r *http.Request) (string, bool)
 }
@@ -33,6 +33,20 @@ func (DevAuth) UserID(r *http.Request) (string, bool) {
 	return u, u != ""
 }
 
+// BearerAuth resolves "Authorization: Bearer <token>" via the token hash.
+type BearerAuth struct {
+	Lookup func(ctx context.Context, tokenHash []byte) (string, error)
+}
+
+func (b BearerAuth) UserID(r *http.Request) (string, bool) {
+	tok, ok := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
+	if !ok || len(tok) < 32 || len(tok) > 128 {
+		return "", false
+	}
+	id, err := b.Lookup(r.Context(), service.HashToken(tok))
+	return id, err == nil && id != ""
+}
+
 // Handler builds the router.
 func Handler(svc *service.Service, auth Authenticator, log *slog.Logger) http.Handler {
 	h := &handler{svc: svc, auth: auth, log: log}
@@ -43,6 +57,15 @@ func Handler(svc *service.Service, auth Authenticator, log *slog.Logger) http.Ha
 	mux.HandleFunc("GET /v1/places", h.withUser(h.searchPlaces))
 	mux.HandleFunc("PUT /v1/me/places", h.withUser(h.setPlaces))
 	mux.HandleFunc("GET /v1/me/location-data", h.withUser(h.locationData))
+	mux.HandleFunc("GET /v1/regions", func(w http.ResponseWriter, _ *http.Request) {
+		writeJSON(w, http.StatusOK, map[string]any{"regions": service.Regions})
+	})
+	mux.HandleFunc("POST /v1/accounts", h.createAccount)
+	mux.HandleFunc("GET /v1/me", h.withUser(h.me))
+	mux.HandleFunc("DELETE /v1/me", h.withUser(h.deleteMe))
+	mux.HandleFunc("PUT /v1/me/profile", h.withUser(h.saveProfile))
+	mux.HandleFunc("PUT /v1/me/photo", h.withUser(h.setPhoto))
+	mux.HandleFunc("GET /v1/users/{id}/photo", h.withUser(h.photo))
 	return noCoordinates(mux)
 }
 

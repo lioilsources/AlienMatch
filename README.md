@@ -12,11 +12,22 @@ V plánech v `Prompts/` vystupuje pod kódovým jménem MIMO.
 
 | Složka | Obsah |
 |---|---|
+| `app/` | Flutter appka: onboarding, check-in, radar, místa, nastavení |
+| `packages/mirror_face` | symetrická tvář L+L / R+R, sdílená s MirrorBooth |
 | `backend/` | Go služba `alienmatch-api`: check-in, stav nálady, radar, Postgres schéma |
 | `docs/STAV.md` | stav vůči plánu, otevřené otázky |
 | `Prompts/` | produktový a technický plán |
 
-Appka (Flutter), `stickers-svc`, realtime zeď a mood-worker na SPARKu teprve přijdou, viz `docs/STAV.md`.
+`stickers-svc`, realtime zeď, zamávání a mood-worker na SPARKu teprve přijdou, viz `docs/STAV.md`.
+
+## Spuštění appky
+
+```sh
+cd app
+flutter run --profile --dart-define=API_BASE_URL=http://localhost:8080
+```
+
+Web: [lioilsources.github.io/AlienMatch](https://lioilsources.github.io/AlienMatch/), zásady: [privacy](https://lioilsources.github.io/AlienMatch/privacy.html).
 
 ## Spuštění backendu
 

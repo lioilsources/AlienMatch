@@ -82,3 +82,15 @@ func TestCheckinRejectsUnknownMode(t *testing.T) {
 		t.Fatalf("err=%v", err)
 	}
 }
+
+func TestSelfModeDropsVL(t *testing.T) {
+	f := servicetest.New()
+	f.Settings_["u"] = Settings{VLEnabled: true, Weights: mood.DefaultWeights()}
+	s := &Service{Store: f, Now: (&clock{time.Date(2026, 11, 9, 8, 0, 0, 0, time.UTC)}).now}
+	if _, err := s.Checkin(context.Background(), "u", ModeSelf, 0.7, &mood.VLScore{Energy: 0, Valence: 0, Confidence: 1}); err != nil {
+		t.Fatal(err)
+	}
+	if f.Records[0].VL != nil || f.Records[0].Fused.Mood != 0.7 {
+		t.Fatalf("self mode used VL: %+v", f.Records[0])
+	}
+}

@@ -73,7 +73,7 @@ SELECT p.user_id, p.generation, p.status, p.region,
 FROM profiles p
 JOIN users u ON u.id = p.user_id AND u.deleted_at IS NULL
 JOIN mood_state s ON s.user_id = p.user_id
-WHERE p.region = $1 AND s.last_checkin_at > $2
+WHERE p.region = $1 AND s.last_checkin_at > $2 AND p.photo_key IS NOT NULL
 `
 
 type MatchingPoolParams struct {

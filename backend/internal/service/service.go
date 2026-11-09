@@ -29,6 +29,7 @@ type Mode string
 const (
 	ModeVideo Mode = "video" // video + voice (default)
 	ModeVoice Mode = "voice" // voice-only fallback
+	ModeSelf  Mode = "self"  // self scale only: VL off or no recording ("no signal")
 )
 
 // ErrBadMode is returned for an unknown check-in mode.
@@ -60,9 +61,11 @@ var ErrNotFound = errors.New("service: not found")
 
 // Service wires the domain logic to the store. Now is injected for tests.
 type Service struct {
-	Store   Store
-	Now     func() time.Time
-	Options matching.Options
+	Store    Store
+	Accounts AccountStore
+	Media    MediaStore
+	Now      func() time.Time
+	Options  matching.Options
 }
 
 // CheckinResult is returned to the app after a check-in.
@@ -74,8 +77,11 @@ type CheckinResult struct {
 
 // Checkin fuses scores, stores them and recomputes the user's state.
 func (s *Service) Checkin(ctx context.Context, userID string, mode Mode, self float64, vl *mood.VLScore) (CheckinResult, error) {
-	if mode != ModeVideo && mode != ModeVoice {
+	if mode != ModeVideo && mode != ModeVoice && mode != ModeSelf {
 		return CheckinResult{}, ErrBadMode
+	}
+	if mode == ModeSelf {
+		vl = nil
 	}
 	set, err := s.Store.Settings(ctx, userID)
 	if err != nil {

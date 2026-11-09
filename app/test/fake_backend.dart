@@ -1,0 +1,92 @@
+import 'dart:convert';
+
+import 'package:alienmatch/api/api.dart';
+import 'package:alienmatch/state/app_state.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+
+class MemoryTokens implements TokenStore {
+  String? token;
+  @override
+  Future<String?> read() async => token;
+  @override
+  Future<void> write(String t) async => token = t;
+  @override
+  Future<void> clear() async => token = null;
+}
+
+const _coordinateKeys = ['lat', 'lon', 'lng', 'latitude', 'longitude', 'geohash', 'gps', 'location', 'coords'];
+
+/// In-memory backend. Every request is checked: the app must never send
+/// coordinates or an e-mail, in the query or the body.
+class FakeBackend {
+  final requests = <http.Request>[];
+  Map<String, dynamic>? profile;
+  bool hasPhoto = false;
+  Map<String, dynamic> radar = {'off_radar': true, 'planets': []};
+  Map<String, dynamic> checkinResult = {'level': 'MID', 'trend': 'FLAT', 'support_card': false, 'ask_again_soon': false};
+  List<String> myPlaces = [];
+  bool deleted = false;
+
+  late final client = MockClient((req) async {
+    requests.add(req);
+    for (final k in req.url.queryParameters.keys) {
+      expect(_coordinateKeys.contains(k.toLowerCase()), isFalse, reason: 'coordinate in query: ${req.url}');
+    }
+    if (req.headers['content-type']?.contains('json') == true && req.body.isNotEmpty) {
+      _noForbiddenKeys(jsonDecode(req.body));
+    }
+    final path = '${req.method} ${req.url.path}';
+    switch (path) {
+      case 'POST /v1/accounts':
+        return _json({'user_id': 'u1', 'token': 't' * 43}, 201);
+      case 'GET /v1/me':
+        if (deleted) return http.Response('', 401);
+        return _json({'user_id': 'u1', 'mood_consent': false, 'vl_enabled': false, 'has_profile': profile != null, 'has_photo': hasPhoto, 'profile': ?profile});
+      case 'PUT /v1/me/profile':
+        profile = jsonDecode(req.body) as Map<String, dynamic>;
+        return http.Response('', 204);
+      case 'PUT /v1/me/photo':
+        hasPhoto = true;
+        return http.Response('', 204);
+      case 'DELETE /v1/me':
+        deleted = true;
+        return http.Response('', 204);
+      case 'POST /v1/checkins':
+        return _json(checkinResult);
+      case 'GET /v1/radar':
+        return _json(radar);
+      case 'GET /v1/places':
+        return _json({'places': [{'place_id': 'stop:pid:N1040', 'kind': 'stop', 'name': 'Anděl'}]});
+      case 'PUT /v1/me/places':
+        myPlaces = [for (final p in (jsonDecode(req.body)['place_ids'] as List)) p as String];
+        return http.Response('', 204);
+      case 'GET /v1/me/location-data':
+        return _json({'places': [for (final p in myPlaces) {'place_id': p, 'kind': 'stop', 'name': 'Anděl'}], 'active_encounter_keys': 0, 'venue_checkins': [], 'coordinates': []});
+    }
+    return http.Response('not found: $path', 404);
+  });
+
+  void _noForbiddenKeys(dynamic v) {
+    if (v is Map) {
+      for (final e in v.entries) {
+        expect(_coordinateKeys.contains((e.key as String).toLowerCase()), isFalse, reason: 'coordinate in body: $v');
+        expect(e.key, isNot('email'));
+        _noForbiddenKeys(e.value);
+      }
+    } else if (v is List) {
+      v.forEach(_noForbiddenKeys);
+    }
+  }
+
+  http.Response _json(Object o, [int code = 200]) =>
+      http.Response.bytes(utf8.encode(jsonEncode(o)), code, headers: {'content-type': 'application/json'});
+
+  Api api() => Api(client: client, baseUrl: 'http://test');
+
+  static Map<String, dynamic> sampleProfile() => {
+        'generation': 'genz', 'status': 'single', 'region': 'CZ-PHA', 'intents': ['coffee'],
+        'kids_flags': [], 'seek_generations': [], 'seek_statuses': [],
+      };
+}
