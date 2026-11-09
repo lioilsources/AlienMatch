@@ -67,6 +67,7 @@ type Service struct {
 	Media    MediaStore
 	Walls    WallStore
 	Flyby    FlybyStore
+	Admin    AdminStore
 	// Scorer is nil when the mood models on SPARK are not configured.
 	Scorer  moodscore.Scorer
 	Pub     Publisher

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AlienMatch — fronta nahlášení</title>
+<style>
+  :root { --bg:#07060f; --card:#1a1433; --ink:#e9e6ff; --dim:#8c86b3; --ok:#7cf5c8; --bad:#ff6b9a; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 -apple-system, system-ui, sans-serif; padding:16px; }
+  h1 { font-size:20px; margin:0 0 12px; }
+  .bar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+  input { flex:1; min-width:200px; padding:8px; border-radius:8px; border:1px solid #2e2752; background:#100c22; color:var(--ink); }
+  button { padding:8px 12px; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
+  .ok { background:var(--ok); color:#07060f; } .bad { background:var(--bad); color:#07060f; } .plain { background:#2e2752; color:var(--ink); }
+  .card { background:var(--card); border-radius:12px; padding:12px; margin-bottom:12px; display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .meta { color:var(--dim); font-size:13px; flex:1; min-width:220px; word-break:break-all; }
+  canvas { background:#07060f; border-radius:8px; }
+  .preset { font-size:64px; width:160px; text-align:center; }
+  img { width:120px; height:120px; object-fit:cover; border-radius:50%; }
+  .empty { color:var(--dim); }
+</style>
+</head>
+<body>
+<h1>Fronta nahlášení</h1>
+<div class="bar">
+  <input id="token" type="password" placeholder="Admin token" autocomplete="off">
+  <button class="plain" id="load">Načíst</button>
+</div>
+<div id="list"><p class="empty">Zadej token.</p></div>
+<script>
+const palette = ['#F5F2FF','#7CF5C8','#FFC857','#FF6B9A','#8FD3FF','#B69CFF','#FF8A4C','#2B2440'];
+const presets = {heart:'❤️',ufo:'🛸',coffee:'☕',tea:'🍵',wine:'🍷',beer:'🍺',star:'⭐',wave:'👋',rocket:'🚀',hug:'🤗',flower:'🌸',fire:'🔥'};
+const tokenEl = document.getElementById('token');
+tokenEl.value = sessionStorage.getItem('am_admin') || '';
+const auth = () => ({ 'Authorization': 'Bearer ' + tokenEl.value });
+
+function drawInk(ink) {
+  const w = 200, h = Math.round(200 / (ink.aspect || 1));
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d'); g.lineCap = 'round'; g.lineJoin = 'round';
+  for (const s of ink.strokes || []) {
+    g.strokeStyle = palette[s.c] || '#fff'; g.lineWidth = Math.max(1, s.w * w);
+    g.beginPath();
+    for (let i = 0; i + 1 < s.p.length; i += 2) {
+      const x = s.p[i] * w, y = s.p[i + 1] * h;
+      i === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
+    }
+    g.stroke();
+  }
+  return c;
+}
+
+async function photo(id) {
+  const r = await fetch('/v1/admin/users/' + encodeURIComponent(id) + '/photo', { headers: auth() });
+  if (!r.ok) return null;
+  const img = document.createElement('img'); img.src = URL.createObjectURL(await r.blob()); return img;
+}
+
+async function resolve(id, action) {
+  await fetch('/v1/admin/reports/' + id + '/resolve', { method: 'POST', headers: { ...auth(), 'Content-Type': 'application/json' }, body: JSON.stringify({ action }) });
+  load();
+}
+
+function btn(label, cls, fn) { const b = document.createElement('button'); b.textContent = label; b.className = cls; b.onclick = fn; return b; }
+
+async function load() {
+  sessionStorage.setItem('am_admin', tokenEl.value);
+  const list = document.getElementById('list');
+  const r = await fetch('/v1/admin/reports', { headers: auth() });
+  if (!r.ok) { list.innerHTML = '<p class="empty">Neplatný token.</p>'; return; }
+  const { reports } = await r.json();
+  list.replaceChildren();
+  if (!reports.length) { list.innerHTML = '<p class="empty">Fronta je prázdná.</p>'; return; }
+  for (const rep of reports) {
+    const card = document.createElement('div'); card.className = 'card';
+    if (rep.sticker) {
+      if (rep.sticker.kind === 'ink' && rep.sticker.ink) card.append(drawInk(rep.sticker.ink));
+      else { const p = document.createElement('div'); p.className = 'preset'; p.textContent = presets[rep.sticker.preset] || '?'; card.append(p); }
+    } else if (rep.target_user) {
+      const img = await photo(rep.target_user); if (img) card.append(img);
+    }
+    const meta = document.createElement('div'); meta.className = 'meta';
+    meta.textContent = `#${rep.id} · ${new Date(rep.created_at).toLocaleString('cs-CZ')} · ${rep.block ? 'nahlášení + blokace' : 'nahlášení'}`
+      + (rep.sticker ? ` · sticker ${rep.sticker.id} (${rep.sticker.moderation}) od ${rep.sticker.author_id}` : '')
+      + (rep.target_user ? ` · uživatel ${rep.target_user}` : '');
+    card.append(meta);
+    if (rep.sticker) {
+      card.append(btn('Vrátit', 'ok', () => resolve(rep.id, 'restore')), btn('Odstranit', 'bad', () => resolve(rep.id, 'remove')));
+    }
+    card.append(btn('Uzavřít', 'plain', () => resolve(rep.id, 'dismiss')));
+    list.append(card);
+  }
+}
+document.getElementById('load').onclick = load;
+if (tokenEl.value) load();
+</script>
+</body>
+</html>

@@ -72,6 +72,7 @@ func Handler(svc *service.Service, auth Authenticator, log *slog.Logger, opts ..
 	h.routesWalls(mux)
 	h.routesFlyby(mux)
 	h.routesMedia(mux)
+	h.routesAdmin(mux)
 	return noCoordinates(mux)
 }
 
@@ -80,6 +81,8 @@ type handler struct {
 	auth Authenticator
 	log  *slog.Logger
 	rt   *Realtime
+
+	adminToken string
 }
 
 // Option configures the handler.
