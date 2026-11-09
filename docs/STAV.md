@@ -59,6 +59,7 @@ Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 - Realtime: WebSocket s jednorázovým lístkem (token nejde do URL), dohnání přes `?after=` po reconnectu.
   Test: doručení do 500 ms.
 - Report skryje sticker okamžitě (`review`), block ukončí zeď a skryje oba z radaru.
+- Fronta neodeslaných stickerů se ukládá do souboru u každé zdi a po restartu appky se odešle se stejným `client_id`.
 - Fronta nahlášení: interní stránka `/admin` (token `ALIENMATCH_ADMIN_TOKEN`, bez tokenu routy neexistují).
   Moderátor vidí kresbu nebo preset, případně fotku nahlášeného, a zvolí Vrátit / Odstranit / Uzavřít.
   `/admin` a `/v1/admin/*` patří jen do interní sítě (Caddy je ven nepustí).
@@ -89,7 +90,7 @@ nikdo nezkoušel, chybí běh na pozadí.
 - Fáze 1: balíčky `mirror_face` (z MirrorBooth), `sticker_canvas`, `stickers-svc` (glyph_extractor).
 - Fáze 2: auth (magic-link/Apple/Google), profily + media (MinIO), mood-worker na SPARKu
   (Whisper + VL přes LiteLLM), matching job à 10 min, waves → match, zeď.
-- Fáze 3: fronta pro offline přes restart appky (teď jen v paměti), Průlet na pozadí a test na zařízeních, `vl` + ASR v brokeru (AiStack), kalibrace vah `w_self/w_vl` per uživatel, MinIO, moderace, IAP.
+- Fáze 3: Průlet na pozadí a test na zařízeních, `vl` + ASR v brokeru (AiStack), kalibrace vah `w_self/w_vl` per uživatel, MinIO, moderace, IAP.
 
 ## Rozhodnutí Olina (2026-11-09, §8 hlavního plánu)
 
