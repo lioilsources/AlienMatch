@@ -274,4 +274,52 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Trojčata';
+
+  @override
+  String get navWalls => 'Zdi';
+
+  @override
+  String get wave => 'Zamávat';
+
+  @override
+  String get waveSent => 'Zamáváno. Když zamává taky, otevře se vám zeď.';
+
+  @override
+  String get matched => 'Je to vzájemné! Vaše zeď je otevřená.';
+
+  @override
+  String get waveLimit => 'Na dnešek máš zamávání vyčerpaná.';
+
+  @override
+  String get wallsEmpty => 'Zatím žádné zdi. Zamávej někomu na radaru.';
+
+  @override
+  String get youShare => 'Oba chodíte';
+
+  @override
+  String get draw => 'Nakreslit sticker';
+
+  @override
+  String get undo => 'Zpět';
+
+  @override
+  String get stick => 'Nalepit';
+
+  @override
+  String get report => 'Nahlásit';
+
+  @override
+  String get reportBlock => 'Nahlásit a zablokovat';
+
+  @override
+  String get peel => 'Odlepit';
+
+  @override
+  String get wallEnded => 'Tahle zeď skončila.';
+
+  @override
+  String get pendingSync => 'Čeká na připojení';
+
+  @override
+  String get encouragementWall => 'Zeď majáku';
 }

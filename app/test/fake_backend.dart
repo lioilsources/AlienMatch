@@ -28,6 +28,13 @@ class FakeBackend {
   Map<String, dynamic> checkinResult = {'level': 'MID', 'trend': 'FLAT', 'support_card': false, 'ask_again_soon': false};
   List<String> myPlaces = [];
   bool deleted = false;
+  bool waveMatches = false;
+  int waveStatus = 200;
+  List<Map<String, dynamic>> matchList = [];
+  final stickers = <Map<String, dynamic>>[];
+  int stickFailures = 0; // simulate offline: first N sticker posts fail
+  final stickClientIds = <String>[];
+  final reports = <Map<String, dynamic>>[];
 
   late final client = MockClient((req) async {
     requests.add(req);
@@ -38,7 +45,29 @@ class FakeBackend {
       _noForbiddenKeys(jsonDecode(req.body));
     }
     final path = '${req.method} ${req.url.path}';
+    final wallStickers = RegExp(r'^(GET|POST) /v1/walls/(\d+)/stickers$').firstMatch(path);
+    if (wallStickers != null) {
+      if (wallStickers.group(1) == 'GET') return _json({'stickers': stickers});
+      final body = jsonDecode(req.body) as Map<String, dynamic>;
+      stickClientIds.add(body['client_id'] as String);
+      if (stickFailures > 0) {
+        stickFailures--;
+        throw http.ClientException('offline');
+      }
+      final st = {...body, 'id': stickers.length + 1, 'author_id': 'u1', 'z': stickers.length + 1, 'wall_id': int.parse(wallStickers.group(2)!)};
+      stickers.add(st);
+      return _json(st, 201);
+    }
+    if (RegExp(r'^POST /v1/walls/\d+/ticket$').hasMatch(path)) return _json({'ticket': 'tk'});
     switch (path) {
+      case 'POST /v1/waves':
+        if (waveStatus != 200) return http.Response('limit', waveStatus);
+        return _json({'matched': waveMatches, if (waveMatches) 'kind': 'match', if (waveMatches) 'wall_id': 7});
+      case 'GET /v1/matches':
+        return _json({'matches': matchList});
+      case 'POST /v1/reports':
+        reports.add(jsonDecode(req.body) as Map<String, dynamic>);
+        return http.Response('', 204);
       case 'POST /v1/accounts':
         return _json({'user_id': 'u1', 'token': 't' * 43}, 201);
       case 'GET /v1/me':

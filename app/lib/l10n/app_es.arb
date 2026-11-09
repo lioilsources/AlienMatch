@@ -83,5 +83,21 @@
   "kidsBoys": "Niños",
   "kidsGirls": "Niñas",
   "kidsTwins": "Gemelos",
-  "kidsTriplets": "Trillizos"
+  "kidsTriplets": "Trillizos",
+  "navWalls": "Muros",
+  "wave": "Saludar",
+  "waveSent": "Saludo enviado. Si te devuelve el saludo, se abre vuestro muro.",
+  "matched": "¡Es mutuo! Vuestro muro está abierto.",
+  "waveLimit": "Ya no te quedan saludos por hoy.",
+  "wallsEmpty": "Aún no hay muros. Saluda a alguien del radar.",
+  "youShare": "Los dos vais a",
+  "draw": "Dibujar sticker",
+  "undo": "Deshacer",
+  "stick": "Pegar",
+  "report": "Denunciar",
+  "reportBlock": "Denunciar y bloquear",
+  "peel": "Despegar",
+  "wallEnded": "Este muro ha terminado.",
+  "pendingSync": "Esperando conexión",
+  "encouragementWall": "Muro del faro"
 }

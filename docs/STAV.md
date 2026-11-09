@@ -48,14 +48,26 @@ Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 4. Limit 8 míst.
 5. Název sdíleného místa se po matchi odhalí **automaticky**.
 
+## Zamávání, match a zeď (2026-11-09)
+
+- Zamávat jde jen na planetu, kterou mi radar právě ukazuje (matice + opt-iny platí vždy). Free 5 denně,
+  Signál+ / Ol1n Pass bez limitu. Druhá strana se dozví až po oboustranném zamávání.
+- Match + zeď v jedné transakci přes DB guard; povzbuzení = jemná zeď s omezenými presety.
+  Po matchi se automaticky ukážou názvy sdílených míst. Matchnutí a zablokovaní zmizí z radaru.
+- Stickers: vektorový ink (jen geometrie, server odmítne cokoli navíc) nebo preset. Idempotentní
+  `client_id` pro frontu pro offline. Posunout a odlepit jde jen vlastní.
+- Realtime: WebSocket s jednorázovým lístkem (token nejde do URL), dohnání přes `?after=` po reconnectu.
+  Test: doručení do 500 ms.
+- Report skryje sticker okamžitě (`review`), block ukončí zeď a skryje oba z radaru.
+- Moderace VL modelem zatím neběží: stickers se doručují hned, sporné řeší report.
+
 ## Zbývá
 
 - Fáze 0: odpovědi na otázky níže, benchmark VL 7B vs 32B.
 - Fáze 1: balíčky `mirror_face` (z MirrorBooth), `sticker_canvas`, `stickers-svc` (glyph_extractor).
 - Fáze 2: auth (magic-link/Apple/Google), profily + media (MinIO), mood-worker na SPARKu
   (Whisper + VL přes LiteLLM), matching job à 10 min, waves → match, zeď.
-- Fáze 3: zamávání → match (odhalení sdíleného místa automaticky), zeď se stickers (realtime), report/block,
-  BLE vrstva B (TEK/RPI, nativní advertising), video/hlas check-in + mood-worker, MinIO, moderace, IAP.
+- Fáze 3: fronta pro offline přes restart appky (teď jen v paměti), admin fronta reportů, BLE vrstva B (TEK/RPI, nativní advertising), video/hlas check-in + mood-worker, MinIO, moderace, IAP.
 
 ## Rozhodnutí Olina (2026-11-09, §8 hlavního plánu)
 

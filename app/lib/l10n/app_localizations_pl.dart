@@ -274,4 +274,52 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Trojaczki';
+
+  @override
+  String get navWalls => 'Ściany';
+
+  @override
+  String get wave => 'Pomachaj';
+
+  @override
+  String get waveSent => 'Pomachano. Jeśli odmacha, otworzy się wasza ściana.';
+
+  @override
+  String get matched => 'To wzajemne! Wasza ściana jest otwarta.';
+
+  @override
+  String get waveLimit => 'Na dziś wykorzystano wszystkie machnięcia.';
+
+  @override
+  String get wallsEmpty => 'Brak ścian. Pomachaj komuś na radarze.';
+
+  @override
+  String get youShare => 'Oboje chodzicie do';
+
+  @override
+  String get draw => 'Narysuj naklejkę';
+
+  @override
+  String get undo => 'Cofnij';
+
+  @override
+  String get stick => 'Przyklej';
+
+  @override
+  String get report => 'Zgłoś';
+
+  @override
+  String get reportBlock => 'Zgłoś i zablokuj';
+
+  @override
+  String get peel => 'Odklej';
+
+  @override
+  String get wallEnded => 'Ta ściana się zakończyła.';
+
+  @override
+  String get pendingSync => 'Czeka na połączenie';
+
+  @override
+  String get encouragementWall => 'Ściana latarni';
 }

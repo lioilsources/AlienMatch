@@ -360,6 +360,12 @@ func (ns NullRelStatus) Value() (driver.Value, error) {
 	return string(ns.RelStatus), nil
 }
 
+type Block struct {
+	Blocker   pgtype.UUID        `json:"blocker"`
+	Blocked   pgtype.UUID        `json:"blocked"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+}
+
 type Checkin struct {
 	ID           int64              `json:"id"`
 	UserID       pgtype.UUID        `json:"user_id"`
@@ -493,7 +499,7 @@ type Sticker struct {
 	WallID     int64              `json:"wall_id"`
 	AuthorID   pgtype.UUID        `json:"author_id"`
 	ClientID   pgtype.UUID        `json:"client_id"`
-	MediaKey   string             `json:"media_key"`
+	MediaKey   pgtype.Text        `json:"media_key"`
 	X          float32            `json:"x"`
 	Y          float32            `json:"y"`
 	Rotation   float32            `json:"rotation"`
@@ -502,6 +508,8 @@ type Sticker struct {
 	Moderation string             `json:"moderation"`
 	CreatedAt  pgtype.Timestamptz `json:"created_at"`
 	RemovedAt  pgtype.Timestamptz `json:"removed_at"`
+	Kind       string             `json:"kind"`
+	Ink        []byte             `json:"ink"`
 }
 
 type TekUpload struct {

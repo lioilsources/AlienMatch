@@ -276,4 +276,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Triplets';
+
+  @override
+  String get navWalls => 'Walls';
+
+  @override
+  String get wave => 'Wave';
+
+  @override
+  String get waveSent => 'Waved. If they wave back, a wall opens for you two.';
+
+  @override
+  String get matched => 'It\'s mutual! Your wall is open.';
+
+  @override
+  String get waveLimit => 'That\'s all your waves for today.';
+
+  @override
+  String get wallsEmpty => 'No walls yet. Wave at someone on the radar.';
+
+  @override
+  String get youShare => 'You both go to';
+
+  @override
+  String get draw => 'Draw a sticker';
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get stick => 'Stick it';
+
+  @override
+  String get report => 'Report';
+
+  @override
+  String get reportBlock => 'Report and block';
+
+  @override
+  String get peel => 'Peel off';
+
+  @override
+  String get wallEnded => 'This wall has ended.';
+
+  @override
+  String get pendingSync => 'Waiting for connection';
+
+  @override
+  String get encouragementWall => 'Beacon wall';
 }

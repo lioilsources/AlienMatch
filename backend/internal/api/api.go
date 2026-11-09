@@ -48,8 +48,11 @@ func (b BearerAuth) UserID(r *http.Request) (string, bool) {
 }
 
 // Handler builds the router.
-func Handler(svc *service.Service, auth Authenticator, log *slog.Logger) http.Handler {
+func Handler(svc *service.Service, auth Authenticator, log *slog.Logger, opts ...Option) http.Handler {
 	h := &handler{svc: svc, auth: auth, log: log}
+	for _, o := range opts {
+		o(h)
+	}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok")) })
 	mux.HandleFunc("POST /v1/checkins", h.withUser(h.checkin))
@@ -66,6 +69,7 @@ func Handler(svc *service.Service, auth Authenticator, log *slog.Logger) http.Ha
 	mux.HandleFunc("PUT /v1/me/profile", h.withUser(h.saveProfile))
 	mux.HandleFunc("PUT /v1/me/photo", h.withUser(h.setPhoto))
 	mux.HandleFunc("GET /v1/users/{id}/photo", h.withUser(h.photo))
+	h.routesWalls(mux)
 	return noCoordinates(mux)
 }
 
@@ -73,7 +77,14 @@ type handler struct {
 	svc  *service.Service
 	auth Authenticator
 	log  *slog.Logger
+	rt   *Realtime
 }
+
+// Option configures the handler.
+type Option func(*handler)
+
+// WithRealtime enables wall WebSockets.
+func WithRealtime(rt *Realtime) Option { return func(h *handler) { h.rt = rt } }
 
 type userKey struct{}
 

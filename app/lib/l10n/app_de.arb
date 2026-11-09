@@ -83,5 +83,21 @@
   "kidsBoys": "Jungen",
   "kidsGirls": "Mädchen",
   "kidsTwins": "Zwillinge",
-  "kidsTriplets": "Drillinge"
+  "kidsTriplets": "Drillinge",
+  "navWalls": "Wände",
+  "wave": "Winken",
+  "waveSent": "Gewinkt. Winkt die Person zurück, öffnet sich eure Wand.",
+  "matched": "Es ist gegenseitig! Eure Wand ist offen.",
+  "waveLimit": "Für heute hast du alle Winker verbraucht.",
+  "wallsEmpty": "Noch keine Wände. Winke jemandem auf dem Radar.",
+  "youShare": "Ihr geht beide zu",
+  "draw": "Sticker zeichnen",
+  "undo": "Rückgängig",
+  "stick": "Aufkleben",
+  "report": "Melden",
+  "reportBlock": "Melden und blockieren",
+  "peel": "Abziehen",
+  "wallEnded": "Diese Wand ist beendet.",
+  "pendingSync": "Warte auf Verbindung",
+  "encouragementWall": "Leuchtturm-Wand"
 }

@@ -276,4 +276,53 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Drillinge';
+
+  @override
+  String get navWalls => 'Wände';
+
+  @override
+  String get wave => 'Winken';
+
+  @override
+  String get waveSent =>
+      'Gewinkt. Winkt die Person zurück, öffnet sich eure Wand.';
+
+  @override
+  String get matched => 'Es ist gegenseitig! Eure Wand ist offen.';
+
+  @override
+  String get waveLimit => 'Für heute hast du alle Winker verbraucht.';
+
+  @override
+  String get wallsEmpty => 'Noch keine Wände. Winke jemandem auf dem Radar.';
+
+  @override
+  String get youShare => 'Ihr geht beide zu';
+
+  @override
+  String get draw => 'Sticker zeichnen';
+
+  @override
+  String get undo => 'Rückgängig';
+
+  @override
+  String get stick => 'Aufkleben';
+
+  @override
+  String get report => 'Melden';
+
+  @override
+  String get reportBlock => 'Melden und blockieren';
+
+  @override
+  String get peel => 'Abziehen';
+
+  @override
+  String get wallEnded => 'Diese Wand ist beendet.';
+
+  @override
+  String get pendingSync => 'Warte auf Verbindung';
+
+  @override
+  String get encouragementWall => 'Leuchtturm-Wand';
 }

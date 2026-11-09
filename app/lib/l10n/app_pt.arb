@@ -83,5 +83,21 @@
   "kidsBoys": "Rapazes",
   "kidsGirls": "Raparigas",
   "kidsTwins": "Gémeos",
-  "kidsTriplets": "Trigémeos"
+  "kidsTriplets": "Trigémeos",
+  "navWalls": "Murais",
+  "wave": "Acenar",
+  "waveSent": "Aceno enviado. Se acenar de volta, abre-se o vosso mural.",
+  "matched": "É mútuo! O vosso mural está aberto.",
+  "waveLimit": "Já usaste todos os acenos de hoje.",
+  "wallsEmpty": "Ainda sem murais. Acena a alguém no radar.",
+  "youShare": "Vão os dois a",
+  "draw": "Desenhar sticker",
+  "undo": "Desfazer",
+  "stick": "Colar",
+  "report": "Denunciar",
+  "reportBlock": "Denunciar e bloquear",
+  "peel": "Descolar",
+  "wallEnded": "Este mural terminou.",
+  "pendingSync": "À espera de ligação",
+  "encouragementWall": "Mural do farol"
 }

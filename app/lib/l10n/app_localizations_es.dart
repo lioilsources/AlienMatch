@@ -275,4 +275,53 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Trillizos';
+
+  @override
+  String get navWalls => 'Muros';
+
+  @override
+  String get wave => 'Saludar';
+
+  @override
+  String get waveSent =>
+      'Saludo enviado. Si te devuelve el saludo, se abre vuestro muro.';
+
+  @override
+  String get matched => '¡Es mutuo! Vuestro muro está abierto.';
+
+  @override
+  String get waveLimit => 'Ya no te quedan saludos por hoy.';
+
+  @override
+  String get wallsEmpty => 'Aún no hay muros. Saluda a alguien del radar.';
+
+  @override
+  String get youShare => 'Los dos vais a';
+
+  @override
+  String get draw => 'Dibujar sticker';
+
+  @override
+  String get undo => 'Deshacer';
+
+  @override
+  String get stick => 'Pegar';
+
+  @override
+  String get report => 'Denunciar';
+
+  @override
+  String get reportBlock => 'Denunciar y bloquear';
+
+  @override
+  String get peel => 'Despegar';
+
+  @override
+  String get wallEnded => 'Este muro ha terminado.';
+
+  @override
+  String get pendingSync => 'Esperando conexión';
+
+  @override
+  String get encouragementWall => 'Muro del faro';
 }

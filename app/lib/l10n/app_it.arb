@@ -83,5 +83,21 @@
   "kidsBoys": "Maschi",
   "kidsGirls": "Femmine",
   "kidsTwins": "Gemelli",
-  "kidsTriplets": "Tre gemelli"
+  "kidsTriplets": "Tre gemelli",
+  "navWalls": "Muri",
+  "wave": "Saluta",
+  "waveSent": "Saluto inviato. Se ricambia, si apre il vostro muro.",
+  "matched": "È reciproco! Il vostro muro è aperto.",
+  "waveLimit": "Per oggi hai finito i saluti.",
+  "wallsEmpty": "Ancora nessun muro. Saluta qualcuno sul radar.",
+  "youShare": "Andate entrambi a",
+  "draw": "Disegna uno sticker",
+  "undo": "Annulla",
+  "stick": "Attacca",
+  "report": "Segnala",
+  "reportBlock": "Segnala e blocca",
+  "peel": "Stacca",
+  "wallEnded": "Questo muro è terminato.",
+  "pendingSync": "In attesa di connessione",
+  "encouragementWall": "Muro del faro"
 }

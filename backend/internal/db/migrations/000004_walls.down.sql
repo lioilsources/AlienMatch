@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS blocks;
+DROP INDEX IF EXISTS waves_to;
+DROP INDEX IF EXISTS waves_from_created;
+ALTER TABLE stickers ALTER COLUMN moderation SET DEFAULT 'pending';
+ALTER TABLE stickers DROP CONSTRAINT IF EXISTS stickers_payload;
+ALTER TABLE stickers DROP COLUMN IF EXISTS ink, DROP COLUMN IF EXISTS kind;

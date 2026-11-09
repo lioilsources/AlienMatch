@@ -83,5 +83,21 @@
   "kidsBoys": "Chłopcy",
   "kidsGirls": "Dziewczynki",
   "kidsTwins": "Bliźnięta",
-  "kidsTriplets": "Trojaczki"
+  "kidsTriplets": "Trojaczki",
+  "navWalls": "Ściany",
+  "wave": "Pomachaj",
+  "waveSent": "Pomachano. Jeśli odmacha, otworzy się wasza ściana.",
+  "matched": "To wzajemne! Wasza ściana jest otwarta.",
+  "waveLimit": "Na dziś wykorzystano wszystkie machnięcia.",
+  "wallsEmpty": "Brak ścian. Pomachaj komuś na radarze.",
+  "youShare": "Oboje chodzicie do",
+  "draw": "Narysuj naklejkę",
+  "undo": "Cofnij",
+  "stick": "Przyklej",
+  "report": "Zgłoś",
+  "reportBlock": "Zgłoś i zablokuj",
+  "peel": "Odklej",
+  "wallEnded": "Ta ściana się zakończyła.",
+  "pendingSync": "Czeka na połączenie",
+  "encouragementWall": "Ściana latarni"
 }

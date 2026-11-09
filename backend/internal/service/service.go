@@ -64,6 +64,8 @@ type Service struct {
 	Store    Store
 	Accounts AccountStore
 	Media    MediaStore
+	Walls    WallStore
+	Pub      Publisher
 	Now      func() time.Time
 	Options  matching.Options
 }
@@ -147,6 +149,14 @@ func (s *Service) Radar(ctx context.Context, userID string) ([]RadarEntry, error
 		return nil, ErrNotFound
 	}
 	me := pool[idx]
+	if s.Walls != nil {
+		// Blocked either way or already matched: never on each other's radar.
+		ex, err := s.Walls.RadarExclusions(ctx, userID)
+		if err != nil {
+			return nil, fmt.Errorf("radar exclusions: %w", err)
+		}
+		pool = slices.DeleteFunc(slices.Clone(pool), func(p matching.Profile) bool { return slices.Contains(ex, p.ID) })
+	}
 	cands := matching.Candidates(me, pool, now, s.Options)
 	counts, err := s.Store.PlaceCounts(ctx, me.Places)
 	if err != nil {

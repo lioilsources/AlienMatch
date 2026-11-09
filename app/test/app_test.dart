@@ -115,7 +115,7 @@ void main() {
 
   testWidgets('home has no text fields except the place search', (tester) async {
     await pumpApp(tester, signedIn: true, complete: true);
-    for (final icon in [Icons.radar, Icons.wb_sunny_outlined, Icons.tune]) {
+    for (final icon in [Icons.radar, Icons.dashboard_outlined, Icons.wb_sunny_outlined, Icons.tune]) {
       await tester.tap(find.byIcon(icon));
       await tester.pumpAndSettle();
       expect(find.byType(TextField).hitTestable(), findsNothing, reason: 'tab $icon');

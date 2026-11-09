@@ -83,5 +83,21 @@
   "kidsBoys": "Kluci",
   "kidsGirls": "Holky",
   "kidsTwins": "Dvojčata",
-  "kidsTriplets": "Trojčata"
+  "kidsTriplets": "Trojčata",
+  "navWalls": "Zdi",
+  "wave": "Zamávat",
+  "waveSent": "Zamáváno. Když zamává taky, otevře se vám zeď.",
+  "matched": "Je to vzájemné! Vaše zeď je otevřená.",
+  "waveLimit": "Na dnešek máš zamávání vyčerpaná.",
+  "wallsEmpty": "Zatím žádné zdi. Zamávej někomu na radaru.",
+  "youShare": "Oba chodíte",
+  "draw": "Nakreslit sticker",
+  "undo": "Zpět",
+  "stick": "Nalepit",
+  "report": "Nahlásit",
+  "reportBlock": "Nahlásit a zablokovat",
+  "peel": "Odlepit",
+  "wallEnded": "Tahle zeď skončila.",
+  "pendingSync": "Čeká na připojení",
+  "encouragementWall": "Zeď majáku"
 }

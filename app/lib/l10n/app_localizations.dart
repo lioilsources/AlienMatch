@@ -617,6 +617,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Triplets'**
   String get kidsTriplets;
+
+  /// No description provided for @navWalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Walls'**
+  String get navWalls;
+
+  /// No description provided for @wave.
+  ///
+  /// In en, this message translates to:
+  /// **'Wave'**
+  String get wave;
+
+  /// No description provided for @waveSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Waved. If they wave back, a wall opens for you two.'**
+  String get waveSent;
+
+  /// No description provided for @matched.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s mutual! Your wall is open.'**
+  String get matched;
+
+  /// No description provided for @waveLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'That\'s all your waves for today.'**
+  String get waveLimit;
+
+  /// No description provided for @wallsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No walls yet. Wave at someone on the radar.'**
+  String get wallsEmpty;
+
+  /// No description provided for @youShare.
+  ///
+  /// In en, this message translates to:
+  /// **'You both go to'**
+  String get youShare;
+
+  /// No description provided for @draw.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw a sticker'**
+  String get draw;
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @stick.
+  ///
+  /// In en, this message translates to:
+  /// **'Stick it'**
+  String get stick;
+
+  /// No description provided for @report.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get report;
+
+  /// No description provided for @reportBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Report and block'**
+  String get reportBlock;
+
+  /// No description provided for @peel.
+  ///
+  /// In en, this message translates to:
+  /// **'Peel off'**
+  String get peel;
+
+  /// No description provided for @wallEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'This wall has ended.'**
+  String get wallEnded;
+
+  /// No description provided for @pendingSync.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for connection'**
+  String get pendingSync;
+
+  /// No description provided for @encouragementWall.
+  ///
+  /// In en, this message translates to:
+  /// **'Beacon wall'**
+  String get encouragementWall;
 }
 
 class _AppLocalizationsDelegate

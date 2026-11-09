@@ -275,4 +275,53 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get kidsTriplets => 'Трійнята';
+
+  @override
+  String get navWalls => 'Стіни';
+
+  @override
+  String get wave => 'Помахати';
+
+  @override
+  String get waveSent =>
+      'Помахано. Якщо помахає у відповідь, відкриється ваша стіна.';
+
+  @override
+  String get matched => 'Це взаємно! Ваша стіна відкрита.';
+
+  @override
+  String get waveLimit => 'На сьогодні помахи закінчилися.';
+
+  @override
+  String get wallsEmpty => 'Ще немає стін. Помахай комусь на радарі.';
+
+  @override
+  String get youShare => 'Ви обоє ходите до';
+
+  @override
+  String get draw => 'Намалювати стікер';
+
+  @override
+  String get undo => 'Скасувати';
+
+  @override
+  String get stick => 'Наліпити';
+
+  @override
+  String get report => 'Поскаржитися';
+
+  @override
+  String get reportBlock => 'Поскаржитися й заблокувати';
+
+  @override
+  String get peel => 'Відліпити';
+
+  @override
+  String get wallEnded => 'Ця стіна завершилася.';
+
+  @override
+  String get pendingSync => 'Очікує з\'єднання';
+
+  @override
+  String get encouragementWall => 'Стіна маяка';
 }
