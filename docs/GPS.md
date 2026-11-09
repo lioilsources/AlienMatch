@@ -9,8 +9,12 @@ Zadání: `Prompts/01-GPS.md`. Tady je, co z něj v backendu existuje a jak.
   - GTFS PID: nástupiště se slučují do uzlu (`stop:pid:N<asw_node_id>`), aby lidé z nástupišť A a B
     jedné zastávky sdíleli jedno místo a k-anonymita se nedrobila. Region podle tarifního pásma:
     P/0/B = `CZ-PHA`, zbytek PID = `CZ-STC`. Linky jsou `route:pid:<route_id>`.
-  - OSM přes Overpass: podniky (`poi:`), VŠ a VOŠ (`edu:`, jen `amenity=university|college`),
-    kancelářské budovy (`office:`).
+  - OSM přes Overpass (dotaz na obdélník Prahy, některé mirrory nemají data území): podniky (`poi:`),
+    VŠ a VOŠ (`edu:`), kancelářské budovy (`office:`). V Praze OSM značí desítky středních škol jako
+    `amenity=college`, proto `college` projde jen s „VOŠ / vyšší odborná“ v názvu. Cokoli se znakem
+    střední školy (gymnázium, SOŠ, SOU, SPŠ, SUŠ, OA, konzervatoř…) nebo koleje v názvu vypadne,
+    včetně společných budov typu „VOŠ, SOŠ a Gymnázium“.
+  - Stav importu 2026-11-09: 8 344 zastávek (1 505 Praha), 872 linek, 6 526 podniků, 86 VŠ/VOŠ, 91 budov.
   - Nikdy do katalogu: zdravotnictví (`hospital|clinic|doctors|dentist|pharmacy`, jakýkoli `healthcare`),
     bydlení (`building=residential|house|apartments|…`, `landuse=residential`), ZŠ, SŠ a školky,
     `access=private`, místa bez jména. Pravidla jsou v `internal/catalog`, testy na každé z nich.

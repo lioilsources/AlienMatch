@@ -16,6 +16,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"github.com/lioilsources/AlienMatch/backend/internal/places"
@@ -286,6 +287,9 @@ func Classify(tags map[string]string) (kind places.Kind, subtype string, ok bool
 	}
 	switch a := tags["amenity"]; {
 	case eduAmenity[a]:
+		if !adultEducation(a, tags["name"]) {
+			return "", "", false
+		}
 		return places.KindEdu, a, true
 	case poiAmenity[a]:
 		return places.KindPOI, a, true
@@ -300,6 +304,23 @@ func Classify(tags map[string]string) (kind places.Kind, subtype string, ok bool
 		return places.KindOffice, "office", true
 	}
 	return "", "", false
+}
+
+// Secondary and primary schools are often tagged amenity=college in Czech
+// OSM data. Minors study there, so any secondary-school marker in the name
+// excludes the place, including shared buildings ("VOŠ, SOŠ a Gymnázium").
+// Dormitories ("kolej") are homes and are excluded too.
+var (
+	secondarySchool  = regexp.MustCompile(`(?i)(gymn[aá]z|st[řr]edn[ií]|\bS[ŠS]|SOŠ|SOU|SPŠ|SZŠ|\bOA\b|obchodn[ií] akademie|lyceum|konzervato[řr]|u[čc]ili[šs]t|z[aá]kladn[ií]|\bZŠ|mate[řr]sk|(?:^|[^\p{L}])S[A-ZÚŮ]{0,3}Š(?:$|[^\p{L}])|\bkolej)`)
+	higherVocational = regexp.MustCompile(`(?i)(\bVOŠ|vy[šs]š[ií] odborn)`)
+)
+
+// adultEducation: universities, and colleges only when clearly a VOŠ.
+func adultEducation(amenity, name string) bool {
+	if secondarySchool.MatchString(name) {
+		return false
+	}
+	return amenity == "university" || higherVocational.MatchString(name)
 }
 
 func set(xs ...string) map[string]bool {
