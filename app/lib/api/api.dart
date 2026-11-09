@@ -26,6 +26,9 @@ class Api {
 
   final http.Client _http;
   final String baseUrl;
+
+  /// No request may hang the UI forever.
+  static const timeout = Duration(seconds: 20);
   String? token;
 
   Map<String, String> get _headers => {
@@ -49,7 +52,7 @@ class Api {
   }) async {
     final req = http.Request(method, _u(path, query))..headers.addAll(_headers);
     if (body != null) req.body = jsonEncode(body);
-    final res = await http.Response.fromStream(await _http.send(req));
+    final res = await http.Response.fromStream(await _http.send(req).timeout(timeout));
     if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
     if (res.body.isEmpty) return null;
     return jsonDecode(utf8.decode(res.bodyBytes));
@@ -116,7 +119,7 @@ class Api {
       req.files.add(http.MultipartFile.fromBytes('frame', f, filename: 'frame.jpg'));
     }
     if (audio != null) req.files.add(http.MultipartFile.fromBytes('audio', audio, filename: 'voice.m4a'));
-    final res = await http.Response.fromStream(await _http.send(req));
+    final res = await http.Response.fromStream(await _http.send(req).timeout(const Duration(seconds: 40)));
     if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
     final j = jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>;
     return (result: CheckinResult.fromJson(j), signal: j['signal'] as bool? ?? false);
