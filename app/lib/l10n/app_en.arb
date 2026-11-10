@@ -9,7 +9,7 @@
   "privacyPolicy": "Privacy policy",
   "next": "Next",
   "back": "Back",
-  "captureHint": "Face in the oval, nose on the line",
+  "captureHint": "Inner ring turns the mirror, outer ring turns the picture",
   "capture": "Capture",
   "retake": "Again",
   "cameraUnavailable": "Camera is not available. The profile photo can only be taken live.",
@@ -153,5 +153,45 @@
   "checkinSignalUsed": "Signal from face and voice counted. Your rating still weighs more.",
   "checkinMediaNote": "The recording is deleted right after scoring.",
   "checkinNoPermission": "Camera or microphone permission is missing.",
-  "checkinSignalPending": "The face and voice signal is being prepared; it will be added in a few minutes."
+  "checkinSignalPending": "The face and voice signal is being prepared; it will be added in a few minutes.",
+  "usePhoto": "This is me",
+  "switchSide": "Other half",
+  "switchCamera": "Switch camera",
+  "filterLabel": "Filter {name}",
+  "filterNone": "None",
+  "filterGlow": "Glow",
+  "filterSlim": "Slim",
+  "filterDoll": "Doll",
+  "filterChibi": "Chibi",
+  "filterLips": "Lips",
+  "filterBigNose": "Nose",
+  "filterAlien": "Alien",
+  "filterMelt": "Melt",
+  "filterBigEars": "Ears",
+  "filterLongNeck": "Neck",
+  "filterPencil": "Pencil",
+  "filterComic": "Comic",
+  "filterGlitch": "Glitch",
+  "filterNeon": "Neon",
+  "filterThermal": "Heat",
+  "filterOil": "Oil",
+  "filterCrt": "CRT",
+  "filterPopArt": "Pop",
+  "filterVampire": "Vamp",
+  "filterZombie": "Zombie",
+  "filterGhost": "Ghost",
+  "filterDemon": "Demon",
+  "filterCyborg": "Cyborg",
+  "filterFrozen": "Frost",
+  "collectionPretty": "Pretty",
+  "collectionUgly": "Ugly",
+  "collectionArt": "Art",
+  "collectionFantasy": "Fantasy",
+  "@filterLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -32,7 +32,7 @@ Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 
 - Flutter `app/` (iOS, Android, web), bundle `com.ol1n.alienmatch`, Distribution pipeline, ikona (FLUX Schnell).
 - Onboarding: 18+ a samostatný souhlas čl. 9 → profil jen z ikon (generace, status, děti, intenty, koho hledám,
-  maják) → přezdívka → živé foto s vodítkem → výběr L+L / R+R → upload jen zvolené varianty.
+  maják) → přezdívka → živé zrcadlo MirrorBooth (osa zrcadla, otáčení obrazu, L/R, přední/zadní kamera, všech 24 filtrů zdarma) → kontrola → upload jen složené zrcadlové tváře (čtverec ≤ 1024 px).
 - Check-in: škála planeta → supernova, zatím režim `self` (video/hlas přijde s mood-workerem), karta pomoci 116 123.
 - Radar: hvězdná mapa, aura podle úrovně, pulz podle trendu, čára ke sdílené hvězdě, slabý signál.
 - Moje hvězdy (max 8), „Co o tvé poloze víme“, smazání účtu.
