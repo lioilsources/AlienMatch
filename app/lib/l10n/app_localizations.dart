@@ -171,7 +171,7 @@ abstract class AppLocalizations {
   /// No description provided for @captureHint.
   ///
   /// In en, this message translates to:
-  /// **'Face in the oval, nose on the line'**
+  /// **'Inner ring turns the mirror, outer ring turns the picture'**
   String get captureHint;
 
   /// No description provided for @capture.
@@ -827,6 +827,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The face and voice signal is being prepared; it will be added in a few minutes.'**
   String get checkinSignalPending;
+
+  /// No description provided for @usePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'This is me'**
+  String get usePhoto;
+
+  /// No description provided for @switchSide.
+  ///
+  /// In en, this message translates to:
+  /// **'Other half'**
+  String get switchSide;
+
+  /// No description provided for @switchCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch camera'**
+  String get switchCamera;
+
+  /// No description provided for @filterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter {name}'**
+  String filterLabel(String name);
+
+  /// No description provided for @filterNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get filterNone;
+
+  /// No description provided for @filterGlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Glow'**
+  String get filterGlow;
+
+  /// No description provided for @filterSlim.
+  ///
+  /// In en, this message translates to:
+  /// **'Slim'**
+  String get filterSlim;
+
+  /// No description provided for @filterDoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Doll'**
+  String get filterDoll;
+
+  /// No description provided for @filterChibi.
+  ///
+  /// In en, this message translates to:
+  /// **'Chibi'**
+  String get filterChibi;
+
+  /// No description provided for @filterLips.
+  ///
+  /// In en, this message translates to:
+  /// **'Lips'**
+  String get filterLips;
+
+  /// No description provided for @filterBigNose.
+  ///
+  /// In en, this message translates to:
+  /// **'Nose'**
+  String get filterBigNose;
+
+  /// No description provided for @filterAlien.
+  ///
+  /// In en, this message translates to:
+  /// **'Alien'**
+  String get filterAlien;
+
+  /// No description provided for @filterMelt.
+  ///
+  /// In en, this message translates to:
+  /// **'Melt'**
+  String get filterMelt;
+
+  /// No description provided for @filterBigEars.
+  ///
+  /// In en, this message translates to:
+  /// **'Ears'**
+  String get filterBigEars;
+
+  /// No description provided for @filterLongNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
+  String get filterLongNeck;
+
+  /// No description provided for @filterPencil.
+  ///
+  /// In en, this message translates to:
+  /// **'Pencil'**
+  String get filterPencil;
+
+  /// No description provided for @filterComic.
+  ///
+  /// In en, this message translates to:
+  /// **'Comic'**
+  String get filterComic;
+
+  /// No description provided for @filterGlitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Glitch'**
+  String get filterGlitch;
+
+  /// No description provided for @filterNeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Neon'**
+  String get filterNeon;
+
+  /// No description provided for @filterThermal.
+  ///
+  /// In en, this message translates to:
+  /// **'Heat'**
+  String get filterThermal;
+
+  /// No description provided for @filterOil.
+  ///
+  /// In en, this message translates to:
+  /// **'Oil'**
+  String get filterOil;
+
+  /// No description provided for @filterCrt.
+  ///
+  /// In en, this message translates to:
+  /// **'CRT'**
+  String get filterCrt;
+
+  /// No description provided for @filterPopArt.
+  ///
+  /// In en, this message translates to:
+  /// **'Pop'**
+  String get filterPopArt;
+
+  /// No description provided for @filterVampire.
+  ///
+  /// In en, this message translates to:
+  /// **'Vamp'**
+  String get filterVampire;
+
+  /// No description provided for @filterZombie.
+  ///
+  /// In en, this message translates to:
+  /// **'Zombie'**
+  String get filterZombie;
+
+  /// No description provided for @filterGhost.
+  ///
+  /// In en, this message translates to:
+  /// **'Ghost'**
+  String get filterGhost;
+
+  /// No description provided for @filterDemon.
+  ///
+  /// In en, this message translates to:
+  /// **'Demon'**
+  String get filterDemon;
+
+  /// No description provided for @filterCyborg.
+  ///
+  /// In en, this message translates to:
+  /// **'Cyborg'**
+  String get filterCyborg;
+
+  /// No description provided for @filterFrozen.
+  ///
+  /// In en, this message translates to:
+  /// **'Frost'**
+  String get filterFrozen;
+
+  /// No description provided for @collectionPretty.
+  ///
+  /// In en, this message translates to:
+  /// **'Pretty'**
+  String get collectionPretty;
+
+  /// No description provided for @collectionUgly.
+  ///
+  /// In en, this message translates to:
+  /// **'Ugly'**
+  String get collectionUgly;
+
+  /// No description provided for @collectionArt.
+  ///
+  /// In en, this message translates to:
+  /// **'Art'**
+  String get collectionArt;
+
+  /// No description provided for @collectionFantasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Fantasy'**
+  String get collectionFantasy;
 }
 
 class _AppLocalizationsDelegate

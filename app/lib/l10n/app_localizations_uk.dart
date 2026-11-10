@@ -37,7 +37,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get back => 'Назад';
 
   @override
-  String get captureHint => 'Обличчя в овал, ніс на лінію';
+  String get captureHint =>
+      'Внутрішнє кільце обертає дзеркало, зовнішнє — усе зображення';
 
   @override
   String get capture => 'Зняти';
@@ -386,4 +387,105 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get checkinSignalPending =>
       'Сигнал з обличчя та голосу готується, його буде додано за кілька хвилин.';
+
+  @override
+  String get usePhoto => 'Це я';
+
+  @override
+  String get switchSide => 'Інша половина';
+
+  @override
+  String get switchCamera => 'Змінити камеру';
+
+  @override
+  String filterLabel(String name) {
+    return 'Фільтр $name';
+  }
+
+  @override
+  String get filterNone => 'Без';
+
+  @override
+  String get filterGlow => 'Сяйво';
+
+  @override
+  String get filterSlim => 'Стрункість';
+
+  @override
+  String get filterDoll => 'Лялька';
+
+  @override
+  String get filterChibi => 'Чібі';
+
+  @override
+  String get filterLips => 'Губи';
+
+  @override
+  String get filterBigNose => 'Ніс';
+
+  @override
+  String get filterAlien => 'Прибулець';
+
+  @override
+  String get filterMelt => 'Танення';
+
+  @override
+  String get filterBigEars => 'Вуха';
+
+  @override
+  String get filterLongNeck => 'Шия';
+
+  @override
+  String get filterPencil => 'Олівець';
+
+  @override
+  String get filterComic => 'Комікс';
+
+  @override
+  String get filterGlitch => 'Глітч';
+
+  @override
+  String get filterNeon => 'Неон';
+
+  @override
+  String get filterThermal => 'Тепло';
+
+  @override
+  String get filterOil => 'Олія';
+
+  @override
+  String get filterCrt => 'CRT';
+
+  @override
+  String get filterPopArt => 'Поп';
+
+  @override
+  String get filterVampire => 'Вампір';
+
+  @override
+  String get filterZombie => 'Зомбі';
+
+  @override
+  String get filterGhost => 'Привид';
+
+  @override
+  String get filterDemon => 'Демон';
+
+  @override
+  String get filterCyborg => 'Кіборг';
+
+  @override
+  String get filterFrozen => 'Мороз';
+
+  @override
+  String get collectionPretty => 'Краса';
+
+  @override
+  String get collectionUgly => 'Потворність';
+
+  @override
+  String get collectionArt => 'Мистецтво';
+
+  @override
+  String get collectionFantasy => 'Фентезі';
 }

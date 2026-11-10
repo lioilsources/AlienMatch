@@ -37,7 +37,8 @@ class AppLocalizationsSk extends AppLocalizations {
   String get back => 'Späť';
 
   @override
-  String get captureHint => 'Tvár do oválu, nos na čiaru';
+  String get captureHint =>
+      'Vnútorný kruh otáča zrkadlom, vonkajší celým obrazom';
 
   @override
   String get capture => 'Odfotiť';
@@ -385,4 +386,105 @@ class AppLocalizationsSk extends AppLocalizations {
   @override
   String get checkinSignalPending =>
       'Signál z tváre a hlasu sa pripravuje, dopočíta sa o pár minút.';
+
+  @override
+  String get usePhoto => 'Toto som ja';
+
+  @override
+  String get switchSide => 'Druhá polovica';
+
+  @override
+  String get switchCamera => 'Prepnúť kameru';
+
+  @override
+  String filterLabel(String name) {
+    return 'Filter $name';
+  }
+
+  @override
+  String get filterNone => 'Žiadny';
+
+  @override
+  String get filterGlow => 'Žiara';
+
+  @override
+  String get filterSlim => 'Štíhlosť';
+
+  @override
+  String get filterDoll => 'Bábika';
+
+  @override
+  String get filterChibi => 'Chibi';
+
+  @override
+  String get filterLips => 'Pery';
+
+  @override
+  String get filterBigNose => 'Nos';
+
+  @override
+  String get filterAlien => 'Ufón';
+
+  @override
+  String get filterMelt => 'Topenie';
+
+  @override
+  String get filterBigEars => 'Uši';
+
+  @override
+  String get filterLongNeck => 'Krk';
+
+  @override
+  String get filterPencil => 'Ceruzka';
+
+  @override
+  String get filterComic => 'Komiks';
+
+  @override
+  String get filterGlitch => 'Glitch';
+
+  @override
+  String get filterNeon => 'Neón';
+
+  @override
+  String get filterThermal => 'Teplo';
+
+  @override
+  String get filterOil => 'Olej';
+
+  @override
+  String get filterCrt => 'CRT';
+
+  @override
+  String get filterPopArt => 'Pop';
+
+  @override
+  String get filterVampire => 'Upír';
+
+  @override
+  String get filterZombie => 'Zombie';
+
+  @override
+  String get filterGhost => 'Duch';
+
+  @override
+  String get filterDemon => 'Démon';
+
+  @override
+  String get filterCyborg => 'Kyborg';
+
+  @override
+  String get filterFrozen => 'Mráz';
+
+  @override
+  String get collectionPretty => 'Krása';
+
+  @override
+  String get collectionUgly => 'Škaredosť';
+
+  @override
+  String get collectionArt => 'Umenie';
+
+  @override
+  String get collectionFantasy => 'Fantasy';
 }

@@ -1,5 +1,5 @@
 name: mirror_face
-description: Symmetric "alien" face composition (L+L / R+R) shared by AlienMatch and MirrorBooth.
+description: MirrorBooth live mirror (axis, rotation, filter shaders) and still compositor for AlienMatch.
 version: 0.1.0
 publish_to: none
 
@@ -10,8 +10,36 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  camera: ^0.12.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
+flutter:
+  shaders:
+    - shaders/filter_alien.frag
+    - shaders/filter_big_ears.frag
+    - shaders/filter_big_nose.frag
+    - shaders/filter_chibi.frag
+    - shaders/filter_comic.frag
+    - shaders/filter_crt.frag
+    - shaders/filter_cyborg.frag
+    - shaders/filter_demon.frag
+    - shaders/filter_doll.frag
+    - shaders/filter_frozen.frag
+    - shaders/filter_ghost.frag
+    - shaders/filter_glitch.frag
+    - shaders/filter_glow.frag
+    - shaders/filter_lips.frag
+    - shaders/filter_long_neck.frag
+    - shaders/filter_melt.frag
+    - shaders/filter_neon.frag
+    - shaders/filter_oil.frag
+    - shaders/filter_pencil.frag
+    - shaders/filter_pop_art.frag
+    - shaders/filter_slim.frag
+    - shaders/filter_thermal.frag
+    - shaders/filter_vampire.frag
+    - shaders/filter_zombie.frag

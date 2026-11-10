@@ -37,7 +37,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get back => 'Voltar';
 
   @override
-  String get captureHint => 'Rosto no oval, nariz na linha';
+  String get captureHint =>
+      'O anel interno gira o espelho, o externo a imagem toda';
 
   @override
   String get capture => 'Capturar';
@@ -387,4 +388,105 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get checkinSignalPending =>
       'O sinal do rosto e da voz está a ser preparado; será adicionado dentro de minutos.';
+
+  @override
+  String get usePhoto => 'Sou eu';
+
+  @override
+  String get switchSide => 'Outra metade';
+
+  @override
+  String get switchCamera => 'Trocar câmera';
+
+  @override
+  String filterLabel(String name) {
+    return 'Filtro $name';
+  }
+
+  @override
+  String get filterNone => 'Nenhum';
+
+  @override
+  String get filterGlow => 'Brilho';
+
+  @override
+  String get filterSlim => 'Magro';
+
+  @override
+  String get filterDoll => 'Boneca';
+
+  @override
+  String get filterChibi => 'Chibi';
+
+  @override
+  String get filterLips => 'Lábios';
+
+  @override
+  String get filterBigNose => 'Nariz';
+
+  @override
+  String get filterAlien => 'Alien';
+
+  @override
+  String get filterMelt => 'Derreter';
+
+  @override
+  String get filterBigEars => 'Orelhas';
+
+  @override
+  String get filterLongNeck => 'Pescoço';
+
+  @override
+  String get filterPencil => 'Lápis';
+
+  @override
+  String get filterComic => 'HQ';
+
+  @override
+  String get filterGlitch => 'Glitch';
+
+  @override
+  String get filterNeon => 'Neon';
+
+  @override
+  String get filterThermal => 'Calor';
+
+  @override
+  String get filterOil => 'Óleo';
+
+  @override
+  String get filterCrt => 'CRT';
+
+  @override
+  String get filterPopArt => 'Pop';
+
+  @override
+  String get filterVampire => 'Vampiro';
+
+  @override
+  String get filterZombie => 'Zumbi';
+
+  @override
+  String get filterGhost => 'Fantasma';
+
+  @override
+  String get filterDemon => 'Demônio';
+
+  @override
+  String get filterCyborg => 'Ciborgue';
+
+  @override
+  String get filterFrozen => 'Gelo';
+
+  @override
+  String get collectionPretty => 'Bonito';
+
+  @override
+  String get collectionUgly => 'Feio';
+
+  @override
+  String get collectionArt => 'Arte';
+
+  @override
+  String get collectionFantasy => 'Fantasia';
 }
