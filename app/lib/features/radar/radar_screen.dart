@@ -6,6 +6,7 @@ import '../../api/api.dart';
 import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
+import '../stars/stars_screen.dart';
 import 'flyby_strip.dart';
 
 /// Star map, not a swipe deck. Planets are people the mood matrix lets
@@ -53,10 +54,25 @@ class _RadarScreenState extends State<RadarScreen> {
           final map = r.planets.isEmpty
               ? _Message(text: l.radarEmpty)
               : StarMap(planets: r.planets);
-          if (flyby == null) return map;
           return Column(
             children: [
-              FlybyStrip(flyby: flyby),
+              ?(flyby == null ? null : FlybyStrip(flyby: flyby)),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8, 4, 8, 0),
+                  child: TextButton.icon(
+                    key: const Key('openStars'),
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (_) => const StarsScreen(),
+                      ),
+                    ),
+                    icon: const Text('✨'),
+                    label: Text(l.starsTitle),
+                  ),
+                ),
+              ),
               Expanded(child: map),
             ],
           );

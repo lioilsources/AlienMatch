@@ -159,5 +159,20 @@
   "albumFull": "Das Album ist voll (12). Lösche zuerst ein Gesicht.",
   "faceActive": "Profilbild",
   "setAsProfile": "Als Profilbild verwenden",
-  "deleteFace": "Gesicht löschen"
+  "deleteFace": "Gesicht löschen",
+  "starsTitle": "Hellste Sterne",
+  "starsHint": "Seitwärts blättern, nach oben gefällt dir, nach unten nicht",
+  "like": "Gefällt mir",
+  "dislike": "Gefällt mir nicht",
+  "ratedSeen": "Übersprungen",
+  "starsEmpty": "Gerade leuchtet kein heller Stern. Versuch es später.",
+  "starsDone": "Das waren alle Sterne. Wisch nach links zurück, um etwas zu ändern.",
+  "likedTitle": "Gemochte Aliens",
+  "likedEmpty": "Noch niemand. Wen du nach oben wischst, landet hier.",
+  "notOnRadarNow": "Gerade nicht auf deinem Radar",
+  "feedbackTitle": "Echo aus dem All",
+  "feedbackNote": "Wie viele Sterne dein Gesicht sahen und wie sie es bewerteten. Wer, erfährst du nie.",
+  "feedbackEmpty": "Noch hat niemand dein Gesicht bewertet.",
+  "dislikesHidden": "Gerade zeigen wir nur das Gute. Der Rest kommt zurück, wenn du mehr Energie hast.",
+  "olderFace": "Älteres Gesicht"
 }

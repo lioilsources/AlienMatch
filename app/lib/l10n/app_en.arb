@@ -201,5 +201,20 @@
   "albumFull": "The album is full (12). Delete a face first.",
   "faceActive": "Profile photo",
   "setAsProfile": "Use as profile photo",
-  "deleteFace": "Delete face"
+  "deleteFace": "Delete face",
+  "starsTitle": "Brightest stars",
+  "starsHint": "Swipe sideways to browse, up if you like, down if not",
+  "like": "Like",
+  "dislike": "Dislike",
+  "ratedSeen": "Skipped",
+  "starsEmpty": "No bright star is shining right now. Try again later.",
+  "starsDone": "Those were all the stars. Go back left to change anything.",
+  "likedTitle": "Liked aliens",
+  "likedEmpty": "Nobody yet. Whoever you swipe up lands here.",
+  "notOnRadarNow": "Not on your radar right now",
+  "feedbackTitle": "Echo from space",
+  "feedbackNote": "How many stars saw your face and how they rated it. You never learn who.",
+  "feedbackEmpty": "Nobody has rated your face yet.",
+  "dislikesHidden": "Right now we only show the good part. The rest comes back when you have more energy.",
+  "olderFace": "Older face"
 }

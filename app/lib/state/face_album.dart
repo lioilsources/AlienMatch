@@ -17,13 +17,32 @@ abstract class FaceStorage {
   Future<List<Face>> load();
   Future<void> put(Face f);
   Future<void> remove(String id);
-  Future<String?> readActive();
-  Future<void> writeActive(String? id);
+  Future<AlbumMeta> readMeta();
+  Future<void> writeMeta(AlbumMeta meta);
+}
+
+/// Which face is the profile photo, and the server's public id of every face
+/// that was ever uploaded (to match the community feedback to it).
+class AlbumMeta {
+  AlbumMeta({this.active, Map<String, String>? photoIds})
+    : photoIds = photoIds ?? {};
+  String? active;
+  final Map<String, String> photoIds;
+
+  Map<String, dynamic> toJson() => {'id': active, 'photo_ids': photoIds};
+
+  factory AlbumMeta.fromJson(Map<String, dynamic> j) => AlbumMeta(
+    active: j['id'] as String?,
+    photoIds: {
+      for (final e in (j['photo_ids'] as Map? ?? {}).entries)
+        e.key as String: e.value as String,
+    },
+  );
 }
 
 class MemoryFaceStorage implements FaceStorage {
   final Map<String, Uint8List> files = {};
-  String? active;
+  AlbumMeta meta = AlbumMeta();
   @override
   Future<List<Face>> load() async => [
     for (final e in files.entries) Face(e.key, e.value),
@@ -33,9 +52,11 @@ class MemoryFaceStorage implements FaceStorage {
   @override
   Future<void> remove(String id) async => files.remove(id);
   @override
-  Future<String?> readActive() async => active;
+  Future<AlbumMeta> readMeta() async =>
+      AlbumMeta.fromJson(jsonDecode(jsonEncode(meta.toJson())));
   @override
-  Future<void> writeActive(String? id) async => active = id;
+  Future<void> writeMeta(AlbumMeta m) async =>
+      meta = AlbumMeta.fromJson(jsonDecode(jsonEncode(m.toJson())));
 }
 
 class FileFaceStorage implements FaceStorage {
@@ -80,19 +101,21 @@ class FileFaceStorage implements FaceStorage {
   Future<File> _active() async => File('${(await _dir()).path}/active.json');
 
   @override
-  Future<String?> readActive() async {
+  Future<AlbumMeta> readMeta() async {
     try {
       final f = await _active();
-      if (!await f.exists()) return null;
-      return (jsonDecode(await f.readAsString()) as Map)['id'] as String?;
+      if (!await f.exists()) return AlbumMeta();
+      return AlbumMeta.fromJson(
+        jsonDecode(await f.readAsString()) as Map<String, dynamic>,
+      );
     } catch (_) {
-      return null;
+      return AlbumMeta();
     }
   }
 
   @override
-  Future<void> writeActive(String? id) async =>
-      (await _active()).writeAsString(jsonEncode({'id': id}));
+  Future<void> writeMeta(AlbumMeta m) async =>
+      (await _active()).writeAsString(jsonEncode(m.toJson()));
 }
 
 /// The user's own mirror faces, kept on the phone only. The server knows just
@@ -110,7 +133,11 @@ class FaceAlbum extends ChangeNotifier {
 
   /// Newest first.
   List<Face> faces = [];
-  String? activeId;
+  AlbumMeta _meta = AlbumMeta();
+  String? get activeId => _meta.active;
+
+  /// The server's id of [faceId] once it was uploaded.
+  String? photoIdOf(String faceId) => _meta.photoIds[faceId];
   bool _loaded = false;
 
   bool get full => faces.length >= max;
@@ -120,8 +147,8 @@ class FaceAlbum extends ChangeNotifier {
     try {
       faces = await storage.load()
         ..sort((a, b) => b.id.compareTo(a.id));
-      activeId = await storage.readActive();
-      if (!faces.any((f) => f.id == activeId)) activeId = null;
+      _meta = await storage.readMeta();
+      if (!faces.any((f) => f.id == _meta.active)) _meta.active = null;
     } catch (_) {
       faces = [];
     }
@@ -145,9 +172,10 @@ class FaceAlbum extends ChangeNotifier {
   }
 
   /// Marks [id] as the profile photo. Call after the upload succeeded.
-  Future<void> markActive(String id) async {
-    activeId = id;
-    await storage.writeActive(id);
+  Future<void> markActive(String id, {String? photoId}) async {
+    _meta.active = id;
+    if (photoId != null) _meta.photoIds[id] = photoId;
+    await storage.writeMeta(_meta);
     notifyListeners();
   }
 
@@ -156,6 +184,8 @@ class FaceAlbum extends ChangeNotifier {
     if (id == activeId) return;
     await storage.remove(id);
     faces = faces.where((f) => f.id != id).toList();
+    _meta.photoIds.remove(id);
+    await storage.writeMeta(_meta);
     notifyListeners();
   }
 
@@ -164,9 +194,9 @@ class FaceAlbum extends ChangeNotifier {
     for (final f in await storage.load()) {
       await storage.remove(f.id);
     }
-    await storage.writeActive(null);
+    _meta = AlbumMeta();
+    await storage.writeMeta(_meta);
     faces = [];
-    activeId = null;
     notifyListeners();
   }
 }

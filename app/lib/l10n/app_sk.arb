@@ -159,5 +159,20 @@
   "albumFull": "Album je plné (12). Najprv nejakú tvár zmaž.",
   "faceActive": "Profilovka",
   "setAsProfile": "Nastaviť ako profilovku",
-  "deleteFace": "Zmazať tvár"
+  "deleteFace": "Zmazať tvár",
+  "starsTitle": "Najžiarivejšie hviezdy",
+  "starsHint": "Do strán listuješ, hore sa ti páči, dole nie",
+  "like": "Páči sa",
+  "dislike": "Nepáči sa",
+  "ratedSeen": "Preskočené",
+  "starsEmpty": "Teraz tu nesvieti žiadna žiarivá hviezda. Skús to neskôr.",
+  "starsDone": "To boli všetky hviezdy. Vráť sa doľava, ak chceš niečo zmeniť.",
+  "likedTitle": "Obľúbení mimozemšťania",
+  "likedEmpty": "Zatiaľ nikto. Koho dáš hore, uloží sa sem.",
+  "notOnRadarNow": "Teraz nie je na tvojom radare",
+  "feedbackTitle": "Ohlas vesmíru",
+  "feedbackNote": "Koľko hviezd tvoju tvár videlo a ako ju ohodnotili. Kto hodnotil, sa nedozvieš.",
+  "feedbackEmpty": "Zatiaľ tvoju tvár nikto nehodnotil.",
+  "dislikesHidden": "Teraz ukazujeme len to dobré. Zvyšok uvidíš, keď budeš mať viac energie.",
+  "olderFace": "Staršia tvár"
 }

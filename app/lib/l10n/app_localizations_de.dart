@@ -515,4 +515,55 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get deleteFace => 'Gesicht löschen';
+
+  @override
+  String get starsTitle => 'Hellste Sterne';
+
+  @override
+  String get starsHint =>
+      'Seitwärts blättern, nach oben gefällt dir, nach unten nicht';
+
+  @override
+  String get like => 'Gefällt mir';
+
+  @override
+  String get dislike => 'Gefällt mir nicht';
+
+  @override
+  String get ratedSeen => 'Übersprungen';
+
+  @override
+  String get starsEmpty =>
+      'Gerade leuchtet kein heller Stern. Versuch es später.';
+
+  @override
+  String get starsDone =>
+      'Das waren alle Sterne. Wisch nach links zurück, um etwas zu ändern.';
+
+  @override
+  String get likedTitle => 'Gemochte Aliens';
+
+  @override
+  String get likedEmpty =>
+      'Noch niemand. Wen du nach oben wischst, landet hier.';
+
+  @override
+  String get notOnRadarNow => 'Gerade nicht auf deinem Radar';
+
+  @override
+  String get feedbackTitle => 'Echo aus dem All';
+
+  @override
+  String get feedbackNote =>
+      'Wie viele Sterne dein Gesicht sahen und wie sie es bewerteten. Wer, erfährst du nie.';
+
+  @override
+  String get feedbackEmpty => 'Noch hat niemand dein Gesicht bewertet.';
+
+  @override
+  String get dislikesHidden =>
+      'Gerade zeigen wir nur das Gute. Der Rest kommt zurück, wenn du mehr Energie hast.';
+
+  @override
+  String get olderFace => 'Älteres Gesicht';
 }

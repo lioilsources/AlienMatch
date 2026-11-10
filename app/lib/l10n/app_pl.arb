@@ -159,5 +159,20 @@
   "albumFull": "Album jest pełny (12). Najpierw usuń jakąś twarz.",
   "faceActive": "Zdjęcie profilowe",
   "setAsProfile": "Ustaw jako zdjęcie profilowe",
-  "deleteFace": "Usuń twarz"
+  "deleteFace": "Usuń twarz",
+  "starsTitle": "Najjaśniejsze gwiazdy",
+  "starsHint": "Na boki przeglądasz, w górę podoba się, w dół nie",
+  "like": "Podoba się",
+  "dislike": "Nie podoba się",
+  "ratedSeen": "Pominięte",
+  "starsEmpty": "Teraz nie świeci żadna jasna gwiazda. Spróbuj później.",
+  "starsDone": "To były wszystkie gwiazdy. Wróć w lewo, jeśli chcesz coś zmienić.",
+  "likedTitle": "Ulubieni kosmici",
+  "likedEmpty": "Jeszcze nikt. Kogo przesuniesz w górę, trafi tutaj.",
+  "notOnRadarNow": "Teraz nie ma go na twoim radarze",
+  "feedbackTitle": "Echo z kosmosu",
+  "feedbackNote": "Ile gwiazd widziało twoją twarz i jak ją oceniły. Kto, nie dowiesz się nigdy.",
+  "feedbackEmpty": "Nikt jeszcze nie ocenił twojej twarzy.",
+  "dislikesHidden": "Teraz pokazujemy tylko dobre rzeczy. Reszta wróci, gdy będziesz mieć więcej energii.",
+  "olderFace": "Starsza twarz"
 }

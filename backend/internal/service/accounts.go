@@ -208,28 +208,29 @@ var ErrBadPhoto = errors.New("service: bad photo")
 
 // SetPhoto stores the chosen mirror variant and deletes the previous file.
 // Only the chosen variant ever reaches the server; the original never does.
-func (s *Service) SetPhoto(ctx context.Context, userID string, data []byte) error {
+// It returns the face's public id (see PhotoID) for the face statistics.
+func (s *Service) SetPhoto(ctx context.Context, userID string, data []byte) (string, error) {
 	ext := photoExt(data)
 	if ext == "" || len(data) > MaxPhotoBytes {
-		return ErrBadPhoto
+		return "", ErrBadPhoto
 	}
 	rnd := make([]byte, 12)
 	if _, err := rand.Read(rnd); err != nil {
-		return err
+		return "", err
 	}
 	key := fmt.Sprintf("photos/%s/%s.%s", userID, base64.RawURLEncoding.EncodeToString(rnd), ext)
 	if err := s.Media.Put(ctx, key, data); err != nil {
-		return fmt.Errorf("put photo: %w", err)
+		return "", fmt.Errorf("put photo: %w", err)
 	}
 	prev, err := s.Accounts.SwapPhoto(ctx, userID, key, s.Now())
 	if err != nil {
 		_ = s.Media.Delete(ctx, key)
-		return fmt.Errorf("swap photo: %w", err)
+		return "", fmt.Errorf("swap photo: %w", err)
 	}
 	if prev != "" {
 		_ = s.Media.Delete(ctx, prev)
 	}
-	return nil
+	return PhotoID(key), nil
 }
 
 // Photo returns a user's photo bytes.

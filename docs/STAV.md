@@ -34,6 +34,7 @@ Backend vrstvy A, katalog Praha a schéma a TTL vrstev B a C: viz `docs/GPS.md`.
 - Onboarding: 18+ a samostatný souhlas čl. 9 → profil jen z ikon (generace, status, děti, intenty, koho hledám,
   maják) → přezdívka → živé zrcadlo MirrorBooth (osa zrcadla, otáčení obrazu, L/R, přední/zadní kamera, všech 24 filtrů zdarma) → kontrola → upload jen složené zrcadlové tváře (čtverec ≤ 1024 px).
 - Album „Moje tváře“ (Nastavení): až 12 tváří jen v telefonu (`faces/` v app support), „Uložit a fotit dál“; přepnutí profilovky nahraje zvolenou tvář, server zná jen aktivní. Smazání účtu album vymaže.
+- Hvězdy (Olin 2026-11-10, doplněk k radaru, radar zůstává mapou): balíček tváří s HIGH aurou z mého radaru, do stran listování, nahoru like, dolů dislike, přelistování bez hodnocení = viděno (0), hodnocení jde změnit. Tabulka `face_ratings` po tvářích (`photo_key`), autor hodnocení anonymní. „Ohlas vesmíru“ v Moje tváře (👀/👍/👎 po tvářích, v LOW bez dislike), Oblíbení s máváním jen přes radar. Like nikdy nevytvoří match.
 - Check-in: škála planeta → supernova, zatím režim `self` (video/hlas přijde s mood-workerem), karta pomoci 116 123.
 - Radar: hvězdná mapa, aura podle úrovně, pulz podle trendu, čára ke sdílené hvězdě, slabý signál.
 - Moje hvězdy (max 8), „Co o tvé poloze víme“, smazání účtu.

@@ -159,5 +159,20 @@
   "albumFull": "O álbum está cheio (12). Apague um rosto primeiro.",
   "faceActive": "Foto de perfil",
   "setAsProfile": "Usar como foto de perfil",
-  "deleteFace": "Apagar rosto"
+  "deleteFace": "Apagar rosto",
+  "starsTitle": "Estrelas mais brilhantes",
+  "starsHint": "Deslize para os lados para ver, para cima se gostar, para baixo se não",
+  "like": "Curti",
+  "dislike": "Não curti",
+  "ratedSeen": "Pulada",
+  "starsEmpty": "Nenhuma estrela brilhando agora. Tente mais tarde.",
+  "starsDone": "Essas eram todas as estrelas. Volte à esquerda para mudar algo.",
+  "likedTitle": "Aliens curtidos",
+  "likedEmpty": "Ninguém ainda. Quem você deslizar para cima aparece aqui.",
+  "notOnRadarNow": "Agora não está no seu radar",
+  "feedbackTitle": "Eco do espaço",
+  "feedbackNote": "Quantas estrelas viram seu rosto e como avaliaram. Você nunca sabe quem.",
+  "feedbackEmpty": "Ninguém avaliou seu rosto ainda.",
+  "dislikesHidden": "Agora mostramos só o lado bom. O resto volta quando você tiver mais energia.",
+  "olderFace": "Rosto anterior"
 }

@@ -514,4 +514,54 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get deleteFace => 'Apagar rosto';
+
+  @override
+  String get starsTitle => 'Estrelas mais brilhantes';
+
+  @override
+  String get starsHint =>
+      'Deslize para os lados para ver, para cima se gostar, para baixo se não';
+
+  @override
+  String get like => 'Curti';
+
+  @override
+  String get dislike => 'Não curti';
+
+  @override
+  String get ratedSeen => 'Pulada';
+
+  @override
+  String get starsEmpty => 'Nenhuma estrela brilhando agora. Tente mais tarde.';
+
+  @override
+  String get starsDone =>
+      'Essas eram todas as estrelas. Volte à esquerda para mudar algo.';
+
+  @override
+  String get likedTitle => 'Aliens curtidos';
+
+  @override
+  String get likedEmpty =>
+      'Ninguém ainda. Quem você deslizar para cima aparece aqui.';
+
+  @override
+  String get notOnRadarNow => 'Agora não está no seu radar';
+
+  @override
+  String get feedbackTitle => 'Eco do espaço';
+
+  @override
+  String get feedbackNote =>
+      'Quantas estrelas viram seu rosto e como avaliaram. Você nunca sabe quem.';
+
+  @override
+  String get feedbackEmpty => 'Ninguém avaliou seu rosto ainda.';
+
+  @override
+  String get dislikesHidden =>
+      'Agora mostramos só o lado bom. O resto volta quando você tiver mais energia.';
+
+  @override
+  String get olderFace => 'Rosto anterior';
 }

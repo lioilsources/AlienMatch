@@ -53,7 +53,9 @@ class Api {
   }) async {
     final req = http.Request(method, _u(path, query))..headers.addAll(_headers);
     if (body != null) req.body = jsonEncode(body);
-    final res = await http.Response.fromStream(await _http.send(req).timeout(timeout));
+    final res = await http.Response.fromStream(
+      await _http.send(req).timeout(timeout),
+    );
     if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
     if (res.body.isEmpty) return null;
     return jsonDecode(utf8.decode(res.bodyBytes));
@@ -76,13 +78,35 @@ class Api {
   Future<void> saveProfile(Profile p) =>
       _send('PUT', '/v1/me/profile', body: p.toJson());
 
-  Future<void> uploadPhoto(Uint8List jpeg) async {
+  /// Uploads the profile face; returns its public id for the face stats.
+  Future<String?> uploadPhoto(Uint8List jpeg) async {
     final res = await _http.put(
       _u('/v1/me/photo'),
       headers: {..._headers, 'Content-Type': 'image/jpeg'},
       body: jpeg,
     );
     if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
+    if (res.body.isEmpty) return null;
+    return (jsonDecode(res.body) as Map<String, dynamic>)['photo_id']
+        as String?;
+  }
+
+  /// The rating deck: the brightest stars (HIGH aura) on my radar.
+  Future<List<StarCard>> stars() async {
+    final j = await _send('GET', '/v1/stars');
+    return [for (final s in j['stars'] as List) StarCard.fromJson(s)];
+  }
+
+  /// +1 like, -1 dislike, 0 browsed past.
+  Future<void> rate(String userId, int value) =>
+      _send('PUT', '/v1/stars/$userId/rating', body: {'value': value});
+
+  Future<FaceStats> faceStats() async =>
+      FaceStats.fromJson(await _send('GET', '/v1/me/face-stats'));
+
+  Future<List<LikedAlien>> liked() async {
+    final j = await _send('GET', '/v1/me/liked');
+    return [for (final x in j['liked'] as List) LikedAlien.fromJson(x)];
   }
 
   String photoUrl(String userId) => '$baseUrl/v1/users/$userId/photo';
@@ -123,13 +147,25 @@ class Api {
       ..fields['self'] = self.toStringAsFixed(3)
       ..fields['lang'] = lang;
     for (final f in frames) {
-      req.files.add(http.MultipartFile.fromBytes('frame', f, filename: 'frame.jpg'));
+      req.files.add(
+        http.MultipartFile.fromBytes('frame', f, filename: 'frame.jpg'),
+      );
     }
-    if (audio != null) req.files.add(http.MultipartFile.fromBytes('audio', audio, filename: 'voice.m4a'));
-    final res = await http.Response.fromStream(await _http.send(req).timeout(const Duration(seconds: 40)));
+    if (audio != null) {
+      req.files.add(
+        http.MultipartFile.fromBytes('audio', audio, filename: 'voice.m4a'),
+      );
+    }
+    final res = await http.Response.fromStream(
+      await _http.send(req).timeout(const Duration(seconds: 40)),
+    );
     if (res.statusCode >= 300) throw ApiException(res.statusCode, res.body);
     final j = jsonDecode(utf8.decode(res.bodyBytes)) as Map<String, dynamic>;
-    return (result: CheckinResult.fromJson(j), signal: j['signal'] as bool? ?? false, pending: j['signal_pending'] as bool? ?? false);
+    return (
+      result: CheckinResult.fromJson(j),
+      signal: j['signal'] as bool? ?? false,
+      pending: j['signal_pending'] as bool? ?? false,
+    );
   }
 
   Future<Radar> radar() async =>
@@ -519,5 +555,83 @@ class LocationData {
     ],
     j['active_encounter_keys'] as int? ?? 0,
     _strs(j['venue_checkins']),
+  );
+}
+
+/// One face in the star deck. [rating] is my earlier rating of this face.
+class StarCard {
+  StarCard({
+    required this.userId,
+    required this.photoId,
+    required this.level,
+    required this.trend,
+    this.rating,
+  });
+  final String userId;
+  final String photoId;
+  final String level;
+  final String trend;
+  int? rating;
+
+  factory StarCard.fromJson(Map<String, dynamic> j) => StarCard(
+    userId: j['user_id'] as String,
+    photoId: j['photo_id'] as String,
+    level: j['level'] as String,
+    trend: j['trend'] as String,
+    rating: j['rating'] as int?,
+  );
+}
+
+/// Community feedback on one of my faces. [dislikes] is null while hidden.
+class FaceStat {
+  FaceStat({
+    required this.photoId,
+    required this.current,
+    required this.likes,
+    required this.dislikes,
+    required this.seen,
+  });
+  final String photoId;
+  final bool current;
+  final int likes;
+  final int? dislikes;
+  final int seen;
+
+  factory FaceStat.fromJson(Map<String, dynamic> j) => FaceStat(
+    photoId: j['photo_id'] as String,
+    current: j['current'] as bool? ?? false,
+    likes: j['likes'] as int,
+    dislikes: j['dislikes'] as int?,
+    seen: j['seen'] as int,
+  );
+}
+
+class FaceStats {
+  FaceStats({required this.faces, required this.dislikesHidden});
+  final List<FaceStat> faces;
+  final bool dislikesHidden;
+
+  factory FaceStats.fromJson(Map<String, dynamic> j) => FaceStats(
+    faces: [for (final f in j['faces'] as List) FaceStat.fromJson(f)],
+    dislikesHidden: j['dislikes_hidden'] as bool? ?? false,
+  );
+
+  FaceStat? byPhoto(String? id) {
+    for (final f in faces) {
+      if (f.photoId == id) return f;
+    }
+    return null;
+  }
+}
+
+/// Someone whose face I liked; waving is possible only while on my radar.
+class LikedAlien {
+  LikedAlien({required this.userId, required this.onRadar});
+  final String userId;
+  final bool onRadar;
+
+  factory LikedAlien.fromJson(Map<String, dynamic> j) => LikedAlien(
+    userId: j['user_id'] as String,
+    onRadar: j['on_radar'] as bool? ?? false,
   );
 }

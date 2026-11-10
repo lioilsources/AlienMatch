@@ -515,4 +515,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteFace => 'Delete face';
+
+  @override
+  String get starsTitle => 'Brightest stars';
+
+  @override
+  String get starsHint =>
+      'Swipe sideways to browse, up if you like, down if not';
+
+  @override
+  String get like => 'Like';
+
+  @override
+  String get dislike => 'Dislike';
+
+  @override
+  String get ratedSeen => 'Skipped';
+
+  @override
+  String get starsEmpty =>
+      'No bright star is shining right now. Try again later.';
+
+  @override
+  String get starsDone =>
+      'Those were all the stars. Go back left to change anything.';
+
+  @override
+  String get likedTitle => 'Liked aliens';
+
+  @override
+  String get likedEmpty => 'Nobody yet. Whoever you swipe up lands here.';
+
+  @override
+  String get notOnRadarNow => 'Not on your radar right now';
+
+  @override
+  String get feedbackTitle => 'Echo from space';
+
+  @override
+  String get feedbackNote =>
+      'How many stars saw your face and how they rated it. You never learn who.';
+
+  @override
+  String get feedbackEmpty => 'Nobody has rated your face yet.';
+
+  @override
+  String get dislikesHidden =>
+      'Right now we only show the good part. The rest comes back when you have more energy.';
+
+  @override
+  String get olderFace => 'Older face';
 }

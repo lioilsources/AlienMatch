@@ -1073,6 +1073,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete face'**
   String get deleteFace;
+
+  /// No description provided for @starsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Brightest stars'**
+  String get starsTitle;
+
+  /// No description provided for @starsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Swipe sideways to browse, up if you like, down if not'**
+  String get starsHint;
+
+  /// No description provided for @like.
+  ///
+  /// In en, this message translates to:
+  /// **'Like'**
+  String get like;
+
+  /// No description provided for @dislike.
+  ///
+  /// In en, this message translates to:
+  /// **'Dislike'**
+  String get dislike;
+
+  /// No description provided for @ratedSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get ratedSeen;
+
+  /// No description provided for @starsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No bright star is shining right now. Try again later.'**
+  String get starsEmpty;
+
+  /// No description provided for @starsDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Those were all the stars. Go back left to change anything.'**
+  String get starsDone;
+
+  /// No description provided for @likedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Liked aliens'**
+  String get likedTitle;
+
+  /// No description provided for @likedEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody yet. Whoever you swipe up lands here.'**
+  String get likedEmpty;
+
+  /// No description provided for @notOnRadarNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not on your radar right now'**
+  String get notOnRadarNow;
+
+  /// No description provided for @feedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Echo from space'**
+  String get feedbackTitle;
+
+  /// No description provided for @feedbackNote.
+  ///
+  /// In en, this message translates to:
+  /// **'How many stars saw your face and how they rated it. You never learn who.'**
+  String get feedbackNote;
+
+  /// No description provided for @feedbackEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody has rated your face yet.'**
+  String get feedbackEmpty;
+
+  /// No description provided for @dislikesHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Right now we only show the good part. The rest comes back when you have more energy.'**
+  String get dislikesHidden;
+
+  /// No description provided for @olderFace.
+  ///
+  /// In en, this message translates to:
+  /// **'Older face'**
+  String get olderFace;
 }
 
 class _AppLocalizationsDelegate

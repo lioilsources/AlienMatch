@@ -159,5 +159,20 @@
   "albumFull": "L’album è pieno (12). Elimina prima un volto.",
   "faceActive": "Foto profilo",
   "setAsProfile": "Usa come foto profilo",
-  "deleteFace": "Elimina volto"
+  "deleteFace": "Elimina volto",
+  "starsTitle": "Stelle più luminose",
+  "starsHint": "Scorri ai lati per sfogliare, su se ti piace, giù se no",
+  "like": "Mi piace",
+  "dislike": "Non mi piace",
+  "ratedSeen": "Saltata",
+  "starsEmpty": "Ora non brilla nessuna stella. Riprova più tardi.",
+  "starsDone": "Erano tutte le stelle. Torna a sinistra per cambiare qualcosa.",
+  "likedTitle": "Alieni che ti piacciono",
+  "likedEmpty": "Ancora nessuno. Chi scorri in su finisce qui.",
+  "notOnRadarNow": "Ora non è sul tuo radar",
+  "feedbackTitle": "Eco dallo spazio",
+  "feedbackNote": "Quante stelle hanno visto il tuo volto e come l’hanno valutato. Chi, non lo saprai mai.",
+  "feedbackEmpty": "Nessuno ha ancora valutato il tuo volto.",
+  "dislikesHidden": "Per ora mostriamo solo il lato bello. Il resto torna quando avrai più energia.",
+  "olderFace": "Volto precedente"
 }

@@ -40,6 +40,7 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - **Server nikdy nedostane souřadnici uživatele.** `lat/lon` jen v katalogu `places`; API je odmítá. Místa max 8, zobrazení jen při k ≥ 5 a nejvýš jedno. TTL vrstev B a C vynucuje job. Viz `docs/GPS.md`.
 - Katalog nikdy neobsahuje zdravotnictví, bydlení, ZŠ ani SŠ.
 - Do matchingu jen stav < 36 h. VL je poradní, self skóre má přednost.
+- Hvězdy (like/dislike tváří): jen HIGH aura z mého radaru, nikdy match. LOW se nehodnotí a dislike nevidí.
 - Žádná SDK třetích stran pro tracking/analytiku.
 - Nasazenou migraci needitovat, přidat novou. `internal/db/sqlc` ručně needitovat.
 
