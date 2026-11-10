@@ -397,6 +397,14 @@ type Entitlement struct {
 	Remaining pgtype.Int4        `json:"remaining"`
 }
 
+type FaceRating struct {
+	RaterID   pgtype.UUID        `json:"rater_id"`
+	TargetID  pgtype.UUID        `json:"target_id"`
+	PhotoKey  string             `json:"photo_key"`
+	Value     int16              `json:"value"`
+	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
+}
+
 type IapReceipt struct {
 	ID            int64              `json:"id"`
 	UserID        pgtype.UUID        `json:"user_id"`

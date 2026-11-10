@@ -56,7 +56,7 @@ func run(log *slog.Logger) error {
 		auth = api.DevAuth{}
 	}
 	hub := realtime.NewHub()
-	svc := &service.Service{Store: st, Accounts: st, Walls: st, Flyby: st, Admin: st, Pub: hub, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
+	svc := &service.Service{Store: st, Accounts: st, Walls: st, Flyby: st, Admin: st, Ratings: st, Pub: hub, Media: media.FS{Root: envOr("ALIENMATCH_MEDIA_DIR", "run/media")}, Now: time.Now}
 	if u := os.Getenv("ALIENMATCH_GATEWAY_URL"); u != "" {
 		// Mood scoring via LiteLLM on SPARK; without it check-ins are self-only.
 		svc.Scorer = &moodscore.Gateway{

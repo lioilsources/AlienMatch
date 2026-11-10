@@ -117,8 +117,8 @@ class AppState extends ChangeNotifier {
 
   /// Uploads [face] as the profile photo, then remembers it as active.
   Future<void> useFace(Face face) async {
-    await api.uploadPhoto(face.jpeg);
-    await album.markActive(face.id);
+    final photoId = await api.uploadPhoto(face.jpeg);
+    await album.markActive(face.id, photoId: photoId);
     await refresh();
   }
 

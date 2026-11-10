@@ -159,5 +159,20 @@
   "albumFull": "L’album est plein (12). Supprime d’abord un visage.",
   "faceActive": "Photo de profil",
   "setAsProfile": "Utiliser comme photo de profil",
-  "deleteFace": "Supprimer le visage"
+  "deleteFace": "Supprimer le visage",
+  "starsTitle": "Étoiles les plus brillantes",
+  "starsHint": "Glisse sur les côtés pour parcourir, en haut si tu aimes, en bas sinon",
+  "like": "J’aime",
+  "dislike": "Je n’aime pas",
+  "ratedSeen": "Passée",
+  "starsEmpty": "Aucune étoile brillante pour l’instant. Réessaie plus tard.",
+  "starsDone": "C’étaient toutes les étoiles. Reviens à gauche pour changer quelque chose.",
+  "likedTitle": "Aliens aimés",
+  "likedEmpty": "Personne pour l’instant. Ceux que tu glisses en haut arrivent ici.",
+  "notOnRadarNow": "Pas sur ton radar en ce moment",
+  "feedbackTitle": "Écho de l’espace",
+  "feedbackNote": "Combien d’étoiles ont vu ton visage et comment elles l’ont noté. Tu ne sauras jamais qui.",
+  "feedbackEmpty": "Personne n’a encore noté ton visage.",
+  "dislikesHidden": "Pour l’instant on ne montre que le positif. Le reste revient quand tu auras plus d’énergie.",
+  "olderFace": "Ancien visage"
 }

@@ -70,7 +70,7 @@ func TestAccountLifecycle(t *testing.T) {
 		t.Fatalf("bad photo: %d", code)
 	}
 	for range 2 {
-		if code, b := call(t, srv, "PUT", "/v1/me/photo", tok, jpeg); code != 204 {
+		if code, b := call(t, srv, "PUT", "/v1/me/photo", tok, jpeg); code != 200 || !strings.Contains(string(b), `"photo_id":"`) {
 			t.Fatalf("photo: %d %s", code, b)
 		}
 	}

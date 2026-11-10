@@ -514,4 +514,53 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get deleteFace => 'Видалити обличчя';
+
+  @override
+  String get starsTitle => 'Найяскравіші зірки';
+
+  @override
+  String get starsHint => 'Убік гортаєш, угору подобається, униз ні';
+
+  @override
+  String get like => 'Подобається';
+
+  @override
+  String get dislike => 'Не подобається';
+
+  @override
+  String get ratedSeen => 'Пропущено';
+
+  @override
+  String get starsEmpty =>
+      'Зараз не світить жодна яскрава зірка. Спробуй пізніше.';
+
+  @override
+  String get starsDone =>
+      'Це були всі зірки. Повернися ліворуч, якщо хочеш щось змінити.';
+
+  @override
+  String get likedTitle => 'Улюблені прибульці';
+
+  @override
+  String get likedEmpty => 'Поки нікого. Кого гортнеш угору, з’явиться тут.';
+
+  @override
+  String get notOnRadarNow => 'Зараз не на твоєму радарі';
+
+  @override
+  String get feedbackTitle => 'Відгук всесвіту';
+
+  @override
+  String get feedbackNote =>
+      'Скільки зірок бачили твоє обличчя і як оцінили. Хто саме, ти не дізнаєшся.';
+
+  @override
+  String get feedbackEmpty => 'Твоє обличчя ще ніхто не оцінив.';
+
+  @override
+  String get dislikesHidden =>
+      'Зараз показуємо лише хороше. Решта повернеться, коли матимеш більше енергії.';
+
+  @override
+  String get olderFace => 'Старіше обличчя';
 }

@@ -511,4 +511,54 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get deleteFace => 'Usuń twarz';
+
+  @override
+  String get starsTitle => 'Najjaśniejsze gwiazdy';
+
+  @override
+  String get starsHint => 'Na boki przeglądasz, w górę podoba się, w dół nie';
+
+  @override
+  String get like => 'Podoba się';
+
+  @override
+  String get dislike => 'Nie podoba się';
+
+  @override
+  String get ratedSeen => 'Pominięte';
+
+  @override
+  String get starsEmpty =>
+      'Teraz nie świeci żadna jasna gwiazda. Spróbuj później.';
+
+  @override
+  String get starsDone =>
+      'To były wszystkie gwiazdy. Wróć w lewo, jeśli chcesz coś zmienić.';
+
+  @override
+  String get likedTitle => 'Ulubieni kosmici';
+
+  @override
+  String get likedEmpty =>
+      'Jeszcze nikt. Kogo przesuniesz w górę, trafi tutaj.';
+
+  @override
+  String get notOnRadarNow => 'Teraz nie ma go na twoim radarze';
+
+  @override
+  String get feedbackTitle => 'Echo z kosmosu';
+
+  @override
+  String get feedbackNote =>
+      'Ile gwiazd widziało twoją twarz i jak ją oceniły. Kto, nie dowiesz się nigdy.';
+
+  @override
+  String get feedbackEmpty => 'Nikt jeszcze nie ocenił twojej twarzy.';
+
+  @override
+  String get dislikesHidden =>
+      'Teraz pokazujemy tylko dobre rzeczy. Reszta wróci, gdy będziesz mieć więcej energii.';
+
+  @override
+  String get olderFace => 'Starsza twarz';
 }

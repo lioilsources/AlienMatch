@@ -510,4 +510,53 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get deleteFace => 'Smazat tvář';
+
+  @override
+  String get starsTitle => 'Nejzářivější hvězdy';
+
+  @override
+  String get starsHint => 'Do stran listuješ, nahoru se ti líbí, dolů nelíbí';
+
+  @override
+  String get like => 'Líbí';
+
+  @override
+  String get dislike => 'Nelíbí';
+
+  @override
+  String get ratedSeen => 'Přeskočeno';
+
+  @override
+  String get starsEmpty =>
+      'Teď tu nesvítí žádná zářivá hvězda. Zkus to později.';
+
+  @override
+  String get starsDone =>
+      'Tohle byly všechny hvězdy. Vrať se doleva, jestli chceš něco změnit.';
+
+  @override
+  String get likedTitle => 'Oblíbení mimozemšťané';
+
+  @override
+  String get likedEmpty => 'Zatím nikdo. Koho dáš nahoru, uloží se sem.';
+
+  @override
+  String get notOnRadarNow => 'Teď není na tvém radaru';
+
+  @override
+  String get feedbackTitle => 'Ohlas vesmíru';
+
+  @override
+  String get feedbackNote =>
+      'Kolik hvězd tvou tvář vidělo a jak ji ohodnotily. Kdo hodnotil, se nedozvíš.';
+
+  @override
+  String get feedbackEmpty => 'Zatím tvou tvář nikdo nehodnotil.';
+
+  @override
+  String get dislikesHidden =>
+      'Teď ukazujeme jen to dobré. Zbytek uvidíš, až budeš mít víc energie.';
+
+  @override
+  String get olderFace => 'Starší tvář';
 }

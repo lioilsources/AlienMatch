@@ -54,7 +54,7 @@ void main() {
     expect(again.faces.single.id, f.id);
     expect(again.activeId, f.id);
 
-    storage.active = 'gone';
+    storage.meta.active = 'gone';
     final third = FaceAlbum(storage);
     await third.load();
     expect(third.activeId, isNull);

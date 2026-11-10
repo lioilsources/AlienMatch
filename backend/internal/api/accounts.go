@@ -67,7 +67,7 @@ func (h *handler) setPhoto(w http.ResponseWriter, r *http.Request) {
 		writeErr(w, http.StatusRequestEntityTooLarge, "photo too large")
 		return
 	}
-	err = h.svc.SetPhoto(r.Context(), userOf(r), data)
+	id, err := h.svc.SetPhoto(r.Context(), userOf(r), data)
 	switch {
 	case errors.Is(err, service.ErrBadPhoto):
 		writeErr(w, http.StatusBadRequest, "bad photo")
@@ -76,7 +76,7 @@ func (h *handler) setPhoto(w http.ResponseWriter, r *http.Request) {
 	case err != nil:
 		h.internal(w, "set photo", err)
 	default:
-		w.WriteHeader(http.StatusNoContent)
+		writeJSON(w, http.StatusOK, map[string]string{"photo_id": id})
 	}
 }
 

@@ -159,5 +159,20 @@
   "albumFull": "Album je plné (12). Nejdřív nějakou tvář smaž.",
   "faceActive": "Profilovka",
   "setAsProfile": "Nastavit jako profilovku",
-  "deleteFace": "Smazat tvář"
+  "deleteFace": "Smazat tvář",
+  "starsTitle": "Nejzářivější hvězdy",
+  "starsHint": "Do stran listuješ, nahoru se ti líbí, dolů nelíbí",
+  "like": "Líbí",
+  "dislike": "Nelíbí",
+  "ratedSeen": "Přeskočeno",
+  "starsEmpty": "Teď tu nesvítí žádná zářivá hvězda. Zkus to později.",
+  "starsDone": "Tohle byly všechny hvězdy. Vrať se doleva, jestli chceš něco změnit.",
+  "likedTitle": "Oblíbení mimozemšťané",
+  "likedEmpty": "Zatím nikdo. Koho dáš nahoru, uloží se sem.",
+  "notOnRadarNow": "Teď není na tvém radaru",
+  "feedbackTitle": "Ohlas vesmíru",
+  "feedbackNote": "Kolik hvězd tvou tvář vidělo a jak ji ohodnotily. Kdo hodnotil, se nedozvíš.",
+  "feedbackEmpty": "Zatím tvou tvář nikdo nehodnotil.",
+  "dislikesHidden": "Teď ukazujeme jen to dobré. Zbytek uvidíš, až budeš mít víc energie.",
+  "olderFace": "Starší tvář"
 }

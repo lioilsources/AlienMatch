@@ -517,4 +517,55 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get deleteFace => 'Supprimer le visage';
+
+  @override
+  String get starsTitle => 'Étoiles les plus brillantes';
+
+  @override
+  String get starsHint =>
+      'Glisse sur les côtés pour parcourir, en haut si tu aimes, en bas sinon';
+
+  @override
+  String get like => 'J’aime';
+
+  @override
+  String get dislike => 'Je n’aime pas';
+
+  @override
+  String get ratedSeen => 'Passée';
+
+  @override
+  String get starsEmpty =>
+      'Aucune étoile brillante pour l’instant. Réessaie plus tard.';
+
+  @override
+  String get starsDone =>
+      'C’étaient toutes les étoiles. Reviens à gauche pour changer quelque chose.';
+
+  @override
+  String get likedTitle => 'Aliens aimés';
+
+  @override
+  String get likedEmpty =>
+      'Personne pour l’instant. Ceux que tu glisses en haut arrivent ici.';
+
+  @override
+  String get notOnRadarNow => 'Pas sur ton radar en ce moment';
+
+  @override
+  String get feedbackTitle => 'Écho de l’espace';
+
+  @override
+  String get feedbackNote =>
+      'Combien d’étoiles ont vu ton visage et comment elles l’ont noté. Tu ne sauras jamais qui.';
+
+  @override
+  String get feedbackEmpty => 'Personne n’a encore noté ton visage.';
+
+  @override
+  String get dislikesHidden =>
+      'Pour l’instant on ne montre que le positif. Le reste revient quand tu auras plus d’énergie.';
+
+  @override
+  String get olderFace => 'Ancien visage';
 }

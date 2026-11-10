@@ -69,6 +69,7 @@ type Service struct {
 	Walls    WallStore
 	Flyby    FlybyStore
 	Admin    AdminStore
+	Ratings  RatingStore
 	// Scorer is nil when the mood models on SPARK are not configured.
 	Scorer moodscore.Scorer
 	// Lease starts the models on demand (nil = always on); Pending holds

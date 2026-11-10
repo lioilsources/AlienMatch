@@ -25,6 +25,10 @@ class FakeBackend {
   Map<String, dynamic>? profile;
   bool hasPhoto = false;
   final photos = <List<int>>[];
+  List<Map<String, dynamic>> stars = [];
+  final ratings = <String, List<int>>{};
+  Map<String, dynamic> faceStats = {'faces': [], 'dislikes_hidden': false};
+  List<Map<String, dynamic>> liked = [];
   Map<String, dynamic> radar = {'off_radar': true, 'planets': []};
   Map<String, dynamic> checkinResult = {'level': 'MID', 'trend': 'FLAT', 'support_card': false, 'ask_again_soon': false};
   List<String> myPlaces = [];
@@ -69,6 +73,11 @@ class FakeBackend {
       return _json(st, 201);
     }
     if (RegExp(r'^POST /v1/walls/\d+/ticket$').hasMatch(path)) return _json({'ticket': 'tk'});
+    final rate = RegExp(r'^PUT /v1/stars/([^/]+)/rating$').firstMatch(path);
+    if (rate != null) {
+      ratings.putIfAbsent(rate.group(1)!, () => []).add((jsonDecode(req.body) as Map)['value'] as int);
+      return http.Response('', 204);
+    }
     switch (path) {
       case 'GET /v1/config':
         return _json({'mood_scoring': moodScoring, 'regions': ['CZ-PHA']});
@@ -108,7 +117,13 @@ class FakeBackend {
       case 'PUT /v1/me/photo':
         hasPhoto = true;
         photos.add(req.bodyBytes);
-        return http.Response('', 204);
+        return _json({'photo_id': 'ph${photos.length}'});
+      case 'GET /v1/stars':
+        return _json({'off_radar': false, 'stars': stars});
+      case 'GET /v1/me/face-stats':
+        return _json(faceStats);
+      case 'GET /v1/me/liked':
+        return _json({'liked': liked});
       case 'DELETE /v1/me':
         deleted = true;
         return http.Response('', 204);

@@ -70,6 +70,7 @@ func Handler(svc *service.Service, auth Authenticator, log *slog.Logger, opts ..
 	mux.HandleFunc("PUT /v1/me/photo", h.withUser(h.setPhoto))
 	mux.HandleFunc("GET /v1/users/{id}/photo", h.withUser(h.photo))
 	h.routesWalls(mux)
+	h.routesRatings(mux)
 	h.routesFlyby(mux)
 	h.routesMedia(mux)
 	h.routesAdmin(mux)
