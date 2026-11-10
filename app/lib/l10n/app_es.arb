@@ -151,5 +151,13 @@
   "collectionPretty": "Bonito",
   "collectionUgly": "Feo",
   "collectionArt": "Arte",
-  "collectionFantasy": "Fantasía"
+  "collectionFantasy": "Fantasía",
+  "albumTitle": "Mis caras",
+  "albumNote": "Tus caras se quedan en este teléfono. El servidor solo recibe la que usas como foto de perfil.",
+  "newFace": "Nueva cara",
+  "keepShooting": "Guardar y hacer otra",
+  "albumFull": "El álbum está lleno (12). Borra una cara primero.",
+  "faceActive": "Foto de perfil",
+  "setAsProfile": "Usar como foto de perfil",
+  "deleteFace": "Borrar cara"
 }

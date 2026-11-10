@@ -151,5 +151,13 @@
   "collectionPretty": "Joli",
   "collectionUgly": "Moche",
   "collectionArt": "Art",
-  "collectionFantasy": "Fantastique"
+  "collectionFantasy": "Fantastique",
+  "albumTitle": "Mes visages",
+  "albumNote": "Tes visages restent sur ce téléphone. Le serveur ne reçoit que celui de ta photo de profil.",
+  "newFace": "Nouveau visage",
+  "keepShooting": "Enregistrer et continuer",
+  "albumFull": "L’album est plein (12). Supprime d’abord un visage.",
+  "faceActive": "Photo de profil",
+  "setAsProfile": "Utiliser comme photo de profil",
+  "deleteFace": "Supprimer le visage"
 }

@@ -5,6 +5,7 @@ import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
 import '../places/places_screen.dart';
+import 'faces_screen.dart';
 import 'flyby_tile.dart';
 
 /// "What we know about your location" (Prompts/01-GPS.md §0.7) and account
@@ -106,6 +107,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ],
             );
           },
+        ),
+        ListTile(
+          key: const Key('openFaces'),
+          contentPadding: EdgeInsets.zero,
+          leading: const Icon(Icons.face_retouching_natural),
+          title: Text(l.albumTitle),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () => Navigator.of(
+            context,
+          ).push(MaterialPageRoute<void>(builder: (_) => const FacesScreen())),
         ),
         const Divider(height: 32),
         const FlybyTile(),

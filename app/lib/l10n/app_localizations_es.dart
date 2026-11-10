@@ -489,4 +489,29 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get collectionFantasy => 'Fantasía';
+
+  @override
+  String get albumTitle => 'Mis caras';
+
+  @override
+  String get albumNote =>
+      'Tus caras se quedan en este teléfono. El servidor solo recibe la que usas como foto de perfil.';
+
+  @override
+  String get newFace => 'Nueva cara';
+
+  @override
+  String get keepShooting => 'Guardar y hacer otra';
+
+  @override
+  String get albumFull => 'El álbum está lleno (12). Borra una cara primero.';
+
+  @override
+  String get faceActive => 'Foto de perfil';
+
+  @override
+  String get setAsProfile => 'Usar como foto de perfil';
+
+  @override
+  String get deleteFace => 'Borrar cara';
 }

@@ -151,5 +151,13 @@
   "collectionPretty": "Краса",
   "collectionUgly": "Потворність",
   "collectionArt": "Мистецтво",
-  "collectionFantasy": "Фентезі"
+  "collectionFantasy": "Фентезі",
+  "albumTitle": "Мої обличчя",
+  "albumNote": "Обличчя залишаються лише в телефоні. Сервер отримує тільки те, що стоїть на фото профілю.",
+  "newFace": "Нове обличчя",
+  "keepShooting": "Зберегти й знімати далі",
+  "albumFull": "Альбом заповнений (12). Спершу видали якесь обличчя.",
+  "faceActive": "Фото профілю",
+  "setAsProfile": "Зробити фото профілю",
+  "deleteFace": "Видалити обличчя"
 }

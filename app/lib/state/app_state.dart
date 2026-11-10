@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../api/api.dart';
 import '../flyby/controller.dart';
+import 'face_album.dart';
 
 /// Where the token lives. Abstracted so tests do not need platform channels.
 abstract class TokenStore {
@@ -26,10 +27,18 @@ enum Stage { loading, welcome, onboarding, home }
 
 /// App-wide session: the anonymous account token and the caller's profile.
 class AppState extends ChangeNotifier {
-  AppState({required this.api, required this.tokens, this.flybyFactory});
+  AppState({
+    required this.api,
+    required this.tokens,
+    this.flybyFactory,
+    FaceAlbum? album,
+  }) : album = album ?? FaceAlbum(MemoryFaceStorage());
 
   final Api api;
   final TokenStore tokens;
+
+  /// The user's mirror faces, on the phone only.
+  final FaceAlbum album;
 
   /// Builds the fly-by controller (native BLE in the app, fakes in tests).
   final FlybyController Function(Api api)? flybyFactory;
@@ -48,6 +57,7 @@ class AppState extends ChangeNotifier {
   Object? error;
 
   Future<void> load() async {
+    album.load().ignore(); // local files, never blocks startup
     String? t;
     try {
       t = await tokens.read();
@@ -96,12 +106,20 @@ class AppState extends ChangeNotifier {
   Future<void> deleteAccount() async {
     await api.deleteAccount();
     await _flyby?.store.wipe();
+    await album.wipe();
     _flyby?.dispose();
     _flyby = null;
     await tokens.clear();
     api.token = null;
     me = null;
     _set(Stage.welcome);
+  }
+
+  /// Uploads [face] as the profile photo, then remembers it as active.
+  Future<void> useFace(Face face) async {
+    await api.uploadPhoto(face.jpeg);
+    await album.markActive(face.id);
+    await refresh();
   }
 
   void _set(Stage s) {

@@ -12,6 +12,7 @@ import 'features/onboarding/profile_steps.dart';
 import 'features/onboarding/welcome_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'state/app_state.dart';
+import 'state/face_album.dart';
 
 void main() {
   // Must run before AppState.load(): reading the token uses a platform channel.
@@ -19,6 +20,7 @@ void main() {
   final state = AppState(
     api: Api(),
     tokens: SecureTokenStore(),
+    album: FaceAlbum(FileFaceStorage()),
     flybyFactory: (api) => FlybyController(
       api: api,
       store: DeviceFlybyStore(),

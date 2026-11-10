@@ -193,5 +193,13 @@
         "type": "String"
       }
     }
-  }
+  },
+  "albumTitle": "My faces",
+  "albumNote": "Your faces stay on this phone. The server only gets the one you use as your profile photo.",
+  "newFace": "New face",
+  "keepShooting": "Save and take another",
+  "albumFull": "The album is full (12). Delete a face first.",
+  "faceActive": "Profile photo",
+  "setAsProfile": "Use as profile photo",
+  "deleteFace": "Delete face"
 }

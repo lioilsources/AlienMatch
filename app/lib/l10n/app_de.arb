@@ -151,5 +151,13 @@
   "collectionPretty": "Hübsch",
   "collectionUgly": "Hässlich",
   "collectionArt": "Kunst",
-  "collectionFantasy": "Fantasy"
+  "collectionFantasy": "Fantasy",
+  "albumTitle": "Meine Gesichter",
+  "albumNote": "Deine Gesichter bleiben auf diesem Handy. Der Server bekommt nur das, das du als Profilbild nutzt.",
+  "newFace": "Neues Gesicht",
+  "keepShooting": "Speichern und weiter",
+  "albumFull": "Das Album ist voll (12). Lösche zuerst ein Gesicht.",
+  "faceActive": "Profilbild",
+  "setAsProfile": "Als Profilbild verwenden",
+  "deleteFace": "Gesicht löschen"
 }

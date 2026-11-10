@@ -1025,6 +1025,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fantasy'**
   String get collectionFantasy;
+
+  /// No description provided for @albumTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My faces'**
+  String get albumTitle;
+
+  /// No description provided for @albumNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your faces stay on this phone. The server only gets the one you use as your profile photo.'**
+  String get albumNote;
+
+  /// No description provided for @newFace.
+  ///
+  /// In en, this message translates to:
+  /// **'New face'**
+  String get newFace;
+
+  /// No description provided for @keepShooting.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and take another'**
+  String get keepShooting;
+
+  /// No description provided for @albumFull.
+  ///
+  /// In en, this message translates to:
+  /// **'The album is full (12). Delete a face first.'**
+  String get albumFull;
+
+  /// No description provided for @faceActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile photo'**
+  String get faceActive;
+
+  /// No description provided for @setAsProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Use as profile photo'**
+  String get setAsProfile;
+
+  /// No description provided for @deleteFace.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete face'**
+  String get deleteFace;
 }
 
 class _AppLocalizationsDelegate

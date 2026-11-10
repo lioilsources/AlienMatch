@@ -10,6 +10,8 @@ import 'package:mirror_face/mirror_face.dart';
 import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
+import '../../state/face_album.dart';
+import '../settings/faces_screen.dart';
 import 'filter_strip.dart';
 
 /// Compiled once per app run; FragmentProgram compilation is not free.
@@ -20,7 +22,10 @@ Future<ShaderCache>? _shaders;
 /// no gallery picker. The still never leaves the phone; only the composed
 /// mirror face is uploaded.
 class CaptureScreen extends StatefulWidget {
-  const CaptureScreen({super.key});
+  const CaptureScreen({super.key, this.fromAlbum = false});
+
+  /// Opened from "My faces": close after a face becomes the profile photo.
+  final bool fromAlbum;
 
   @override
   State<CaptureScreen> createState() => _CaptureScreenState();
@@ -34,6 +39,7 @@ class _CaptureScreenState extends State<CaptureScreen>
   bool unavailable = false;
   bool busy = false;
   bool failed = false;
+  bool albumFull = false;
 
   MirrorSide side = MirrorSide.left;
   double rotationDeg = 0;
@@ -170,21 +176,36 @@ class _CaptureScreenState extends State<CaptureScreen>
     }
   }
 
-  Future<void> _use() async {
+  /// Saves the composed face to the album; with [use] it also becomes the
+  /// profile photo, otherwise the camera comes back for another one.
+  Future<void> _save({required bool use}) async {
     final app = AppScope.of(context);
+    final nav = Navigator.of(context);
     setState(() {
       busy = true;
       failed = false;
+      albumFull = false;
     });
     try {
-      await app.api.uploadPhoto(await encodeJpeg(result!));
-      await app.refresh();
+      final face = await app.album.add(await encodeJpeg(result!));
+      if (use) {
+        await app.useFace(face);
+        if (widget.fromAlbum && mounted) nav.pop();
+      } else if (mounted) {
+        _retake();
+      }
+    } on AlbumFullException {
+      if (mounted) setState(() => albumFull = true);
     } catch (_) {
       if (mounted) setState(() => failed = true);
     } finally {
       if (mounted) setState(() => busy = false);
     }
   }
+
+  void _openAlbum() => Navigator.of(
+    context,
+  ).push(MaterialPageRoute<void>(builder: (_) => const FacesScreen()));
 
   void _retake() {
     final r = result;
@@ -271,6 +292,28 @@ class _CaptureScreenState extends State<CaptureScreen>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              if (!widget.fromAlbum)
+                ListenableBuilder(
+                  listenable: AppScope.of(context).album,
+                  builder: (context, _) {
+                    final faces = AppScope.of(context).album.faces;
+                    return _RoundButton(
+                      key: const Key('openAlbum'),
+                      tooltip: l.albumTitle,
+                      onTap: faces.isEmpty ? null : _openAlbum,
+                      child: faces.isEmpty
+                          ? const Icon(Icons.photo_library, color: Space.ink)
+                          : ClipOval(
+                              child: Image.memory(
+                                faces.first.jpeg,
+                                width: 50,
+                                height: 50,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                    );
+                  },
+                ),
               _RoundButton(
                 key: const Key('switchSide'),
                 tooltip: l.switchSide,
@@ -346,20 +389,28 @@ class _CaptureScreenState extends State<CaptureScreen>
               ),
             ),
           ),
-          if (failed)
+          if (failed || albumFull)
             Text(
-              l.errorGeneric,
+              albumFull ? l.albumFull : l.errorGeneric,
+              key: const Key('captureError'),
+              textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.redAccent),
             ),
           if (busy) const LinearProgressIndicator(),
           const SizedBox(height: 12),
           FilledButton(
             key: const Key('usePhoto'),
-            onPressed: busy ? null : _use,
+            onPressed: busy ? null : () => _save(use: true),
             child: Padding(
               padding: const EdgeInsets.all(12),
               child: Text(l.usePhoto),
             ),
+          ),
+          OutlinedButton.icon(
+            key: const Key('keepShooting'),
+            onPressed: busy ? null : () => _save(use: false),
+            icon: const Icon(Icons.add_a_photo),
+            label: Text(l.keepShooting),
           ),
           TextButton.icon(
             onPressed: busy ? null : _retake,

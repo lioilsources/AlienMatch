@@ -492,4 +492,29 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get collectionFantasy => 'Fantastique';
+
+  @override
+  String get albumTitle => 'Mes visages';
+
+  @override
+  String get albumNote =>
+      'Tes visages restent sur ce téléphone. Le serveur ne reçoit que celui de ta photo de profil.';
+
+  @override
+  String get newFace => 'Nouveau visage';
+
+  @override
+  String get keepShooting => 'Enregistrer et continuer';
+
+  @override
+  String get albumFull => 'L’album est plein (12). Supprime d’abord un visage.';
+
+  @override
+  String get faceActive => 'Photo de profil';
+
+  @override
+  String get setAsProfile => 'Utiliser comme photo de profil';
+
+  @override
+  String get deleteFace => 'Supprimer le visage';
 }

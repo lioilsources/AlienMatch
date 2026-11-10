@@ -485,4 +485,29 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get collectionFantasy => 'Fantasy';
+
+  @override
+  String get albumTitle => 'Moje tváře';
+
+  @override
+  String get albumNote =>
+      'Tváře zůstávají jen v telefonu. Server dostane jen tu, kterou máš jako profilovku.';
+
+  @override
+  String get newFace => 'Nová tvář';
+
+  @override
+  String get keepShooting => 'Uložit a fotit dál';
+
+  @override
+  String get albumFull => 'Album je plné (12). Nejdřív nějakou tvář smaž.';
+
+  @override
+  String get faceActive => 'Profilovka';
+
+  @override
+  String get setAsProfile => 'Nastavit jako profilovku';
+
+  @override
+  String get deleteFace => 'Smazat tvář';
 }

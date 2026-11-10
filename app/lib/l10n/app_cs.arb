@@ -151,5 +151,13 @@
   "collectionPretty": "Krása",
   "collectionUgly": "Ošklivost",
   "collectionArt": "Umění",
-  "collectionFantasy": "Fantasy"
+  "collectionFantasy": "Fantasy",
+  "albumTitle": "Moje tváře",
+  "albumNote": "Tváře zůstávají jen v telefonu. Server dostane jen tu, kterou máš jako profilovku.",
+  "newFace": "Nová tvář",
+  "keepShooting": "Uložit a fotit dál",
+  "albumFull": "Album je plné (12). Nejdřív nějakou tvář smaž.",
+  "faceActive": "Profilovka",
+  "setAsProfile": "Nastavit jako profilovku",
+  "deleteFace": "Smazat tvář"
 }
