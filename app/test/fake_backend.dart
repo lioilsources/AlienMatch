@@ -24,6 +24,7 @@ class FakeBackend {
   final requests = <http.Request>[];
   Map<String, dynamic>? profile;
   bool hasPhoto = false;
+  final photos = <List<int>>[];
   Map<String, dynamic> radar = {'off_radar': true, 'planets': []};
   Map<String, dynamic> checkinResult = {'level': 'MID', 'trend': 'FLAT', 'support_card': false, 'ask_again_soon': false};
   List<String> myPlaces = [];
@@ -106,6 +107,7 @@ class FakeBackend {
         return http.Response('', 204);
       case 'PUT /v1/me/photo':
         hasPhoto = true;
+        photos.add(req.bodyBytes);
         return http.Response('', 204);
       case 'DELETE /v1/me':
         deleted = true;

@@ -151,5 +151,13 @@
   "collectionPretty": "Bello",
   "collectionUgly": "Brutto",
   "collectionArt": "Arte",
-  "collectionFantasy": "Fantasy"
+  "collectionFantasy": "Fantasy",
+  "albumTitle": "I miei volti",
+  "albumNote": "I tuoi volti restano su questo telefono. Il server riceve solo quello della foto profilo.",
+  "newFace": "Nuovo volto",
+  "keepShooting": "Salva e scatta ancora",
+  "albumFull": "L’album è pieno (12). Elimina prima un volto.",
+  "faceActive": "Foto profilo",
+  "setAsProfile": "Usa come foto profilo",
+  "deleteFace": "Elimina volto"
 }

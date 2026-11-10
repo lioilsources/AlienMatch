@@ -488,4 +488,30 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get collectionFantasy => 'Фентезі';
+
+  @override
+  String get albumTitle => 'Мої обличчя';
+
+  @override
+  String get albumNote =>
+      'Обличчя залишаються лише в телефоні. Сервер отримує тільки те, що стоїть на фото профілю.';
+
+  @override
+  String get newFace => 'Нове обличчя';
+
+  @override
+  String get keepShooting => 'Зберегти й знімати далі';
+
+  @override
+  String get albumFull =>
+      'Альбом заповнений (12). Спершу видали якесь обличчя.';
+
+  @override
+  String get faceActive => 'Фото профілю';
+
+  @override
+  String get setAsProfile => 'Зробити фото профілю';
+
+  @override
+  String get deleteFace => 'Видалити обличчя';
 }

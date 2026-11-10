@@ -151,5 +151,13 @@
   "collectionPretty": "Bonito",
   "collectionUgly": "Feio",
   "collectionArt": "Arte",
-  "collectionFantasy": "Fantasia"
+  "collectionFantasy": "Fantasia",
+  "albumTitle": "Meus rostos",
+  "albumNote": "Seus rostos ficam neste telefone. O servidor só recebe o da sua foto de perfil.",
+  "newFace": "Novo rosto",
+  "keepShooting": "Salvar e tirar outra",
+  "albumFull": "O álbum está cheio (12). Apague um rosto primeiro.",
+  "faceActive": "Foto de perfil",
+  "setAsProfile": "Usar como foto de perfil",
+  "deleteFace": "Apagar rosto"
 }

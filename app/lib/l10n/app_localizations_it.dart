@@ -489,4 +489,29 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get collectionFantasy => 'Fantasy';
+
+  @override
+  String get albumTitle => 'I miei volti';
+
+  @override
+  String get albumNote =>
+      'I tuoi volti restano su questo telefono. Il server riceve solo quello della foto profilo.';
+
+  @override
+  String get newFace => 'Nuovo volto';
+
+  @override
+  String get keepShooting => 'Salva e scatta ancora';
+
+  @override
+  String get albumFull => 'L’album è pieno (12). Elimina prima un volto.';
+
+  @override
+  String get faceActive => 'Foto profilo';
+
+  @override
+  String get setAsProfile => 'Usa come foto profilo';
+
+  @override
+  String get deleteFace => 'Elimina volto';
 }
