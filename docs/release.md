@@ -1,5 +1,9 @@
 # Release AlienMatch: ruční kroky v účtech
 
+Stav 2026-11-11: App ID, App Store profil, appka v ASC i Android appka ve Firebase
+(projekt App Distribution, skupina `Alfa`) jsou založené. Zbývá spustit `setup-gh-secrets.sh`
+na stroji, kde je profil (`Distribution/Apple/AlienMatch/`, gitignored).
+
 Pipeline je z Distribution (`.github/workflows/release-ios.yml`, `release-android.yml`, `ci.yml`).
 Release spouští tag `v*`, postup: skill `release-flutter`. Tyhle kroky skript neudělá:
 
@@ -8,7 +12,7 @@ Release spouští tag `v*`, postup: skill `release-flutter`. Tyhle kroky skript 
 2. Distribution provisioning profile pro App Store na `com.ol1n.alienmatch`,
    ulož ho do `Distribution/Apple/AlienMatch/` (setup-gh-secrets bere první `*.mobileprovision`).
 3. App Store Connect: nová appka „AlienMatch“, bundle `com.ol1n.alienmatch`, primární jazyk čeština,
-   kategorie **Dating**, věkové hodnocení 17+.
+   kategorie **Lifestyle** + sekundární **Social Networking** (Dating v App Store není), věkové hodnocení 17+.
    - Privacy Policy URL: `https://lioilsources.github.io/AlienMatch/privacy.html`
    - Support URL: `https://lioilsources.github.io/AlienMatch/support.html`
    - Marketing URL: `https://olin.now/alienmatch`
