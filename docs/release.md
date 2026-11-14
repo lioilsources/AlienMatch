@@ -14,6 +14,8 @@ Release spouští tag `v*`, postup: skill `release-flutter`. Tyhle kroky skript 
    - Marketing URL: `https://olin.now/alienmatch`
    - App Privacy: žádný tracking. Sbírané údaje: User Content (fotka), Health & Fitness (nálada,
      pouze se souhlasem), Other (profil). Location: **not collected**.
+     Od buildu s anonymními statistikami navíc Product Interaction, Performance Data a Coarse
+     Location, vše nepropojené a bez trackingu: viz `docs/store-privacy.md`.
    - Bluetooth: „Bluetooth proximity, not linked to location“; Průlet je opt-in.
 
 ## Google Play
@@ -21,6 +23,8 @@ Release spouští tag `v*`, postup: skill `release-flutter`. Tyhle kroky skript 
 2. Play Console: appka `com.ol1n.alienmatch`, kategorie Dating, Content rating vyplnit (dating),
    Data safety: žádný tracking, poloha **ne**sbírána (BLUETOOTH_SCAN s `neverForLocation`; do Androidu 11
    je ACCESS_FINE_LOCATION jen kvůli skenování), zdravotní údaje (nálada) volitelně.
+   Od buildu s anonymními statistikami navíc App interactions a Approximate location (jen země),
+   collected, not shared, optional: viz `docs/store-privacy.md`.
 3. Zásady ochrany soukromí: `https://lioilsources.github.io/AlienMatch/privacy.html`.
 
 ## Firebase App Distribution
