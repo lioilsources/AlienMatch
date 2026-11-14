@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -21,20 +22,26 @@ class _LikedScreenState extends State<LikedScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     liked = AppScope.of(context).api.liked();
+    Telemetry.feature('liked');
   }
 
   Future<void> _wave(LikedAlien a) async {
     final l = AppLocalizations.of(context);
     final messenger = ScaffoldMessenger.of(context);
-    String text;
+    String text, result;
     try {
       final r = await AppScope.of(context).api.wave(a.userId);
       text = r.matched ? '🪐 ${l.matched}' : '👋 ${l.waveSent}';
+      result = r.matched ? 'match' : 'sent';
     } on ApiException catch (e) {
       text = e.status == 429 ? l.waveLimit : l.errorGeneric;
+      result = e.status == 429 ? 'limit' : 'error';
     } catch (_) {
       text = l.errorGeneric;
+      result = 'error';
     }
+    // Only the outcome: never who, which wall or what kind of match.
+    Telemetry.track('wave_send', {'source': 'liked', 'result': result});
     messenger.showSnackBar(
       SnackBar(content: Text(text, key: const Key('waveResult'))),
     );

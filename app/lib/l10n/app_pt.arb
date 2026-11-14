@@ -174,5 +174,7 @@
   "feedbackNote": "Quantas estrelas viram seu rosto e como avaliaram. Você nunca sabe quem.",
   "feedbackEmpty": "Ninguém avaliou seu rosto ainda.",
   "dislikesHidden": "Agora mostramos só o lado bom. O resto volta quando você tiver mais energia.",
-  "olderFace": "Rosto anterior"
+  "olderFace": "Rosto anterior",
+  "statsTitle": "Estatísticas anónimas",
+  "statsBody": "Que ecrãs e funções são usados, para melhorar a app. Não estão ligadas à tua conta: nada do teu perfil, murais ou sinal. Desligar apaga os registos não enviados."
 }

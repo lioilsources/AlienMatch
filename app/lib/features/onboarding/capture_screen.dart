@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 import 'package:image/image.dart' as img;
 import 'package:mirror_face/mirror_face.dart';
 
@@ -50,12 +51,20 @@ class _CaptureScreenState extends State<CaptureScreen>
   /// Composed square face waiting for confirmation.
   ui.Image? result;
 
+  /// Taking a profile photo, from opening the camera to "use this face".
+  AppState? _app;
+
+  late final TelemetryFlow photo = Telemetry.flow('photo', {
+    'source': widget.fromAlbum ? 'album' : 'onboarding',
+  });
+
   bool get front => cam?.description.lensDirection == CameraLensDirection.front;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    photo; // starts the flow
     _init();
   }
 
@@ -72,6 +81,7 @@ class _CaptureScreenState extends State<CaptureScreen>
         ),
       );
     } catch (_) {
+      Telemetry.errorShown('camera');
       if (mounted) setState(() => unavailable = true);
     }
   }
@@ -128,6 +138,12 @@ class _CaptureScreenState extends State<CaptureScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    // Onboarding can also finish by picking a face in the album.
+    if (!photo.ended) {
+      photo.end(
+        !widget.fromAlbum && _app?.stage == Stage.home ? 'ok' : 'cancel',
+      );
+    }
     cam?.dispose();
     result?.dispose();
     super.dispose();
@@ -168,6 +184,7 @@ class _CaptureScreenState extends State<CaptureScreen>
       if (!mounted) return square.dispose();
       setState(() => result = square);
     } catch (_) {
+      Telemetry.errorShown('camera');
       if (mounted) setState(() => failed = true);
     } finally {
       still?.dispose();
@@ -190,22 +207,28 @@ class _CaptureScreenState extends State<CaptureScreen>
       final face = await app.album.add(await encodeJpeg(result!));
       if (use) {
         await app.useFace(face);
+        photo.end('ok');
         if (widget.fromAlbum && mounted) nav.pop();
       } else if (mounted) {
         _retake();
       }
     } on AlbumFullException {
+      Telemetry.errorShown('album_full');
       if (mounted) setState(() => albumFull = true);
     } catch (_) {
+      Telemetry.errorShown('network');
       if (mounted) setState(() => failed = true);
     } finally {
       if (mounted) setState(() => busy = false);
     }
   }
 
-  void _openAlbum() => Navigator.of(
-    context,
-  ).push(MaterialPageRoute<void>(builder: (_) => const FacesScreen()));
+  void _openAlbum() => Navigator.of(context).push(
+    MaterialPageRoute<void>(
+      settings: const RouteSettings(name: '/faces'),
+      builder: (_) => const FacesScreen(),
+    ),
+  );
 
   void _retake() {
     final r = result;
@@ -215,6 +238,7 @@ class _CaptureScreenState extends State<CaptureScreen>
 
   @override
   Widget build(BuildContext context) {
+    _app = AppScope.of(context);
     final l = AppLocalizations.of(context);
     final r = result;
     return Scaffold(
@@ -277,7 +301,11 @@ class _CaptureScreenState extends State<CaptureScreen>
         FilterStrip(
           selected: filter,
           available: shaders.keys.toSet(),
-          onSelect: (f) => setState(() => filter = f),
+          onSelect: (f) {
+            // Only that a filter was used, never which one is on the photo.
+            if (f != MirrorFilter.none) Telemetry.feature('filter');
+            setState(() => filter = f);
+          },
         ),
         if (failed)
           Padding(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
@@ -27,6 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     try {
       await AppScope.of(context).createAccount(moodConsent: moodConsent);
     } catch (_) {
+      Telemetry.errorShown('network');
       if (mounted) setState(() => failed = true);
     } finally {
       if (mounted) setState(() => busy = false);

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -69,6 +70,7 @@ class _CheckinScreenState extends State<CheckinScreen> {
     final r = (widget.recorderFactory ?? DeviceCheckinRecorder.new)();
     if (!await r.prepare(video: m == 'video')) {
       await r.dispose();
+      Telemetry.errorShown('permission');
       if (mounted) {
         setState(() {
           noPermission = true;
@@ -129,8 +131,11 @@ class _CheckinScreenState extends State<CheckinScreen> {
         signal = false;
       }
       recording = null; // drop media from memory
+      // Only that a check-in went through: never the mode, rating or result.
+      Telemetry.track('checkin_send', {'result': 'ok'});
       if (mounted) setState(() => step = _Step.done);
     } catch (_) {
+      Telemetry.track('checkin_send', {'result': 'error'});
       if (mounted) setState(() => failed = true);
     } finally {
       if (mounted) setState(() => busy = false);

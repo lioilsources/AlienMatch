@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -37,10 +38,14 @@ class _FacesScreenState extends State<FacesScreen> {
     setState(() => switching = f.id);
     try {
       await app.useFace(f);
-      if (_fromHome) _loadStats();
+      if (_fromHome) {
+        Telemetry.feature('face_switch');
+        _loadStats();
+      }
       // During onboarding this finishes the profile: leave the album.
       if (!_fromHome && nav.canPop()) nav.pop();
     } catch (_) {
+      Telemetry.errorShown('network');
       messenger.showSnackBar(SnackBar(content: Text(l.errorGeneric)));
     } finally {
       if (mounted) setState(() => switching = null);
@@ -52,7 +57,9 @@ class _FacesScreenState extends State<FacesScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    final first = stats == null;
     _fromHome = AppScope.of(context).stage == Stage.home;
+    if (first) Telemetry.feature('album');
     if (stats == null && _fromHome) _loadStats();
   }
 
@@ -112,6 +119,7 @@ class _FacesScreenState extends State<FacesScreen> {
 
   void _new() => Navigator.of(context).push(
     MaterialPageRoute<void>(
+      settings: const RouteSettings(name: '/capture'),
       builder: (_) => const CaptureScreen(fromAlbum: true),
     ),
   );

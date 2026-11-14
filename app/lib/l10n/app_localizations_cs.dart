@@ -559,4 +559,11 @@ class AppLocalizationsCs extends AppLocalizations {
 
   @override
   String get olderFace => 'Starší tvář';
+
+  @override
+  String get statsTitle => 'Anonymní statistiky';
+
+  @override
+  String get statsBody =>
+      'Které obrazovky a funkce se používají, abychom appku zlepšili. Nejsou propojené s tvým účtem: nic z profilu, zdí ani signálu. Vypnutí smaže neodeslané záznamy.';
 }

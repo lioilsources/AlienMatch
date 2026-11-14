@@ -174,5 +174,7 @@
   "feedbackNote": "Kolik hvězd tvou tvář vidělo a jak ji ohodnotily. Kdo hodnotil, se nedozvíš.",
   "feedbackEmpty": "Zatím tvou tvář nikdo nehodnotil.",
   "dislikesHidden": "Teď ukazujeme jen to dobré. Zbytek uvidíš, až budeš mít víc energie.",
-  "olderFace": "Starší tvář"
+  "olderFace": "Starší tvář",
+  "statsTitle": "Anonymní statistiky",
+  "statsBody": "Které obrazovky a funkce se používají, abychom appku zlepšili. Nejsou propojené s tvým účtem: nic z profilu, zdí ani signálu. Vypnutí smaže neodeslané záznamy."
 }

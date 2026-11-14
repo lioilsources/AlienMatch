@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
@@ -22,7 +23,9 @@ class _FlybyTileState extends State<FlybyTile> {
     setState(() => busy = true);
     try {
       await f.setEnabled(on);
+      if (on) Telemetry.feature('flyby');
     } catch (_) {
+      Telemetry.errorShown('network');
       messenger.showSnackBar(SnackBar(content: Text(l.errorGeneric)));
     } finally {
       if (mounted) setState(() => busy = false);
