@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -24,10 +25,16 @@ class _RadarScreenState extends State<RadarScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    future ??= AppScope.of(context).api.radar();
+    future ??= _load();
   }
 
-  void _reload() => setState(() => future = AppScope.of(context).api.radar());
+  Future<Radar> _load() =>
+      AppScope.of(context).api.radar().catchError((Object e) {
+        Telemetry.errorShown('network');
+        throw e;
+      });
+
+  void _reload() => setState(() => future = _load());
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +72,7 @@ class _RadarScreenState extends State<RadarScreen> {
                     key: const Key('openStars'),
                     onPressed: () => Navigator.of(context).push(
                       MaterialPageRoute<void>(
+                        settings: const RouteSettings(name: '/stars'),
                         builder: (_) => const StarsScreen(),
                       ),
                     ),
@@ -281,15 +289,20 @@ class _PlanetViewState extends State<PlanetView>
     final api = AppScope.of(context).api;
     final messenger = ScaffoldMessenger.of(context);
     Navigator.pop(sheet);
-    String text;
+    String text, result;
     try {
       final r = await api.wave(p.userId);
       text = r.matched ? '🪐 ${l.matched}' : '👋 ${l.waveSent}';
+      result = r.matched ? 'match' : 'sent';
     } on ApiException catch (e) {
       text = e.status == 429 ? l.waveLimit : l.errorGeneric;
+      result = e.status == 429 ? 'limit' : 'error';
     } catch (_) {
       text = l.errorGeneric;
+      result = 'error';
     }
+    // Only the outcome: never who, which wall or what kind of match.
+    Telemetry.track('wave_send', {'source': 'radar', 'result': result});
     messenger.showSnackBar(
       SnackBar(content: Text(text, key: const Key('waveResult'))),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../design/space.dart';
 import '../../flyby/controller.dart';
@@ -53,7 +54,18 @@ class FlybyStrip extends StatelessWidget {
                     label: Text(
                       '${contactLabel(l, e.kind.name)} · ${l.flybyMinutes(e.minutes)}  👋',
                     ),
-                    onPressed: () => flyby.wave(e),
+                    onPressed: () => flyby
+                        .wave(e)
+                        .then(
+                          (_) => Telemetry.track('wave_send', {
+                            'source': 'flyby',
+                            'result': 'sent',
+                          }),
+                          onError: (Object _) => Telemetry.track('wave_send', {
+                            'source': 'flyby',
+                            'result': 'error',
+                          }),
+                        ),
                   ),
                 ),
             ],

@@ -174,5 +174,7 @@
   "feedbackNote": "Quante stelle hanno visto il tuo volto e come l’hanno valutato. Chi, non lo saprai mai.",
   "feedbackEmpty": "Nessuno ha ancora valutato il tuo volto.",
   "dislikesHidden": "Per ora mostriamo solo il lato bello. Il resto torna quando avrai più energia.",
-  "olderFace": "Volto precedente"
+  "olderFace": "Volto precedente",
+  "statsTitle": "Statistiche anonime",
+  "statsBody": "Quali schermate e funzioni vengono usate, per migliorare l'app. Non collegate al tuo account: niente dal profilo, dai muri o dal segnale. Disattivarle cancella i dati non inviati."
 }

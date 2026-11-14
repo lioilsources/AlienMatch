@@ -563,4 +563,11 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get olderFace => 'Старіше обличчя';
+
+  @override
+  String get statsTitle => 'Анонімна статистика';
+
+  @override
+  String get statsBody =>
+      'Які екрани й функції використовуються, щоб покращити застосунок. Не пов’язана з твоїм обліковим записом: нічого з профілю, стін чи сигналу. Вимкнення видаляє ще не надіслані записи.';
 }

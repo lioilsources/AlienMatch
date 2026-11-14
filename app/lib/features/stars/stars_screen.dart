@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -53,6 +54,8 @@ class _StarsScreenState extends State<StarsScreen> {
   }
 
   Future<void> _rate(List<StarCard> cards, int value) async {
+    // Only that stars were rated: never whom or how.
+    Telemetry.feature('stars_rate');
     final c = cards[index];
     await _send(c, value);
     if (!mounted) return;
@@ -87,7 +90,10 @@ class _StarsScreenState extends State<StarsScreen> {
             tooltip: l.likedTitle,
             icon: const Icon(Icons.favorite_outline),
             onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute<void>(builder: (_) => const LikedScreen()),
+              MaterialPageRoute<void>(
+                settings: const RouteSettings(name: '/liked'),
+                builder: (_) => const LikedScreen(),
+              ),
             ),
           ),
         ],

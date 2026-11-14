@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 import 'package:flutter/services.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
+import '../../telemetry/app_screens.dart';
 import 'capture_screen.dart';
 
 /// Generated default nickname, e.g. "Zq-7".
@@ -45,6 +47,20 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
 
   static const steps = 7;
 
+  /// The profile steps as one flow; null when the profile was already saved.
+  TelemetryFlow? flow;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (flow == null &&
+        !profileSaved &&
+        AppScope.of(context).me?.profile == null) {
+      // Only the step reached, never what was picked.
+      flow = Telemetry.flow('onboarding', const {}, () => {'step': step + 1});
+    }
+  }
+
   @override
   void dispose() {
     nick.dispose();
@@ -81,8 +97,10 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
           beaconOnly: beaconOnly,
         ),
       );
+      flow?.end('ok', {'step': steps});
       if (mounted) setState(() => profileSaved = true);
     } catch (_) {
+      Telemetry.errorShown('network');
       if (mounted) setState(() => failed = true);
     } finally {
       if (mounted) setState(() => saving = false);
@@ -101,8 +119,10 @@ class _OnboardingFlowState extends State<OnboardingFlow> {
   Widget build(BuildContext context) {
     // Profile already on the server (photo missing): go straight to the camera.
     if (profileSaved || AppScope.of(context).me?.profile != null) {
+      AppScreens.root('capture');
       return const CaptureScreen();
     }
+    AppScreens.root('onboarding');
     final l = AppLocalizations.of(context);
     final (title, body) = switch (step) {
       0 => (

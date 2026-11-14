@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- The AlienMatch API and the anonymous statistics (docs/telemetry.md).
+         Declared here so the release build never depends on a plugin merging it. -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Fly-by (BLE proximity). Location is never read: scan is neverForLocation on 12+. -->
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />

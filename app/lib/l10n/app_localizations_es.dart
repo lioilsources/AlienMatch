@@ -565,4 +565,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get olderFace => 'Cara anterior';
+
+  @override
+  String get statsTitle => 'Estadísticas anónimas';
+
+  @override
+  String get statsBody =>
+      'Qué pantallas y funciones se usan, para mejorar la app. No están vinculadas a tu cuenta: nada de tu perfil, muros ni señal. Al desactivarlas se borran los registros no enviados.';
 }

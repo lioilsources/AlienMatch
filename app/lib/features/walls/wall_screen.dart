@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -67,9 +68,14 @@ class _WallScreenState extends State<WallScreen> {
   Future<void> _draw() async {
     final ink = await Navigator.push<InkDrawing?>(
       context,
-      MaterialPageRoute(builder: (_) => const InkPad(), fullscreenDialog: true),
+      MaterialPageRoute(
+        settings: const RouteSettings(name: '/ink'),
+        builder: (_) => const InkPad(),
+        fullscreenDialog: true,
+      ),
     );
     if (ink == null) return;
+    Telemetry.feature('sticker_ink');
     final p = _centre();
     await c!.add(
       Sticker(
@@ -84,6 +90,7 @@ class _WallScreenState extends State<WallScreen> {
   }
 
   Future<void> _preset(String id) async {
+    Telemetry.feature('sticker_preset'); // never which sticker
     final p = _centre();
     await c!.add(
       Sticker(
@@ -123,6 +130,7 @@ class _WallScreenState extends State<WallScreen> {
                 title: Text(l.report),
                 onTap: () {
                   Navigator.pop(ctx);
+                  Telemetry.feature('report');
                   c!.report(s, block: false);
                 },
               ),
@@ -131,6 +139,7 @@ class _WallScreenState extends State<WallScreen> {
                 title: Text(l.reportBlock),
                 onTap: () {
                   Navigator.pop(ctx);
+                  Telemetry.feature('report');
                   c!.report(s, block: true);
                 },
               ),

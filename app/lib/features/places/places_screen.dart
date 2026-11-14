@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -62,6 +63,8 @@ class _PlacesScreenState extends State<PlacesScreen> {
         return;
       }
       try {
+        // Only that search was used; the query never leaves for measuring.
+        Telemetry.feature('places_search');
         final r = await AppScope.of(context).api.searchPlaces(text.trim());
         if (mounted) setState(() => results = r);
       } catch (_) {
@@ -88,8 +91,11 @@ class _PlacesScreenState extends State<PlacesScreen> {
     });
     try {
       await AppScope.of(context).api.setPlaces([for (final m in mine) m.id]);
+      // Never which places or how many.
+      Telemetry.track('places_save', {'result': 'ok'});
       if (mounted) setState(() => saved = true);
     } catch (_) {
+      Telemetry.track('places_save', {'result': 'error'});
       if (mounted) setState(() => failed = true);
     } finally {
       if (mounted) setState(() => saving = false);

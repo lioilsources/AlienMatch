@@ -87,7 +87,10 @@ class WallsScreenState extends State<WallsScreen> {
                   ),
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => WallScreen(match: m)),
+                    MaterialPageRoute(
+                      settings: const RouteSettings(name: '/wall'),
+                      builder: (_) => WallScreen(match: m),
+                    ),
                   ).then((_) => reload()),
                 ),
             ],
