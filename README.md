@@ -6,7 +6,8 @@ V plánech v `Prompts/` vystupuje pod kódovým jménem MIMO.
 - **Zprávy** = ručně psané stickers lepené na společnou zeď, žádný psaný text.
 - **Matching** podle nálady a jejího trendu. Dva lidé „dole“ se nikdy nespojí;
   kdo je nahoře, může (po souhlasu obou) povzbudit někoho dole.
-- Bez reklam, bez trackingu, zpracování on-prem.
+- Bez reklam, bez trackingu, zpracování on-prem. Anonymní statistiky používání
+  (nepropojené s účtem, vypínatelné) jdou jen na vlastní server, viz `docs/telemetry.md`.
 
 ## Co tu je
 
