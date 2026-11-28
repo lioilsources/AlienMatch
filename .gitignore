@@ -1,15 +1,3 @@
-# devconv:start
-.env
-.env.*
-!.env.example
-*.p8
-*.p12
-*.jks
-key.properties
-.DS_Store
-.claude/settings.local.json
-CLAUDE.local.md
-# devconv:end
 bin/
 *.test
 *.out
@@ -28,3 +16,20 @@ deploy/joda/data/
 deploy/joda/web/
 deploy/joda/cloudflared/*.json
 deploy/joda/cloudflared/config.yml
+# devconv:start
+.env
+.env.*
+!.env.example
+*.p8
+*.p12
+*.jks
+key.properties
+.DS_Store
+.claude/settings.local.json
+CLAUDE.local.md
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+lib/**/secrets.dart
+# devconv:end

@@ -23,10 +23,10 @@
 </head>
 <body>
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: November 9, 2026 (walls) · <a href="#cs">Česky níže</a></p>
+  <p class="updated">Last updated: November 14, 2026 (anonymous statistics) · <a href="#cs">Česky níže</a></p>
 
   <h2>Overview</h2>
-  <p>AlienMatch (<code>com.ol1n.alienmatch</code>) is a dating app without words by Oldřich Vořechovský (ol1n). It has <strong>no ads, no analytics, no tracking SDKs</strong> and never sells or shares data. Data is processed on servers run by the developer in the Czech Republic, without third-party processors.</p>
+  <p>AlienMatch (<code>com.ol1n.alienmatch</code>) is a dating app without words by Oldřich Vořechovský (ol1n). It has <strong>no ads, no third-party analytics, no tracking SDKs</strong> and never sells or shares data. Data is processed on servers run by the developer in the Czech Republic, without third-party processors. Anonymous usage statistics, not linked to your account, can be turned off in settings (see below).</p>
 
   <h2>Account</h2>
   <p>Your account is anonymous: no e-mail, phone number or name. The app creates a random token and keeps it in the device's secure storage; the server stores only a hash of it. You confirm you are 18 or older; no birth date is collected.</p>
@@ -42,8 +42,18 @@
     <li><strong>Reports and blocks:</strong> what you reported or whom you blocked. A reported sticker is hidden at once and kept for review.</li>
   </ul>
 
+  <h2>Anonymous usage statistics</h2>
+  <p><strong>Not linked to your account.</strong> Separately from your account, the app sends anonymous usage statistics so we can see where people get stuck and which features are used. They are <strong>not linked to your account</strong> and cannot be: they never go through the AlienMatch server, they carry no account token or its hash, no user, photo, wall or place ID, and nothing from your profile, your walls, your waves' recipients or your check-ins.</p>
+  <p><strong>What is sent.</strong> Short records such as: the app was opened or went to the background; which screen was shown and for how many seconds; a feature was used for the first time in a session (for example a mirror filter, the face album, star rating, place search, a drawn or picture sticker, fly-by, a report); a flow ended and how (creating the account, the profile steps and the step reached, the profile photo, a wave: sent, mutual, daily limit or error; a check-in, saving places, deleting the account: done, cancelled or failed); the first finished profile; an error was shown (network, camera, permission, full album). Each record also carries the app version, the platform (iOS or Android), the app language, and two coarse bands: roughly how many times the app has been opened on this device (1, 2, 3–5, 6–10, 11+) and roughly how many days ago measuring began (0, 1, 2–6, 7–29, 30+). The full list is published in the app's source repository (<code>docs/telemetry.md</code>).</p>
+  <p><strong>What is never sent.</strong> Your nickname, generation, status, children, intents, region, beacon settings, your mood consent, mood rating, level or trend, how you checked in (video, voice or rating only), whom you waved at or rated and how, your places, stickers, walls, photos or anything you type.</p>
+  <p><strong>No identifiers.</strong> No account, device or advertising identifier and no device model. Each app session gets a random number that exists only while the app runs, so two sessions cannot be linked to each other, to your account or to you. The statistics are not used for advertising or tracking and are not sold or shared.</p>
+  <p><strong>Who receives them, and where.</strong> The statistics are received and stored by the developer, on the developer's own server in the EU (Czech Republic), separately from the AlienMatch database. Nobody else receives them: no analytics company or other third party is involved. Sending them, like any internet connection, reveals your IP address to that server; the IP address is not stored, it is used only to derive your country. Your country is the only location information kept.</p>
+  <p><strong>How long.</strong> Statistics are kept for 12 months and then deleted. Deleting your account does not need to touch them, because they were never linked to it.</p>
+  <p><strong>Offline.</strong> Without a connection, up to 500 recent records wait on your phone and are sent later; older ones are discarded.</p>
+  <p><strong>How to turn them off.</strong> <em>Settings → Anonymous statistics</em>. This takes effect immediately: records waiting on your phone are deleted and nothing more is sent, until you turn it back on. The web version sends no statistics at all.</p>
+
   <h2>Location</h2>
-  <p>AlienMatch <strong>never receives GPS coordinates</strong>. The server rejects them. Places are only catalog IDs that you choose. The screen "What we know about your location" shows everything stored.</p>
+  <p>AlienMatch <strong>never receives GPS coordinates</strong>. The server rejects them. Places are only catalog IDs that you choose. The screen "What we know about your location" shows everything stored. The anonymous statistics keep only the country, derived from the connection and not linked to your account.</p>
 
   <h2>Mood data (special category, GDPR art. 9)</h2>
   <p>Mood is health-related data. Scoring from face and voice needs a separate, optional consent given at onboarding; without it the app works on your own rating only. The app gives no diagnosis. Your level is never shown to others as a number, only as the colour of an aura. If your signal stays low for several days, romantic matching pauses and the app shows a crisis line.</p>
@@ -52,10 +62,10 @@
   <p>Other users see your photo, nickname, shared intent stickers and your aura only if the matching rules allow it. A shared place is shown only when at least 5 active people share it, and never your full list.</p>
 
   <h2>Retention and deletion</h2>
-  <p>Data is kept until you delete the account. <em>Settings → Delete account</em> removes the account, profile, photo, check-ins and places immediately. Encounter keys (when that feature ships) expire after 14 days, venue check-ins after 6 hours.</p>
+  <p>Data is kept until you delete the account. <em>Settings → Delete account</em> removes the account, profile, photo, check-ins and places immediately. Encounter keys (when that feature ships) expire after 14 days, venue check-ins after 6 hours. Anonymous statistics are deleted after 12 months; they are not linked to the account.</p>
 
   <h2>Your rights</h2>
-  <p>You can access, correct and delete your data and withdraw consent at any time. You can complain to the Czech data protection authority (ÚOOÚ).</p>
+  <p>You can access, correct and delete your data and withdraw consent at any time. Because the anonymous statistics carry no identifier, no record in them can be found for a person; you can switch them off at any time. You can complain to the Czech data protection authority (ÚOOÚ).</p>
 
   <h2>Contact</h2>
   <div class="box">Oldřich Vořechovský (ol1n)<br><a href="mailto:business@olin.now">business@olin.now</a></div>
@@ -63,10 +73,10 @@
   <hr id="cs">
 
   <h1 lang="cs">Zásady ochrany soukromí</h1>
-  <p class="updated">Aktualizováno 9. listopadu 2026</p>
+  <p class="updated">Aktualizováno 14. listopadu 2026 (anonymní statistiky)</p>
   <div lang="cs">
   <h2>Přehled</h2>
-  <p>AlienMatch (<code>com.ol1n.alienmatch</code>) je seznamka beze slov od Oldřicha Vořechovského (ol1n). <strong>Žádné reklamy, analytika ani sledovací SDK</strong>; data nikomu neprodáváme ani nepředáváme. Zpracování probíhá na serverech provozovatele v Česku, bez dalších zpracovatelů.</p>
+  <p>AlienMatch (<code>com.ol1n.alienmatch</code>) je seznamka beze slov od Oldřicha Vořechovského (ol1n). <strong>Žádné reklamy, analytika třetích stran ani sledovací SDK</strong>; data nikomu neprodáváme ani nepředáváme. Zpracování probíhá na serverech provozovatele v Česku, bez dalších zpracovatelů. Anonymní statistiky používání, nepropojené s účtem, jdou vypnout v nastavení (viz níže).</p>
   <h2>Účet</h2>
   <p>Účet je anonymní: žádný e-mail, telefon ani jméno. Appka vytvoří náhodný token a uloží ho do zabezpečeného úložiště telefonu; server má jen jeho otisk (hash). Potvrzuješ, že ti je 18 nebo víc; datum narození nesbíráme.</p>
   <h2>Co je na serveru</h2>
@@ -79,16 +89,25 @@
     <li><strong>Průlet (volitelný, výchozí vypnuto):</strong> když ho zapneš, telefon si přes Bluetooth vyměňuje rotující náhodné identifikátory s jinými AlienMatch telefony poblíž. Co telefon viděl, zůstává v telefonu. Server dostane jen včerejší náhodný denní klíč (drží ho 14 dní) a, když na průlet zamáváš, den a typ kontaktu (stejný spoj, zastávka nebo podnik), nikdy čas ani místo. Vypnutím se všechno smaže.</li>
     <li><strong>Nahlášení a blokace:</strong> co jsi nahlásil(a) a koho zablokoval(a). Nahlášený sticker se hned skryje a čeká na kontrolu.</li>
   </ul>
+  <h2>Anonymní statistiky používání</h2>
+  <p><strong>Nejsou propojené s tvým účtem.</strong> Odděleně od účtu appka posílá anonymní statistiky používání, abychom viděli, kde se lidé zaseknou a které funkce používají. Statistiky <strong>nejsou propojené s tvým účtem</strong> a ani to nejde: nikdy nejdou přes server AlienMatch, nenesou token účtu ani jeho otisk, žádné ID uživatele, fotky, zdi ani místa a nic z tvého profilu, zdí, komu máváš, ani z check-inů.</p>
+  <p><strong>Co se posílá.</strong> Krátké záznamy typu: appka se otevřela nebo šla do pozadí; která obrazovka se ukázala a kolik sekund na ní byla; funkce se v relaci poprvé použila (třeba zrcadlový filtr, album tváří, hodnocení hvězd, hledání míst, kreslený nebo obrázkový sticker, průlet, nahlášení); jak skončil nějaký krok (založení účtu, kroky profilu a kam ses dostal(a), profilová fotka, zamávání: odesláno, vzájemné, denní limit nebo chyba; check-in, uložení míst, smazání účtu: hotovo, zrušeno nebo chyba); první dokončený profil; zobrazená chyba (síť, kamera, oprávnění, plné album). Každý záznam nese ještě verzi appky, platformu (iOS nebo Android), jazyk appky a dvě hrubá pásma: zhruba kolikrát se appka na tomhle zařízení otevřela (1, 2, 3–5, 6–10, 11+) a zhruba před kolika dny měření začalo (0, 1, 2–6, 7–29, 30+). Úplný seznam je zveřejněný ve zdrojovém repozitáři appky (<code>docs/telemetry.md</code>).</p>
+  <p><strong>Co se nikdy neposílá.</strong> Přezdívka, generace, status, děti, intenty, region, nastavení majáku, souhlas s vyhodnocením nálady, hodnocení, úroveň ani trend nálady, jak jsi poslal(a) check-in (video, hlas nebo jen hodnocení), komu jsi zamával(a) nebo koho a jak jsi ohodnotil(a), tvoje místa, stickery, zdi, fotky ani nic, co napíšeš.</p>
+  <p><strong>Žádné identifikátory.</strong> Žádný identifikátor účtu, zařízení ani reklamní ID a žádný model zařízení. Každá relace dostane náhodné číslo, které existuje jen po dobu běhu appky, takže dvě relace nejde spojit spolu, s tvým účtem ani s tebou. Statistiky se nepoužívají k reklamě ani ke sledování a nikomu se neprodávají ani nepředávají.</p>
+  <p><strong>Kdo je dostává a kde.</strong> Statistiky přijímá a ukládá vývojář na vlastním serveru v EU (Česko), odděleně od databáze AlienMatch. Nikdo další je nedostane: žádná analytická firma ani jiná třetí strana. Odeslání, jako každé připojení k internetu, prozradí tomu serveru tvoji IP adresu; IP adresa se neukládá, slouží jen k určení země. Země je jediný údaj o poloze, který se uchová.</p>
+  <p><strong>Jak dlouho.</strong> Statistiky se uchovávají 12 měsíců, pak se smažou. Smazání účtu se jich netýká, protože s ním nikdy propojené nebyly.</p>
+  <p><strong>Offline.</strong> Bez připojení čeká v telefonu až 500 posledních záznamů a odešle se později; starší se zahodí.</p>
+  <p><strong>Jak je vypnout.</strong> <em>Nastavení → Anonymní statistiky</em>. Platí hned: záznamy čekající v telefonu se smažou a nic dalšího se neposílá, dokud je znovu nezapneš. Webová verze žádné statistiky neposílá.</p>
   <h2>Poloha</h2>
-  <p>AlienMatch <strong>nikdy nedostává GPS souřadnice</strong>, server je odmítá. Místa jsou jen ID z katalogu, která si vybereš. Obrazovka „Co o tvé poloze víme“ ukazuje všechno, co je uloženo.</p>
+  <p>AlienMatch <strong>nikdy nedostává GPS souřadnice</strong>, server je odmítá. Místa jsou jen ID z katalogu, která si vybereš. Obrazovka „Co o tvé poloze víme“ ukazuje všechno, co je uloženo. Anonymní statistiky uchovávají jen zemi, odvozenou z připojení a nepropojenou s účtem.</p>
   <h2>Údaje o náladě (zvláštní kategorie, čl. 9 GDPR)</h2>
   <p>Nálada je údaj související se zdravím. Vyhodnocení z tváře a hlasu vyžaduje samostatný, dobrovolný souhlas; bez něj appka pracuje jen s tvým hodnocením. Appka nic nediagnostikuje. Tvoje úroveň se ostatním nikdy neukazuje jako číslo, jen jako barva aury. Když signál několik dní zůstává nízko, romantický radar se pozastaví a appka ukáže linku pomoci.</p>
   <h2>Kdo co vidí</h2>
   <p>Ostatní vidí tvoji fotku, přezdívku, společné intent stickery a auru jen tehdy, když to pravidla matchingu dovolí. Sdílené místo se ukáže, jen když ho sdílí aspoň 5 aktivních lidí, a nikdy celý tvůj seznam.</p>
   <h2>Uchování a smazání</h2>
-  <p>Data uchováváme do smazání účtu. <em>Nastavení → Smazat účet</em> okamžitě odstraní účet, profil, fotku, check-iny i místa. Klíče potkání (až funkce přibude) mizí po 14 dnech, check-iny v podnicích po 6 hodinách.</p>
+  <p>Data uchováváme do smazání účtu. <em>Nastavení → Smazat účet</em> okamžitě odstraní účet, profil, fotku, check-iny i místa. Klíče potkání (až funkce přibude) mizí po 14 dnech, check-iny v podnicích po 6 hodinách. Anonymní statistiky se mažou po 12 měsících; s účtem propojené nejsou.</p>
   <h2>Tvoje práva</h2>
-  <p>Máš právo na přístup, opravu a výmaz údajů a souhlas můžeš kdykoli odvolat. Stížnost můžeš podat u Úřadu pro ochranu osobních údajů.</p>
+  <p>Máš právo na přístup, opravu a výmaz údajů a souhlas můžeš kdykoli odvolat. Protože anonymní statistiky nenesou žádný identifikátor, nejde v nich najít záznam konkrétního člověka; kdykoli je můžeš vypnout. Stížnost můžeš podat u Úřadu pro ochranu osobních údajů.</p>
   <h2>Kontakt</h2>
   <div class="box">Oldřich Vořechovský (ol1n)<br><a href="mailto:business@olin.now">business@olin.now</a></div>
   </div>
