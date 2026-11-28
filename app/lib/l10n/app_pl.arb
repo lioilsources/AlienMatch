@@ -174,5 +174,7 @@
   "feedbackNote": "Ile gwiazd widziało twoją twarz i jak ją oceniły. Kto, nie dowiesz się nigdy.",
   "feedbackEmpty": "Nikt jeszcze nie ocenił twojej twarzy.",
   "dislikesHidden": "Teraz pokazujemy tylko dobre rzeczy. Reszta wróci, gdy będziesz mieć więcej energii.",
-  "olderFace": "Starsza twarz"
+  "olderFace": "Starsza twarz",
+  "statsTitle": "Anonimowe statystyki",
+  "statsBody": "Które ekrany i funkcje są używane, aby ulepszyć aplikację. Nie są powiązane z twoim kontem: nic z profilu, ścian ani sygnału. Wyłączenie usuwa niewysłane wpisy."
 }

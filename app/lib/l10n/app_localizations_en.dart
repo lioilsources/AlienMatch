@@ -565,4 +565,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get olderFace => 'Older face';
+
+  @override
+  String get statsTitle => 'Anonymous statistics';
+
+  @override
+  String get statsBody =>
+      'Which screens and features are used, to improve the app. Not linked to your account: nothing from your profile, walls or signal. Turning it off deletes unsent records.';
 }

@@ -41,7 +41,7 @@ ALIENMATCH_TEST_DATABASE_URL=postgres://… go test ./internal/store/   # trigge
 - Katalog nikdy neobsahuje zdravotnictví, bydlení, ZŠ ani SŠ.
 - Do matchingu jen stav < 36 h. VL je poradní, self skóre má přednost.
 - Hvězdy (like/dislike tváří): jen HIGH aura z mého radaru, nikdy match. LOW se nehodnotí a dislike nevidí.
-- Žádná SDK třetích stran pro tracking/analytiku.
+- Žádná SDK třetích stran pro tracking/analytiku. Anonymní statistiky jen přes `ol1n_telemetry` na vlastního příjemce (StoreMetrics), nikdy přes API appky a bez čehokoli, co jde spojit s účtem (token, ID, přezdívka, profil, zdi, nálada, check-iny); slovník `app/lib/telemetry/telemetry_dictionary.dart` = `docs/telemetry.md`, změna = změna privacy.
 - Nasazenou migraci needitovat, přidat novou. `internal/db/sqlc` ručně needitovat.
 
 ## Kam dál

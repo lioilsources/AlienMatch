@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../state/app_state.dart';
+import '../../telemetry/app_screens.dart';
+import '../../telemetry/telemetry_dictionary.dart';
 import '../checkin/checkin_screen.dart';
 import '../places/places_screen.dart';
 import '../radar/radar_screen.dart';
@@ -32,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+    AppScreens.root(kHomeTabs[tab]);
     return Scaffold(
       body: SafeArea(
         child: IndexedStack(

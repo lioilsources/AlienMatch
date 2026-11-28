@@ -566,4 +566,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get olderFace => 'Älteres Gesicht';
+
+  @override
+  String get statsTitle => 'Anonyme Statistik';
+
+  @override
+  String get statsBody =>
+      'Welche Bildschirme und Funktionen genutzt werden, um die App zu verbessern. Nicht mit deinem Konto verknüpft: nichts aus Profil, Wänden oder Signal. Ausschalten löscht nicht gesendete Einträge.';
 }

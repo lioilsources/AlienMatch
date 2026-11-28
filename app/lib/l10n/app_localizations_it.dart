@@ -563,4 +563,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get olderFace => 'Volto precedente';
+
+  @override
+  String get statsTitle => 'Statistiche anonime';
+
+  @override
+  String get statsBody =>
+      'Quali schermate e funzioni vengono usate, per migliorare l\'app. Non collegate al tuo account: niente dal profilo, dai muri o dal segnale. Disattivarle cancella i dati non inviati.';
 }

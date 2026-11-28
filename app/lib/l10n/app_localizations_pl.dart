@@ -561,4 +561,11 @@ class AppLocalizationsPl extends AppLocalizations {
 
   @override
   String get olderFace => 'Starsza twarz';
+
+  @override
+  String get statsTitle => 'Anonimowe statystyki';
+
+  @override
+  String get statsBody =>
+      'Które ekrany i funkcje są używane, aby ulepszyć aplikację. Nie są powiązane z twoim kontem: nic z profilu, ścian ani sygnału. Wyłączenie usuwa niewysłane wpisy.';
 }

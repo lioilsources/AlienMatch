@@ -216,5 +216,8 @@
   "feedbackNote": "How many stars saw your face and how they rated it. You never learn who.",
   "feedbackEmpty": "Nobody has rated your face yet.",
   "dislikesHidden": "Right now we only show the good part. The rest comes back when you have more energy.",
-  "olderFace": "Older face"
+  "olderFace": "Older face",
+  "statsTitle": "Anonymous statistics",
+  "statsBody": "Which screens and features are used, to improve the app. Not linked to your account: nothing from your profile, walls or signal. Turning it off deletes unsent records.",
+  "@statsTitle": {"description": "Settings switch for the anonymous usage statistics (ol1n_telemetry). Shown only in builds that can send them."}
 }

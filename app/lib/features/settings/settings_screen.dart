@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../../api/api.dart';
 import '../../design/space.dart';
@@ -48,7 +49,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
-    if (ok != true) return;
+    if (ok != true) {
+      Telemetry.track('account_delete', {'result': 'cancel'});
+      return;
+    }
     setState(() => deleting = true);
     try {
       await app.deleteAccount();
@@ -114,12 +118,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
           leading: const Icon(Icons.face_retouching_natural),
           title: Text(l.albumTitle),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () => Navigator.of(
-            context,
-          ).push(MaterialPageRoute<void>(builder: (_) => const FacesScreen())),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              settings: const RouteSettings(name: '/faces'),
+              builder: (_) => const FacesScreen(),
+            ),
+          ),
         ),
         const Divider(height: 32),
         const FlybyTile(),
+        // A build without the statistics key cannot send anything: no switch.
+        if (Telemetry.isConfigured) ...[
+          const Divider(height: 32),
+          SwitchListTile(
+            key: const Key('statsSwitch'),
+            contentPadding: EdgeInsets.zero,
+            value: Telemetry.isEnabled,
+            onChanged: (on) async {
+              await Telemetry.setEnabled(on);
+              if (mounted) setState(() {});
+            },
+            secondary: const Text('📊', style: TextStyle(fontSize: 28)),
+            title: Text(l.statsTitle),
+            subtitle: Text(
+              l.statsBody,
+              style: const TextStyle(color: Space.dim),
+            ),
+          ),
+        ],
         const Divider(height: 32),
         OutlinedButton.icon(
           key: const Key('deleteAccount'),

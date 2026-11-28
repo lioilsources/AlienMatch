@@ -174,5 +174,7 @@
   "feedbackNote": "Combien d’étoiles ont vu ton visage et comment elles l’ont noté. Tu ne sauras jamais qui.",
   "feedbackEmpty": "Personne n’a encore noté ton visage.",
   "dislikesHidden": "Pour l’instant on ne montre que le positif. Le reste revient quand tu auras plus d’énergie.",
-  "olderFace": "Ancien visage"
+  "olderFace": "Ancien visage",
+  "statsTitle": "Statistiques anonymes",
+  "statsBody": "Quels écrans et fonctions sont utilisés, pour améliorer l'appli. Non liées à ton compte : rien de ton profil, de tes murs ni de ton signal. Les désactiver supprime les données non envoyées."
 }

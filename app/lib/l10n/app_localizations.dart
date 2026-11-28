@@ -1163,6 +1163,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Older face'**
   String get olderFace;
+
+  /// Settings switch for the anonymous usage statistics (ol1n_telemetry). Shown only in builds that can send them.
+  ///
+  /// In en, this message translates to:
+  /// **'Anonymous statistics'**
+  String get statsTitle;
+
+  /// No description provided for @statsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Which screens and features are used, to improve the app. Not linked to your account: nothing from your profile, walls or signal. Turning it off deletes unsent records.'**
+  String get statsBody;
 }
 
 class _AppLocalizationsDelegate

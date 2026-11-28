@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:ol1n_telemetry/ol1n_telemetry.dart';
 
 import '../api/api.dart';
 import '../flyby/controller.dart';
@@ -87,24 +88,39 @@ class AppState extends ChangeNotifier {
         _set(Stage.welcome);
       } else {
         error = e;
+        if (stage == Stage.loading) Telemetry.errorShown('network');
         notifyListeners();
       }
     } catch (e) {
       // Network down or timed out: the UI shows a retry button.
       error = e;
+      if (stage == Stage.loading) Telemetry.errorShown('network');
       notifyListeners();
     }
   }
 
   Future<void> createAccount({required bool moodConsent}) async {
-    final r = await api.createAccount(adult: true, moodConsent: moodConsent);
-    await tokens.write(r.token);
-    api.token = r.token;
+    try {
+      final r = await api.createAccount(adult: true, moodConsent: moodConsent);
+      await tokens.write(r.token);
+      api.token = r.token;
+    } catch (_) {
+      Telemetry.track('account_create', {'result': 'error'});
+      rethrow;
+    }
+    // Never the consent, the token or anything else about the account.
+    Telemetry.track('account_create', {'result': 'ok'});
     await refresh();
   }
 
   Future<void> deleteAccount() async {
-    await api.deleteAccount();
+    try {
+      await api.deleteAccount();
+    } catch (_) {
+      Telemetry.track('account_delete', {'result': 'error'});
+      rethrow;
+    }
+    Telemetry.track('account_delete', {'result': 'ok'});
     await _flyby?.store.wipe();
     await album.wipe();
     _flyby?.dispose();
@@ -117,9 +133,13 @@ class AppState extends ChangeNotifier {
 
   /// Uploads [face] as the profile photo, then remembers it as active.
   Future<void> useFace(Face face) async {
+    final onboarding = stage == Stage.onboarding;
     final photoId = await api.uploadPhoto(face.jpeg);
     await album.markActive(face.id, photoId: photoId);
     await refresh();
+    // Activation: the first finished profile (profile + photo) on this
+    // install. Sent once; carries nothing from the profile.
+    if (onboarding && stage == Stage.home) Telemetry.activation();
   }
 
   void _set(Stage s) {
